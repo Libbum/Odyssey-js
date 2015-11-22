@@ -76,19 +76,17 @@ def get_lat_lon(exif_data):
 
 if __name__ == "__main__":
     """
-    TODO: Current assumptions: is that there are no files in the outdir.
-    Also, the input directory structure is what we want and that we're at the base of this structure.
-    This isn't such a bad idea actually.
-    Let's assume we have a gallery directory which we fill with stuff, then ultimately _site/gallery will be filled.
-    If we DGAF about file names, we can just keep them, append a _small for the thumbnail and be done.
-    Ultimately then, we could remove the directory argument and just run this from base.
-
-    REAL TALK:
-    Thinking has been wrong. What we need is the base path to be Odyssey/gallery, with stuff I fill in. I think for now, a folder structure of
-    year/country/city will be fine. For those not in a city, they can just go in country for example. Particular dates can be pulled from exif.
-    Point being, the _site/gallery portion will be handled by hakyll, and we only want to do two things with this script.
-    1. Scan the Odyssey/gallery/** folders and identify unprocessed images. If found, process them by making a thumbnail file
+    Processes all files in ~/web/Odyssey/gallery. Does not require any structure, but suggesting
+    year/country/city currently. Images not in a city can just go in country for example.
+    Particular dates can be pulled from exif if jpg and the data exists, pngs are the only images processed for now.
+    The following occurs when running this script:
+    1. Scan the Odyssey/gallery/** folders and identify unprocessed images.
+       If found, process them by making a thumbnail file with _small appended to the filename.
     2. Create a manifest of images for inclusion into Chromatic.
+       For now this is a json format file with big, small and ratio attributes.
+
+    TODO: Include smart processing of exif, for obtaining GPS info, dates etc to build smart categories.
+          Exif is currently pulled, GPS routines are written, this just needs to be added to the manifest really.
     """
     parser = argparse.ArgumentParser(description="Preprocess a directory for inclusion into Odyssey")
     parser.add_argument('-v','--verbose', help="Noisy output", action='store_true', dest='loud', required=False, default=False)
@@ -113,21 +111,8 @@ if __name__ == "__main__":
             except IOError:
                 print("Small image for", infile.relative_to(gallery), "failed.")
             if args.loud:
-                #print("Processing", infile.name)
                 print("Processing", infile.relative_to(gallery))
                 print("width: %d - height: %d" % im.size) # returns (width, height) tuple
                 print("Ratio: ", ratio)
                 if infile.suffix.lower() == '.jpg':
                     print(get_lat_lon(exif_data))
-
-
-
-#TODO: If files exist in outdir, we can byte compare them with
-#import filecmp
-#filecmp.cmp('one.jpg', 'two.jpg')
-#True
-#Actually, it's probably better to compare the directory structure: https://docs.python.org/3/library/filecmp.html
-#dircmp has same_files. Nope. Only does shallow comparisons. Need the deep version.
-
-    #infile = 'big.jpg'
-    #outfile = 'small.jpg'
