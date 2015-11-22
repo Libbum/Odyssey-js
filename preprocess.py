@@ -95,31 +95,43 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     gallery = Path(Path.home(), Path('web/Odyssey/gallery'))
-    manifest = []
+
+
     exts = '.jpg', '.png'
     maxsize = (500, 500)
-
     filelist = (x for x in gallery.glob('**/*') if x.is_file() and x.suffix.lower() in exts and not x.stem.startswith('~') and not x.stem.endswith('_small'))
-    for infile in filelist:
-        thumb = infile.with_name(infile.stem+'_small'+infile.suffix)
-        if not thumb.exists():
-            im = Image.open(str(infile))
-            ratio = im.size[0]/im.size[1]
-            if infile.suffix.lower() == '.jpg': #PNGs don't have EXIF.
-                exif_data = get_exif_data(im)
-            try:
-                im.thumbnail(maxsize, Image.ANTIALIAS)
-                im.save(str(thumb))
-            except IOError:
-                print("Small image for", infile.relative_to(gallery), "failed.")
-            manifest.append({'small': str(infile.relative_to(gallery)), 'big': str(thumb.relative_to(gallery)), 'aspect_ratio': ratio})
-            if args.loud:
-                print("Processing", infile.relative_to(gallery))
-                print("width: %d - height: %d" % im.size) # returns (width, height) tuple
-                print("Ratio: ", ratio)
-                if infile.suffix.lower() == '.jpg':
-                    print(get_lat_lon(exif_data))
-    if args.loud:
-        print(json.dumps(manifest, sort_keys=True, indent=4)) #Pretty
-    with open(str(gallery.with_name('manifest.json')),'w') as outFile:
-        outFile.write(json.dumps(manifest, separators=(',', ':'))) #Compact
+
+    with open(str(gallery.with_name('manifest.json')),'a+') as manifestFile:
+        #We need to append to the manifest.json file, so read the data there first.
+        manifestFile.seek(0)
+        firstChar = manifestFile.read(1) #See if the file is empty coming from a+
+        manifestFile.seek(0)
+        if not firstChar:
+            manifest = []
+        else:
+            manifest = json.loads(manifestFile.read())
+            manifestFile.seek(0)
+        #Now process the images
+        for infile in filelist:
+            thumb = infile.with_name(infile.stem+'_small'+infile.suffix)
+            if not thumb.exists():
+                im = Image.open(str(infile))
+                ratio = im.size[0]/im.size[1]
+                if infile.suffix.lower() == '.jpg': #PNGs don't have EXIF.
+                    exif_data = get_exif_data(im)
+                try:
+                    im.thumbnail(maxsize, Image.ANTIALIAS)
+                    im.save(str(thumb))
+                except IOError:
+                    print("Small image for", infile.relative_to(gallery), "failed.")
+                manifest.append({'small': str(infile.relative_to(gallery)), 'big': str(thumb.relative_to(gallery)), 'aspect_ratio': ratio})
+                if args.loud:
+                    print("Processing", infile.relative_to(gallery))
+                    print("width: %d - height: %d" % im.size) # returns (width, height) tuple
+                    print("Ratio: ", ratio)
+                    if infile.suffix.lower() == '.jpg':
+                        print(get_lat_lon(exif_data))
+        if args.loud:
+            print(json.dumps(manifest, sort_keys=True, indent=4)) #Pretty
+        #Write out the manifest
+        manifestFile.write(json.dumps(manifest, separators=(',', ':'))) #Compact
