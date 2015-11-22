@@ -82,30 +82,43 @@ if __name__ == "__main__":
     Let's assume we have a gallery directory which we fill with stuff, then ultimately _site/gallery will be filled.
     If we DGAF about file names, we can just keep them, append a _small for the thumbnail and be done.
     Ultimately then, we could remove the directory argument and just run this from base.
+
+    REAL TALK:
+    Thinking has been wrong. What we need is the base path to be Odyssey/gallery, with stuff I fill in. I think for now, a folder structure of
+    year/country/city will be fine. For those not in a city, they can just go in country for example. Particular dates can be pulled from exif.
+    Point being, the _site/gallery portion will be handled by hakyll, and we only want to do two things with this script.
+    1. Scan the Odyssey/gallery/** folders and identify unprocessed images. If found, process them by making a thumbnail file
+    2. Create a manifest of images for inclusion into Chromatic.
     """
     parser = argparse.ArgumentParser(description="Preprocess a directory for inclusion into Odyssey")
     parser.add_argument('-v','--verbose', help="Noisy output", action='store_true', dest='loud', required=False, default=False)
-    parser.add_argument('directory', help="Input directory for processing")
     args = parser.parse_args()
 
-    p = Path(args.directory)
     gallery = Path(Path.home(), Path('web/Odyssey/gallery'))
 
-    #[x for x in p.iterdir() if x.is_dir()] #Gives directories
     exts = '.jpg', '.png'
-    filelist = (x for x in p.glob('**/*') if x.is_file() and x.suffix.lower() in exts and not x.stem.startswith('~'))
-    #filelist = (str(i) for i in map(pathlib.Path, os.listdir(args.directory)) if i.suffix.lower() in exts and not i.stem.startswith("~"))
+    maxsize = (500, 500)
+
+    filelist = (x for x in gallery.glob('**/*') if x.is_file() and x.suffix.lower() in exts and not x.stem.startswith('~') and not x.stem.endswith('_small'))
     for infile in filelist:
-        im = Image.open(str(infile))
-        ratio = im.size[0]/im.size[1]
-        if infile.suffix.lower() == '.jpg': #PNGs don't have EXIF.
-            exif_data = get_exif_data(im)
-        if args.loud:
-            print("Processing", infile)
-            print("width: %d - height: %d" % im.size) # returns (width, height) tuple
-            print("Ratio: ", ratio)
-            if infile.suffix.lower() == '.jpg':
-                print(get_lat_lon(exif_data))
+        thumb = infile.with_name(infile.stem+'_small'+infile.suffix)
+        if not thumb.exists():
+            im = Image.open(str(infile))
+            ratio = im.size[0]/im.size[1]
+            if infile.suffix.lower() == '.jpg': #PNGs don't have EXIF.
+                exif_data = get_exif_data(im)
+            try:
+                im.thumbnail(maxsize, Image.ANTIALIAS)
+                im.save(str(thumb))
+            except IOError:
+                print("Small image for", infile.relative_to(gallery), "failed.")
+            if args.loud:
+                #print("Processing", infile.name)
+                print("Processing", infile.relative_to(gallery))
+                print("width: %d - height: %d" % im.size) # returns (width, height) tuple
+                print("Ratio: ", ratio)
+                if infile.suffix.lower() == '.jpg':
+                    print(get_lat_lon(exif_data))
 
 
 
@@ -118,10 +131,3 @@ if __name__ == "__main__":
 
     #infile = 'big.jpg'
     #outfile = 'small.jpg'
-
-    # maxsize = (500, 500)
-    # try:
-    #     im.thumbnail(maxsize, Image.ANTIALIAS)
-    #     im.save(outfile)
-    # except IOError:
-    #     print("Small image for", infile, "failed.")
