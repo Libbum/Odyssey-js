@@ -86,7 +86,7 @@ if __name__ == "__main__":
     2. Create a manifest of images for inclusion into Chromatic.
        For now this is a json format file with big, small and ratio attributes.
 
-    TODO: Manifest needs to be appended, not overwritten.
+    TODO: Manifest is appending, but I'm not sure if all the bugs are gone yet.
     TODO: Include smart processing of exif, for obtaining GPS info, dates etc to build smart categories.
           Exif is currently pulled, GPS routines are written, this just needs to be added to the manifest really.
     """
@@ -111,6 +111,7 @@ if __name__ == "__main__":
         else:
             manifest = json.loads(manifestFile.read())
             manifestFile.seek(0)
+        manifestFile.truncate()
         #Now process the images
         for infile in filelist:
             thumb = infile.with_name(infile.stem+'_small'+infile.suffix)
@@ -124,7 +125,7 @@ if __name__ == "__main__":
                     im.save(str(thumb))
                 except IOError:
                     print("Small image for", infile.relative_to(gallery), "failed.")
-                manifest.append({'small': str(infile.relative_to(gallery)), 'big': str(thumb.relative_to(gallery)), 'aspect_ratio': ratio})
+                manifest.append({'small': str(thumb.relative_to(gallery.parent)), 'big': str(infile.relative_to(gallery.parent)), 'aspect_ratio': ratio})
                 if args.loud:
                     print("Processing", infile.relative_to(gallery))
                     print("width: %d - height: %d" % im.size) # returns (width, height) tuple
@@ -134,4 +135,4 @@ if __name__ == "__main__":
         if args.loud:
             print(json.dumps(manifest, sort_keys=True, indent=4)) #Pretty
         #Write out the manifest
-        manifestFile.write(json.dumps(manifest, separators=(',', ':'))) #Compact
+        manifestFile.write(json.dumps(manifest, sort_keys=False, separators=(',', ':'))) #Compact
