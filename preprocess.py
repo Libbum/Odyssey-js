@@ -96,7 +96,6 @@ if __name__ == "__main__":
 
     gallery = Path(Path.home(), Path('web/Odyssey/gallery'))
 
-
     exts = '.jpg', '.png'
     maxsize = (500, 500)
     filelist = (x for x in gallery.glob('**/*') if x.is_file() and x.suffix.lower() in exts and not x.stem.startswith('~') and not x.stem.endswith('_small'))
@@ -125,7 +124,7 @@ if __name__ == "__main__":
                     im.save(str(thumb))
                 except IOError:
                     print("Small image for", infile.relative_to(gallery), "failed.")
-                manifest.append({'small': str(thumb.relative_to(gallery.parent)), 'big': str(infile.relative_to(gallery.parent)), 'aspect_ratio': ratio})
+                manifest.append({'small': str(thumb.relative_to(gallery.parent).as_posix()), 'big': str(infile.relative_to(gallery.parent).as_posix()), 'aspect_ratio': ratio})
                 if args.loud:
                     print("Processing", infile.relative_to(gallery))
                     print("width: %d - height: %d" % im.size) # returns (width, height) tuple
