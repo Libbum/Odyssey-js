@@ -65,7 +65,13 @@
 								<script charset="utf-8">
 						        $(function(){
 									  //Later, we can change manifest.json to selected files based on smart search.
-						          $.getJSON('manifest.json', function(photos){
+						          $.getJSON('manifest.json', function(photos) {
+														asc = true;
+														prop = "big";
+														photos = photos.sort(function(a,b) {
+															if (asc) return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
+											        else return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+														});
 						                $("#gallery").chromatic(photos);
 						          });
 						        })
