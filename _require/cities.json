@@ -1,7 +1,16 @@
 {
 "type": "FeatureCollection",
 "features": [
-{ "type": "Feature", "properties": { "NAME": "Gothenburg" }, "geometry": { "type": "Point", "coordinates": [ 11.97,57.72 ] } },
-{ "type": "Feature", "properties": { "NAME": "Hong Kong" }, "geometry": { "type": "Point", "coordinates": [ 114.183063458463039, 22.30692675357551 ] } }
+{ "type": "Feature", "properties": { "name": "Gothenburg" }, "geometry": { "type": "Point", "coordinates": [ 11.97,57.72 ] } },
+
+{ "type": "Feature", "properties": { "name": "Himeji", "country": "JPN"  }, "geometry": { "type": "Point", "coordinates": [ 134.69,34.82 ] } },
+{ "type": "Feature", "properties": { "name": "Koyasan", "country": "JPN" }, "geometry": { "type": "Point", "coordinates": [ 135.59, 34.21 ] } },
+{ "type": "Feature", "properties": { "name": "Kyoto", "country": "JPN" }, "geometry": { "type": "Point", "coordinates": [ 135.77, 35.01 ] } },
+{ "type": "Feature", "properties": { "name": "Tokyo", "country": "JPN" }, "geometry": { "type": "Point", "coordinates": [ 139.73, 35.71 ] } },
+{ "type": "Feature", "properties": { "name": "Singapore", "country": "SGP" }, "geometry": { "type": "Point", "coordinates": [ 103.87, 1.36 ] } },
+{ "type": "Feature", "properties": { "name": "London", "country": "GB1" }, "geometry": { "type": "Point", "coordinates": [ -0.13, 51.51 ] } },
+{ "type": "Feature", "properties": { "name": "Melbourne", "country": "AU1" }, "geometry": { "type": "Point", "coordinates": [ 144.96, -37.81 ] } },
+
+{ "type": "Feature", "properties": { "name": "Hong Kong", "country": "CH1" }, "geometry": { "type": "Point", "coordinates": [ 114.18, 22.31 ] } }
 ]
 }
