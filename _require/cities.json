@@ -1,16 +1,21 @@
 {
 "type": "FeatureCollection",
 "features": [
-{ "type": "Feature", "properties": { "name": "Gothenburg" }, "geometry": { "type": "Point", "coordinates": [ 11.97,57.72 ] } },
-
-{ "type": "Feature", "properties": { "name": "Himeji", "country": "JPN"  }, "geometry": { "type": "Point", "coordinates": [ 134.69,34.82 ] } },
-{ "type": "Feature", "properties": { "name": "Koyasan", "country": "JPN" }, "geometry": { "type": "Point", "coordinates": [ 135.59, 34.21 ] } },
-{ "type": "Feature", "properties": { "name": "Kyoto", "country": "JPN" }, "geometry": { "type": "Point", "coordinates": [ 135.77, 35.01 ] } },
-{ "type": "Feature", "properties": { "name": "Tokyo", "country": "JPN" }, "geometry": { "type": "Point", "coordinates": [ 139.73, 35.71 ] } },
+{ "type": "Feature", "properties": { "name": "Gothenburg", "localname": "Göteborg", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 11.97,57.72 ] } },
+{ "type": "Feature", "properties": { "name": "Ho Chi Minh City", "localname": "Thành phố Hồ Chí Minh", "country": "VNM" }, "geometry": { "type": "Point", "coordinates": [ 106.63, 10.82 ] } },
+{ "type": "Feature", "properties": { "name": "Hanoi", "localname": "Hà Nội", "country": "VNM" }, "geometry": { "type": "Point", "coordinates": [ 105.83, 21.03 ] } },
+{ "type": "Feature", "properties": { "name": "Ha Long Bay", "localname": "Vịnh Hạ Long", "country": "VNM" }, "geometry": { "type": "Point", "coordinates": [ 107.18, 20.91 ] } },
+{ "type": "Feature", "properties": { "name": "Ko Samui", "localname": "เกาะสมุย", "country": "THA" }, "geometry": { "type": "Point", "coordinates": [ 100.01, 9.51 ] } },
+{ "type": "Feature", "properties": { "name": "Ko Tao", "localname": "เกาะเต่า", "country": "THA" }, "geometry": { "type": "Point", "coordinates": [ 99.84, 10.1 ] } },
+{ "type": "Feature", "properties": { "name": "Kanchanaburi", "localname": "กาญจนบุรี", "country": "THA" }, "geometry": { "type": "Point", "coordinates": [ 99.53, 14.02 ] } },
+{ "type": "Feature", "properties": { "name": "Bangkok", "localname": "กรุงเทพมหานคร", "country": "THA" }, "geometry": { "type": "Point", "coordinates": [ 100.5, 13.76 ] } },
+{ "type": "Feature", "properties": { "name": "Himeji", "localname": "姫路市", "country": "JPN" }, "geometry": { "type": "Point", "coordinates": [ 134.69,34.82 ] } },
+{ "type": "Feature", "properties": { "name": "Koyasan", "localname": "高野山", "country": "JPN" }, "geometry": { "type": "Point", "coordinates": [ 135.59, 34.21 ] } },
+{ "type": "Feature", "properties": { "name": "Kyoto", "localname": "京都市", "country": "JPN" }, "geometry": { "type": "Point", "coordinates": [ 135.77, 35.01 ] } },
+{ "type": "Feature", "properties": { "name": "Tokyo", "localname": "東京", "country": "JPN" }, "geometry": { "type": "Point", "coordinates": [ 139.73, 35.71 ] } },
 { "type": "Feature", "properties": { "name": "Singapore", "country": "SGP" }, "geometry": { "type": "Point", "coordinates": [ 103.87, 1.36 ] } },
 { "type": "Feature", "properties": { "name": "London", "country": "GB1" }, "geometry": { "type": "Point", "coordinates": [ -0.13, 51.51 ] } },
 { "type": "Feature", "properties": { "name": "Melbourne", "country": "AU1" }, "geometry": { "type": "Point", "coordinates": [ 144.96, -37.81 ] } },
-
-{ "type": "Feature", "properties": { "name": "Hong Kong", "country": "CH1" }, "geometry": { "type": "Point", "coordinates": [ 114.18, 22.31 ] } }
+{ "type": "Feature", "properties": { "name": "Hong Kong", "localname": "香港", "country": "CH1" }, "geometry": { "type": "Point", "coordinates": [ 114.18, 22.31 ] } }
 ]
 }
