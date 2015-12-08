@@ -1,0 +1,7 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "NAME": "Gothenburg" }, "geometry": { "type": "Point", "coordinates": [ 11.97,57.72 ] } },
+{ "type": "Feature", "properties": { "NAME": "Hong Kong" }, "geometry": { "type": "Point", "coordinates": [ 114.183063458463039, 22.30692675357551 ] } }
+]
+}
