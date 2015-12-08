@@ -8,7 +8,7 @@ Maps and other interactivity are using [D3.js](http://d3js.org/), mostly built s
 ## TODO
 
 * [x] Identify Layout 
-* [ ] Fill cities data
+* [x] Fill cities data
 * [ ] Generate 'trips'
 * [ ] Integrate map with main site
 * [ ] Map colorscheme to site colorscheme
