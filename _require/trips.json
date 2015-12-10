@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "name": "J07" }, "geometry": { "type": "LineString", "coordinates": [
+  [ 144.96, -37.81 ], [ 103.87, 1.36 ], [ 134.69, 34.82 ], [ 135.59, 34.21 ], [ 139.73, 35.71 ], [ 135.77, 35.01 ], [ 103.87, 1.36 ], [ 144.96, -37.81 ]
+  ] } }
+]
+}

@@ -37,6 +37,13 @@
 .cities {
   fill: #348899;
 }
+
+.route {
+  fill: none;
+  stroke: #962D3E;
+  stroke-width: 1.5px;
+}
+
 .ocean {
   fill: #F2EBC7;
 }
@@ -271,7 +278,11 @@ function() {
     d3.json("assets/data/world.json", function(t, n) {
         d3.selectAll("svg").insert("path", ".graticule").datum({type: "Sphere"}).attr("class", "ocean"),
         d3.selectAll("svg").insert("path", ".foreground").datum(topojson.feature(n, n.objects.countries)).attr("class", "countries"),
-        d3.selectAll("svg").insert("path", ".foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "cities"),
+        d3.selectAll("svg").insert("path", ".foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "cities").selectAll("LineString").attr("class", "route"),
+        d3.selectAll("svg").insert("path", ".cities").datum(topojson.feature(n, n.objects.trips)).attr("class", "route"),
+      //  d3.selectAll(".cities").data(topojson.feature(n, n.objects.cities).features).enter().forEach(function(d) { console.log(d); }),
+        //n.objects.cities.geometries.forEach(function(o) { console.log(o.properties.name) }),
+        //console.log(n.objects.cities.property("name")),
         r.world()
     })
 }();
