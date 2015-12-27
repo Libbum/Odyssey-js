@@ -255,7 +255,7 @@ function() {
       })
   }
   function n(t, n) {
-       return d3.geo.orthographic().precision(.5).clipAngle(90).clipExtent([ [-1, -1], [t + 1, n + 1] ]).translate([t / 2, n / 2]).scale(t / 2 - 10).rotate([0, -30])
+       return d3.geo.orthographic().precision(.5).clipAngle(90).clipExtent([ [-1, -1], [t + 1, n + 1] ]).translate([t / 2, n / 2]).scale(t / 2 - 10)
    }
    function getCoords(obj,place) {
      for (var i = 0, len = obj.length; i < len; i++) {
@@ -271,10 +271,21 @@ function() {
      }
      return null; // The object was not found
    }
+   function getRotation(coords) {
+     var lat = 0;
+     var long = 0;
+     for (var i = 0, len = coords.length; i < len; i++) {
+       lat += coords[i][0];
+       long += coords[i][1];
+     };
+     lat /= coords.length;
+     long /= coords.length;
+     return [-lat,-long];
+   }
     var a = 600, //width
         o = 600, //height
         tripName = "E14",
-        proj = n(a, o),
+        proj = n(a, o).rotate([-133, -15]),
         r = d3.dispatch("world")
         c = -1;
 
@@ -295,7 +306,17 @@ function() {
         d3.selectAll("svg").insert("path", ".foreground").datum(topojson.feature(n, n.objects.countries)).attr("class", "countries"),
         d3.selectAll("svg").insert("path", ".foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "cities").selectAll("LineString").attr("class", "route"),
         d3.selectAll("svg").insert("g", ".cities").attr("class", "route"),
-        d3.selectAll(".route").selectAll("path").data(topojson.feature(n, n.objects.trips).features).enter().append("path").attr("id", function(d) { return d.properties.name; }).attr("visibility", function(d) { return d.properties.name == tripName ? "visible" : "hidden"; }),
+        d3.selectAll(".route").selectAll("path").data(topojson.feature(n, n.objects.trips).features).enter()
+              .append("path").attr("id", function(d) { return d.properties.name; })//.attr("rot", function(d) { return getRotation(d.geometry.coordinates)})
+              .attr("visibility", function(d) {
+                if (d.properties.name == tripName) {
+                  //we also want to rotate to this trip here
+                  proj.rotate(getRotation(d.geometry.coordinates));
+                  return "visible";
+                } else {
+                  return "hidden";
+                }
+              }),
         r.world()
     })
 }();
