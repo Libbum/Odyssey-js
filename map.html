@@ -257,9 +257,23 @@ function() {
   function n(t, n) {
        return d3.geo.orthographic().precision(.5).clipAngle(90).clipExtent([ [-1, -1], [t + 1, n + 1] ]).translate([t / 2, n / 2]).scale(t / 2 - 10).rotate([0, -30])
    }
-
+   function getCoords(obj,place) {
+     for (var i = 0, len = obj.length; i < len; i++) {
+         if (obj[i].properties.name === place)
+         return obj[i].coordinates; // Return as soon as the object is found
+     }
+     return null; // The object was not found
+   }
+   function getCitiesFromTrip(obj,trip) {
+     for (var i = 0, len = obj.trips.length; i < len; i++) {
+         if (obj.trips[i].name === trip)
+         return obj.trips[i].cities; // Return as soon as the object is found
+     }
+     return null; // The object was not found
+   }
     var a = 600, //width
         o = 600, //height
+        tripName = "E12",
         proj = n(a, o),
         r = d3.dispatch("world")
         c = -1;
@@ -275,11 +289,15 @@ function() {
             a.selectAll("path").attr("d", e)
         })
     }),
+
     d3.json("assets/data/world.json", function(t, n) {
         d3.selectAll("svg").insert("path", ".graticule").datum({type: "Sphere"}).attr("class", "ocean"),
         d3.selectAll("svg").insert("path", ".foreground").datum(topojson.feature(n, n.objects.countries)).attr("class", "countries"),
         d3.selectAll("svg").insert("path", ".foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "cities").selectAll("LineString").attr("class", "route"),
         d3.selectAll("svg").insert("path", ".cities").datum(topojson.feature(n, n.objects.trips)).attr("class", "route"),
+
+        //console.log(getCoords(n.objects.cities.geometries,"Gothenburg")),
+        //proj.rotate(getCoords(n.objects.cities.geometries,"Gothenburg")),
       //  d3.selectAll(".cities").data(topojson.feature(n, n.objects.cities).features).enter().forEach(function(d) { console.log(d); }),
         //n.objects.cities.geometries.forEach(function(o) { console.log(o.properties.name) }),
         //console.log(n.objects.cities.property("name")),

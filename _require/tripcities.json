@@ -1,0 +1,6 @@
+{
+  "trips": [
+    { "name": "J07", "cities": ["Melbourne", "Singapore", "Osaka", "Himeji", "Koyasan", "Tokyo", "Kyoto", "Osaka"] },
+    { "name": "E12", "cities": ["Melbourne", "Singapore", "Frankfurt", "Karlsruhe", "Munich", "Vienna", "Budapest", "Prague", "Riga", "Copenhagen", "Dronningmolle", "Berlin", "Paris", "Singapore"] }
+  ]
+}
