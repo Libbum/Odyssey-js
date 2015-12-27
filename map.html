@@ -52,7 +52,13 @@
 }
 
 </style>
-
+<select id="Trips">
+    <option> J07 </option>
+    <option> E12 </option>
+    <option> E14 </option>
+    <option> A15 </option>
+</select>
+<input type="button" id="sub" value="OK"/>
 <div id="map"></div>
 
 
@@ -60,6 +66,7 @@
 <script src="assets/js/d3.min.js"></script>
 <!--<script src="assets/js/d3.geo.projection.min.js"></script>-->
 <script src="assets/js/topojson.min.js"></script>
+<script src="assets/js/jquery.min.js"></script>
 <script>
 ! function() {
   function t(t, n, e) {
@@ -257,20 +264,6 @@ function() {
   function n(t, n) {
        return d3.geo.orthographic().precision(.5).clipAngle(90).clipExtent([ [-1, -1], [t + 1, n + 1] ]).translate([t / 2, n / 2]).scale(t / 2 - 10)
    }
-   function getCoords(obj,place) {
-     for (var i = 0, len = obj.length; i < len; i++) {
-         if (obj[i].properties.name === place)
-         return obj[i].coordinates; // Return as soon as the object is found
-     }
-     return null; // The object was not found
-   }
-   function getCitiesFromTrip(obj,trip) {
-     for (var i = 0, len = obj.trips.length; i < len; i++) {
-         if (obj.trips[i].name === trip)
-         return obj.trips[i].cities; // Return as soon as the object is found
-     }
-     return null; // The object was not found
-   }
    function getRotation(coords) {
      var lat = 0;
      var long = 0;
@@ -280,12 +273,12 @@ function() {
      };
      lat /= coords.length;
      long /= coords.length;
-     return [-lat,-long];
+     return [-lat,-long]; //h2ik why this needs to be negative
    }
     var a = 600, //width
         o = 600, //height
-        tripName = "E14",
-        proj = n(a, o).rotate([-133, -15]),
+        tripName = "A15",
+        proj = n(a, o),
         r = d3.dispatch("world")
         c = -1;
 
@@ -301,13 +294,28 @@ function() {
         })
     }),
 
+    $("#sub").on("click",function(){
+        selected = $("#Trips").val();
+        d3.selectAll(".route").each( function(d, i){
+          if(d.properties.name == selected){
+            d3.select(this).attr("visibility", "visible");
+            console.log(getRotation(d.geometry.coordinates));
+            proj.rotate(getRotation(d.geometry.coordinates));
+          } else {
+            d3.select(this).attr("visibility", "hidden");
+          }
+      });
+      r.world();
+    }),
+
+
     d3.json("assets/data/world.json", function(t, n) {
         d3.selectAll("svg").insert("path", ".graticule").datum({type: "Sphere"}).attr("class", "ocean"),
         d3.selectAll("svg").insert("path", ".foreground").datum(topojson.feature(n, n.objects.countries)).attr("class", "countries"),
         d3.selectAll("svg").insert("path", ".foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "cities").selectAll("LineString").attr("class", "route"),
-        d3.selectAll("svg").insert("g", ".cities").attr("class", "route"),
-        d3.selectAll(".route").selectAll("path").data(topojson.feature(n, n.objects.trips).features).enter()
-              .append("path").attr("id", function(d) { return d.properties.name; })//.attr("rot", function(d) { return getRotation(d.geometry.coordinates)})
+        d3.selectAll("svg").insert("g", ".cities").attr("id", "routes"),
+        d3.selectAll("#routes").selectAll("path").data(topojson.feature(n, n.objects.trips).features).enter()
+              .append("path").attr("id", function(d) { return d.properties.name; }).attr("class", "route")
               .attr("visibility", function(d) {
                 if (d.properties.name == tripName) {
                   //we also want to rotate to this trip here
