@@ -294,8 +294,10 @@ function() {
         d3.selectAll("svg").insert("path", ".graticule").datum({type: "Sphere"}).attr("class", "ocean"),
         d3.selectAll("svg").insert("path", ".foreground").datum(topojson.feature(n, n.objects.countries)).attr("class", "countries"),
         d3.selectAll("svg").insert("path", ".foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "cities").selectAll("LineString").attr("class", "route"),
-        d3.selectAll("svg").insert("path", ".cities").datum(topojson.feature(n, n.objects.trips)).attr("class", "route"),
-
+        d3.selectAll("svg").insert("g", ".cities").attr("class", "route"),
+//        d3.selectAll("svg").insert("path", ".cities").datum(topojson.feature(n, n.objects.trips)).attr("class", "route"),
+        d3.selectAll(".route").selectAll("path").data(topojson.feature(n, n.objects.trips).features).enter().append("path").attr("id", function(d) { return d.properties.name; }),
+        test = topojson.feature(n, n.objects.trips).features,
         //console.log(getCoords(n.objects.cities.geometries,"Gothenburg")),
         //proj.rotate(getCoords(n.objects.cities.geometries,"Gothenburg")),
       //  d3.selectAll(".cities").data(topojson.feature(n, n.objects.cities).features).enter().forEach(function(d) { console.log(d); }),
