@@ -264,6 +264,51 @@ function() {
   function n(t, n) {
        return d3.geo.orthographic().precision(.5).clipAngle(90).clipExtent([ [-1, -1], [t + 1, n + 1] ]).translate([t / 2, n / 2]).scale(t / 2 - 10)
    }
+
+   function sphereRotate() {
+    var x0, y0, cy0, sy0, kx0, ky0,
+        x1, y1, cy1, sy1, kx1, ky1,
+        d,
+        k;
+
+    function interpolate(t) {
+      var B = Math.sin(t *= d) * k,
+          A = Math.sin(d - t) * k,
+          x = A * kx0 + B * kx1,
+          y = A * ky0 + B * ky1,
+          z = A * sy0 + B * sy1;
+      return [ Math.atan2(y, x) / d3_radians, Math.atan2(z, Math.sqrt(x * x + y * y)) / d3_radians ];
+    }
+
+    interpolate.distance = function() {
+      if (d == null) k = 1 / Math.sin(d = Math.acos(Math.max(-1, Math.min(1, sy0 * sy1 + cy0 * cy1 * Math.cos(x1 - x0)))));
+      return d;
+    };
+
+    interpolate.source = function(_) {
+      var cx0 = Math.cos(x0 = _[0] * d3_radians),
+          sx0 = Math.sin(x0);
+      cy0 = Math.cos(y0 = _[1] * d3_radians);
+      sy0 = Math.sin(y0);
+      kx0 = cy0 * cx0;
+      ky0 = cy0 * sx0;
+      d = null;
+      return interpolate;
+    };
+
+    interpolate.target = function(_) {
+      var cx1 = Math.cos(x1 = _[0] * d3_radians),
+          sx1 = Math.sin(x1);
+      cy1 = Math.cos(y1 = _[1] * d3_radians);
+      sy1 = Math.sin(y1);
+      kx1 = cy1 * cx1;
+      ky1 = cy1 * sx1;
+      d = null;
+      return interpolate;
+    };
+
+    return interpolate;
+  }
    function getRotation(coords) {
      var lat = 0;
      var long = 0;
@@ -279,8 +324,9 @@ function() {
         o = 600, //height
         tripName = "A15",
         proj = n(a, o),
-        r = d3.dispatch("world")
-        c = -1;
+        r = d3.dispatch("world"),
+        c = -1,
+        d3_radians = Math.PI / 180;
 
     d3.selectAll("#map").data([proj]).append("svg").attr("width", a).attr("height", o).each(function(p) {
         var e = d3.geo.path().projection(p),
@@ -295,19 +341,26 @@ function() {
     }),
 
     $("#sub").on("click",function(){
-        selected = $("#Trips").val();
-        d3.selectAll(".route").each( function(d, i){
+        var coords = [],
+            selected = $("#Trips").val(),
+            interp = sphereRotate();
+       d3.selectAll(".route").each( function(d, i){
           if(d.properties.name == selected){
             d3.select(this).attr("visibility", "visible");
-            console.log(getRotation(d.geometry.coordinates));
-            proj.rotate(getRotation(d.geometry.coordinates));
+            coords = getRotation(d.geometry.coordinates);
           } else {
             d3.select(this).attr("visibility", "hidden");
           }
       });
-      r.world();
+      d3.transition().delay(250).duration(2250)
+          .tween("rotate", function() {
+            interp.source(proj.rotate()).target(coords).distance();
+            return function(t) {
+                 proj.rotate(interp(t));
+                 r.world();
+               };
+          });
     }),
-
 
     d3.json("assets/data/world.json", function(t, n) {
         d3.selectAll("svg").insert("path", ".graticule").datum({type: "Sphere"}).attr("class", "ocean"),
