@@ -13,7 +13,8 @@ Maps and other interactivity are using [D3.js](http://d3js.org/), mostly built s
 * [x] Integrate map with main site.
 * [x] Map colorscheme to site colorscheme (mostly, still testing).
 * [ ] Drop useless css.
-* [ ] Fix Globe scale on css resize of header.
+* [x] Fix Globe scale on css resize of header.
+* [ ] When globe is max size, menu overflows atm. Need to address this depending on what ends up being there.
 * [ ] Category capability. So far, ideas are sort by trip, date, country and have a tile map "explore".
 * [ ] Add country highlights to globe.
 * [ ] Sass needs a min-width I think. There's a problem with chromatic when we scale too small.

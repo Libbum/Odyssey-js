@@ -108,6 +108,26 @@
 					$('#titleBar, #header, #wrapper')
 						.css('transition', 'none');
 
+			//  Gallery
+				var sortfn = function(a,b) {
+					if (asc) return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
+					else return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+				}
+			  var photos = [],
+					  asc = true,
+						prop = "big";
+				$.getJSON('manifest.json', function(p) {
+							photos = p.sort(sortfn);
+							$("#gallery").chromatic(photos);
+				});
+
+				$("#inv").on("click",function(){
+						asc = !asc;
+						photos = photos.sort(sortfn);
+					  $("#gallery").empty();
+						$("#gallery").chromatic(photos);
+
+				});
 	});
 
 })(jQuery);

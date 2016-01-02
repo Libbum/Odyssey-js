@@ -60,6 +60,8 @@
 									</select>
 									<input type="button" id="sub" value="OK"/>
 
+									<input type="button" id="inv" value="ASC/DESC"/>
+
 									<!--<header class="major">
 										<h2>Read Only</h2>
 										<p>Just an incredibly simple responsive site<br />
@@ -72,20 +74,6 @@
 						<!-- Two -->
 							<section id="two">
 								<div id="gallery"></div>
-								<script charset="utf-8">
-						        $(function(){
-									  //Later, we can change manifest.json to selected files based on smart search.
-						          $.getJSON('manifest.json', function(photos) {
-														asc = true;
-														prop = "big";
-														photos = photos.sort(function(a,b) {
-															if (asc) return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
-											        else return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
-														});
-						                $("#gallery").chromatic(photos);
-						          });
-						        })
-						      </script>
 							</section>
 
 						<!-- Three -->
