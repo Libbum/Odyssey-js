@@ -1028,7 +1028,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 	}
 	.chromatic-gallery-photo {
 	  float: left;
-	  background: grey;
+	  background: _palette(pewter);
 	  margin: 4px;
 	  background-size: cover;
 	}
@@ -1044,7 +1044,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 	  left: 0;
 	  right: 0;
 	  bottom: 0;
-	  background-color: #333333;
+	  background-color: _palette(tuna);
 	}
 	.chromatic-zoom div * {
 	  -webkit-transform: translate3d(0, 0, 0);
@@ -1084,7 +1084,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 	  left: 0;
 	  right: 0;
 	  bottom: 0;
-	  background-color: #333333;
+	  background-color: _palette(tuna);
 	  background-size: 100% 100%;
 	  z-index: -2;
 	}
@@ -1116,6 +1116,57 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 			}
 		}
 	}
+
+/* Globe */
+
+#map {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.foreground {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1px;
+  pointer-events: all;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+}
+
+.foreground.zooming {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+}
+
+.graticule {
+  fill: none;
+  stroke: _palette(pewter);
+  stroke-width: .5px;
+  stroke-dasharray: 2,2;
+}
+
+.countries {
+  fill: _palette(tuna);
+  stroke: _palette(pewter);
+  stroke-width: .5px;
+}
+
+.cities {
+  fill: _palette(astral);
+}
+
+.route {
+  fill: none;
+  stroke: _palette(stiletto);
+  stroke-width: 1.5px;
+}
+
+.ocean {
+  fill: _palette(mintjulep);
+}
+.point {
+  fill: _palette(stiletto);
+}
 
 /* One */
 

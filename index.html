@@ -9,7 +9,9 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-		<script src="assets/js/chromatic.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/chromatic.js" type="text/javascript"></script>
+		<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -49,14 +51,22 @@
 
 						<!-- One -->
 							<section id="one">
-								<!--<div class="container">
-									<header class="major">
+								<div class="container">
+									<select id="Trips">
+									    <option> J07 </option>
+									    <option> E12 </option>
+									    <option> E14 </option>
+									    <option> A15 </option>
+									</select>
+									<input type="button" id="sub" value="OK"/>
+									<div id="map"></div>
+									<!--<header class="major">
 										<h2>Read Only</h2>
 										<p>Just an incredibly simple responsive site<br />
 										template freebie by <a href="http://html5up.net">HTML5 UP</a>.</p>
 									</header>
-									<p>Faucibus sed lobortis aliquam lorem blandit. Lorem eu nunc metus col. Commodo id in arcu ante lorem ipsum sed accumsan erat praesent faucibus commodo ac mi lacus. Adipiscing mi ac commodo. Vis aliquet tortor ultricies non ante erat nunc integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum.</p>
-								</div> -->
+									<p>Faucibus sed lobortis aliquam lorem blandit. Lorem eu nunc metus col. Commodo id in arcu ante lorem ipsum sed accumsan erat praesent faucibus commodo ac mi lacus. Adipiscing mi ac commodo. Vis aliquet tortor ultricies non ante erat nunc integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum.</p> -->
+								</div>
 							</section>
 
 						<!-- Two -->
@@ -108,6 +118,7 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+			<script src="/assets/js/globe.js"></script>
 
 	</body>
 </html>

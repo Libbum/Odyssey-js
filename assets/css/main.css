@@ -1949,7 +1949,7 @@ input[type="button"],
 
 .chromatic-gallery-photo {
   float: left;
-  background: grey;
+  background: #979c9c;
   margin: 4px;
   background-size: cover; }
 
@@ -1965,7 +1965,7 @@ input[type="button"],
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #333333; }
+  background-color: #343642; }
 
 .chromatic-zoom div * {
   -webkit-transform: translate3d(0, 0, 0);
@@ -2005,7 +2005,7 @@ input[type="button"],
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #333333;
+  background-color: #343642;
   background-size: 100% 100%;
   z-index: -2; }
 
@@ -2028,6 +2028,48 @@ input[type="button"],
     padding: 6em 0 4em 0; }
   #main > section:first-child {
     border-top: 0; }
+
+/* Globe */
+#map {
+  width: 600px;
+  margin: 0 auto; }
+
+.foreground {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1px;
+  pointer-events: all;
+  cursor: -webkit-grab;
+  cursor: -moz-grab; }
+
+.foreground.zooming {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing; }
+
+.graticule {
+  fill: none;
+  stroke: #979c9c;
+  stroke-width: .5px;
+  stroke-dasharray: 2,2; }
+
+.countries {
+  fill: #343642;
+  stroke: #979c9c;
+  stroke-width: .5px; }
+
+.cities {
+  fill: #348899; }
+
+.route {
+  fill: none;
+  stroke: #962d3e;
+  stroke-width: 1.5px; }
+
+.ocean {
+  fill: #f2ebc7; }
+
+.point {
+  fill: #962d3e; }
 
 /* One */
 #one:before {
