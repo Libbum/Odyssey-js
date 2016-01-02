@@ -237,15 +237,16 @@ function() {
      long /= coords.length;
      return [-lat,-long];
    }
-    var a = 280, //width
-        o = 280, //height
+    var a = 400, //width
+        o = 400, //height
         tripName = "A15",
         proj = n(a, o),
         r = d3.dispatch("world"),
         c = -1,
         d3_radians = Math.PI / 180;
-
-    d3.selectAll("#map").data([proj]).append("svg").attr("width", a).attr("height", o).each(function(p) {
+        
+    //d3.selectAll("#map").data([proj]).append("svg").attr("width", a).attr("height", o).each(function(p) {
+    d3.selectAll("#map").data([proj]).append("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox","0 0 " + a + " " + o).each(function(p) {
         var e = d3.geo.path().projection(p),
             a = d3.select(this).call(t, e, !0);
         a.selectAll(".foreground").call(d3.geo.zoom().projection(p).scaleExtent([.7 * p.scale(), 10 * p.scale()]).on("zoom.redraw", function() {

@@ -1871,7 +1871,8 @@ input[type="button"],
     #header a:hover {
       color: #348899 !important; }
   #header > header {
-    padding: 3em; }
+    padding: 3em;
+    padding-top: 0.5em; }
     #header > header .avatar {
       display: block;
       margin: 0 auto 2.25em auto;
@@ -2031,7 +2032,7 @@ input[type="button"],
 
 /* Globe */
 #map {
-  width: 280px;
+  max-width: 20em;
   padding: 0px;
   margin: 0 auto; }
 
@@ -2117,7 +2118,8 @@ input[type="button"],
   #header {
     width: 21em; }
     #header > header {
-      padding: 2em; }
+      padding: 2em;
+      padding-top: 0.5em; }
     #header > footer {
       padding: 1.5em; }
 
@@ -2328,7 +2330,8 @@ input[type="button"],
     transform: translateX(17em);
     right: 0; }
     #header > header {
-      padding: 2em; }
+      padding: 2em;
+      padding-top: 0.5em; }
       #header > header .avatar {
         margin: 0 auto 1.6875em auto;
         width: 6em; }
