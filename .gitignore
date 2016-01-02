@@ -16,3 +16,5 @@ cabal.sandbox.config
 *.hp
 gallery/
 manifest.json
+.sass-cache
+main.css.map
