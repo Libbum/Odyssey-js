@@ -7,12 +7,19 @@ Maps and other interactivity are using [D3.js](http://d3js.org/), mostly built s
 
 ## TODO
 
-* [x] Identify Layout 
-* [x] Fill cities data
-* [ ] Generate 'trips'
-* [ ] Integrate map with main site
-* [ ] Map colorscheme to site colorscheme
-* [ ] Build backend
-* [x] File processing
-* [x] Manifest for gallery
-* [x] Interactive map (wip)
+* [x] Identify Layout.
+* [x] Fill cities data.
+* [x] Generate 'trips'.
+* [x] Integrate map with main site.
+* [x] Map colorscheme to site colorscheme (mostly, still testing).
+* [ ] Drop useless css.
+* [ ] Fix Globe scale on css resize of header.
+* [ ] Category capability. So far, ideas are sort by trip, date, country and have a tile map "explore".
+* [ ] Add country highlights to globe.
+* [ ] Sass needs a min-width I think. There's a problem with chromatic when we scale too small.
+* [ ] Build backend.
+* [x] File processing.
+* [x] Manifest for gallery.
+* [x] Interactive map (wip).
+* [ ] Update to latest rc of Pillow - the exif bug is fixed. Test outputs.
+* [ ] Edit photos to actually fill the gallery.
