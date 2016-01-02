@@ -63,12 +63,12 @@
 
 
 
-<script src="assets/js/d3.min.js"></script>
-<!--<script src="assets/js/d3.geo.projection.min.js"></script>-->
-<script src="assets/js/topojson.min.js"></script>
-<script src="assets/js/jquery.min.js"></script>
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>
 ! function() {
+  m = d3.behavior.zoom();
   function t(t, n, e) {
       var a = t.translate(),
           o = Math.atan2(n[1] - a[1], n[0] - a[0]) - Math.atan2(e[1] - a[1], e[0] - a[0]);
@@ -166,26 +166,12 @@
     var d = Math.PI / 180,
         h = 180 / Math.PI;
     d3.geo.zoom = function() {
-        function s(t) {
-            v++ || t({
-                type: "zoomstart"
-            })
-        }
-
-        function l(t) {
-            t({
-                type: "zoom"
-            })
-        }
-
-        function d(t) {
-            --v || t({
-                type: "zoomend"
-            })
-        }
+        function s(t) { v++ || t({ type: "zoomstart" }) }
+        function l(t) { t({ type: "zoom" }) }
+        function d(t) { --v || t({ type: "zoomend" }) }
         var h, f, p, v = 0,
-            g = u(m, "zoomstart", "zoom", "zoomend"),
-            m = d3.behavior.zoom().on("zoomstart", function() {
+            g = u(m, "zoomstart", "zoom", "zoomend");
+            m.on("zoomstart", function() {
                 var r = d3.mouse(this),
                     i = e(h.rotate()),
                     u = n(h, r);
@@ -257,7 +243,7 @@ function() {
           e && (n = t.insert("path", ".foreground").datum({type: "Point", coordinates: a.invert(d3.mouse(this))}).attr("class", "point").attr("d", o));
           var o = d3.select(this).classed("zooming", !0),
               r = d3.select(window).on("mouseup.grab", function() {
-                  o.classed("zooming", !1), r.on("mouseup.grab", null), e && n.remove()
+                o.classed("zooming", !1), r.on("mouseup.grab", null), e && n.remove()
               })
       })
   }
@@ -310,15 +296,15 @@ function() {
     return interpolate;
   }
    function getRotation(coords) {
-     var lat = 0;
-     var long = 0;
+     var lat = 0,
+         long = 0;
      for (var i = 0, len = coords.length; i < len; i++) {
        lat += coords[i][0];
        long += coords[i][1];
      };
      lat /= coords.length;
      long /= coords.length;
-     return [-lat,-long]; //h2ik why this needs to be negative
+     return [-lat,-long];
    }
     var a = 600, //width
         o = 600, //height
@@ -344,22 +330,27 @@ function() {
         var coords = [],
             selected = $("#Trips").val(),
             interp = sphereRotate();
-       d3.selectAll(".route").each( function(d, i){
-          if(d.properties.name == selected){
-            d3.select(this).attr("visibility", "visible");
-            coords = getRotation(d.geometry.coordinates);
-          } else {
-            d3.select(this).attr("visibility", "hidden");
-          }
-      });
-      d3.transition().delay(250).duration(2250)
-          .tween("rotate", function() {
-            interp.source(proj.rotate()).target(coords).distance();
-            return function(t) {
-                 proj.rotate(interp(t));
-                 r.world();
-               };
+       if (selected !== tripName) {
+           d3.selectAll(".route").each( function(d, i){
+              if(d.properties.name == selected){
+                d3.select(this).attr("visibility", "visible");
+                coords = getRotation(d.geometry.coordinates);
+              } else {
+                d3.select(this).attr("visibility", "hidden");
+              }
           });
+          d3.transition().delay(250).duration(2250)
+              .tween("rotate", function() {
+                interp.source(proj.rotate()).target(coords).distance();
+                var sc = d3.interpolate(proj.scale(), a / 2 - 10);
+                return function(i) {
+                     proj.rotate(interp(i)).scale(sc(i));
+                     m.scale(sc(i));//update the zoom in the zoom behavior this will sop the jumping effect
+                     d3.select("#map").selectAll("path").attr("d", d3.geo.path().projection(proj));
+                   };
+              });
+          tripName = selected;
+      }
     }),
 
     d3.json("assets/data/world.json", function(t, n) {
@@ -371,7 +362,6 @@ function() {
               .append("path").attr("id", function(d) { return d.properties.name; }).attr("class", "route")
               .attr("visibility", function(d) {
                 if (d.properties.name == tripName) {
-                  //we also want to rotate to this trip here
                   proj.rotate(getRotation(d.geometry.coordinates));
                   return "visible";
                 } else {
