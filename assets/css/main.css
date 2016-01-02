@@ -1209,7 +1209,7 @@ a {
   text-decoration: none; }
   a:hover {
     border-bottom-color: transparent;
-    color: #4acaa8 !important; }
+    color: #343642 !important; }
 
 strong, b {
   color: #777;
@@ -1326,7 +1326,7 @@ header h6 + p {
   margin-top: -0.25em;
   line-height: 1.5em; }
 header.major h2 {
-  color: #4acaa8;
+  color: #343642;
   font-size: 3.5em; }
   header.major h2 + p {
     color: #777;
@@ -1378,7 +1378,7 @@ textarea {
   input[type="email"]:focus,
   select:focus,
   textarea:focus {
-    border-color: #4acaa8; }
+    border-color: #343642; }
 
 .select-wrapper {
   text-decoration: none;
@@ -1468,7 +1468,7 @@ input[type="radio"] {
     content: '\f00c'; }
   input[type="checkbox"]:focus + label:before,
   input[type="radio"]:focus + label:before {
-    border-color: #4acaa8; }
+    border-color: #343642; }
 
 input[type="checkbox"] + label:before {
   border-radius: 5px; }
@@ -1605,7 +1605,7 @@ ul {
         font-weight: normal;
         text-transform: none !important; }
       ul.feature-icons li:before {
-        background: #4acaa8;
+        background: #343642;
         border-radius: 100%;
         color: #ffffff;
         display: block;
@@ -1802,18 +1802,18 @@ input[type="button"],
   input[type="reset"].special,
   input[type="button"].special,
   .button.special {
-    background-color: #4acaa8;
+    background-color: #343642;
     color: #ffffff !important; }
     input[type="submit"].special:hover,
     input[type="reset"].special:hover,
     input[type="button"].special:hover,
     .button.special:hover {
-      background-color: #5ed0b1; }
+      background-color: #3f4250; }
     input[type="submit"].special:active,
     input[type="reset"].special:active,
     input[type="button"].special:active,
     .button.special:active {
-      background-color: #39c29d; }
+      background-color: #292a34; }
   input[type="submit"].disabled, input[type="submit"]:disabled,
   input[type="reset"].disabled,
   input[type="reset"]:disabled,
@@ -1852,8 +1852,8 @@ input[type="button"],
 
 /* Header */
 #header {
-  background: #4acaa8;
-  color: #d2f2e9;
+  background: #343642;
+  color: #cce1e6;
   height: 100%;
   position: fixed;
   text-align: center;
@@ -1861,15 +1861,15 @@ input[type="button"],
   width: 23em;
   right: 0; }
   #header h1, #header h2, #header h3, #header h4, #header h5, #header h6 {
-    color: #ffffff; }
+    color: #348899; }
     #header h1 a, #header h2 a, #header h3 a, #header h4 a, #header h5 a, #header h6 a {
-      color: #ffffff; }
+      color: #348899; }
   #header header p {
-    color: #b7eadc; }
+    color: #aecfd6; }
   #header a {
-    color: #d2f2e9; }
+    color: #cce1e6; }
     #header a:hover {
-      color: #ffffff !important; }
+      color: #348899 !important; }
   #header > header {
     padding: 3em; }
     #header > header .avatar {
@@ -1880,7 +1880,7 @@ input[type="button"],
       font-size: 1.75em;
       margin: 0; }
     #header > header p {
-      color: #d2f2e9;
+      color: #cce1e6;
       font-style: italic;
       margin: 1em 0 0 0; }
   #header > footer {
@@ -1892,13 +1892,13 @@ input[type="button"],
     #header > footer .icons {
       margin: 0; }
       #header > footer .icons li a {
-        color: #b7eadc; }
+        color: #aecfd6; }
   #header > nav ul {
     list-style: none;
     margin: 0;
     padding: 0; }
     #header > nav ul li {
-      border-top: solid 2px #5ccfb1;
+      border-top: solid 2px #4894a3;
       display: block;
       padding: 0; }
       #header > nav ul li a {
@@ -1907,13 +1907,13 @@ input[type="button"],
         -ms-transition: none;
         transition: none;
         border: 0;
-        color: #ffffff !important;
+        color: #348899 !important;
         display: block;
         padding: 0.85em 0;
         text-decoration: none; }
         #header > nav ul li a.active {
           background: #fff;
-          color: #4acaa8 !important; }
+          color: #343642 !important; }
       #header > nav ul li:first-child {
         border-top: 0; }
 
@@ -2211,7 +2211,7 @@ input[type="button"],
         font-weight: normal;
         text-transform: none !important; }
       #titleBar .toggle:before {
-        background: #4acaa8;
+        background: #343642;
         color: #ffffff;
         content: '\f0c9';
         display: block;
