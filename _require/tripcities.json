@@ -2,7 +2,7 @@
   "trips": [
     {
       "name": "J07",
-      "cities": ["Melbourne", "Singapore", "Osaka", "Himeji", "Koyasan", "Tokyo", "Kyoto", "Osaka"]
+      "cities": ["Melbourne", "Singapore", "Osaka", "Himeji", "Osaka", "Hiroshima", "Koyasan", "Osaka", "Tokyo", "Kyoto", "Osaka"]
     },
     {
       "name": "E12",
@@ -10,11 +10,12 @@
     },
     {
       "name": "E14",
-      "cities": ["Melbourne", "Doha", "Copenhagen", "Reykjavik", "Kristiansund", "Bodo", "Tromso", "Stockholm", "Saint Petersburg", "Berlin", "Karlsruhe", "Frankfurt", "Doha"]
+      "cities": ["Melbourne", "Doha", "Copenhagen", "Reykjavik", "Thingvellir", "Geysir", "Reykjavik", "Vik", "Skaftafell", "Jokulsarlon", "Skogarfoss", "Reykjavik", "Kristiansund",
+                 "Trondheim", "Rorvik", "Bodo", "Svolvaer", "Tromso", "Stockholm", "Saint Petersburg", "Petergof", "Pushkin", "Saint Petersburg", "Berlin", "Karlsruhe", "Frankfurt", "Doha"]
     },
     {
       "name": "A15",
-      "cities": ["Melbourne", "Singapore", "Ho Chi Minh City", "Hanoi", "Ha Long Bay", "Bangkok", "Kanchanaburi", "Ko Samui", "Ko Tao", "Bangkok", "Melbourne"]
+      "cities": ["Melbourne", "Singapore", "Ho Chi Minh City", "Hanoi", "Ha Long Bay", "Hanoi", "Bangkok", "Kanchanaburi", "Bangkok", "Ko Samui", "Ko Tao", "Ko Samui", "Bangkok", "Melbourne"]
     }
   ]
 }

@@ -3,6 +3,7 @@ function getCoords(obj,place) {
       if (obj.features[i].properties.name === place)
       return obj.features[i].geometry.coordinates; // Return as soon as the object is found
   }
+  console.log("Warning: '"+place+"' not found.");
   return null; // The object was not found
 }
 function getCitiesFromTrip(obj,trip) {
