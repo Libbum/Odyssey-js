@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  margin: 0;
+}
+
+#container {
+  position: relative;
+  overflow: hidden;
+}
+
+#map{
+	width:100%;
+	height:100%;
+}
+
+.layer {
+  position: absolute;
+}
+
+.tile {
+  pointer-events: none;
+  position: absolute;
+  width: 256px;
+  height: 256px;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/d3.geo.tile.v0.min.js"></script>
+<div id="canvas">
+	<div id="container">
+		<div id="map">
+			<div class="layer"></div>
+		</div>
+	</div>
+</div>
+<script>
+
+var width = Math.max(960, window.innerWidth),
+    height = Math.max(500, window.innerHeight),
+    prefix = prefixMatch(["webkit", "ms", "Moz", "O"]);
+
+var tile = d3.geo.tile()
+    .size([width, height]);
+
+var sf = [-21.82, 64.13],
+		belowsf = [7.73, 63.11],
+    ny = [-74.0064, 40.7142],
+		brooklyn = [-73.975536, 40.691674];
+
+var projection = d3.geo.mercator()
+		.scale(200000)
+		.translate([-width / 2, -height / 2]); // just temporary
+
+var map = d3.select("#map");
+
+var layer = d3.select(".layer");
+
+var zoom = d3.behavior.zoom().on("zoom", zoomed);
+
+var canvas = d3.select("#canvas")
+		.style("width", width + "px")
+		.style("height", height + "px");
+
+var container = d3.select("#container")
+    .style("width", width + "px")
+    .style("height", height + "px");
+
+canvas
+
+			 	.call(zoomTo(ny,200300).event)
+					.transition()
+					.duration(20000)
+					.each(jump);
+
+		function zoomTo(location, newscale) {
+		  return zoom
+	    		.scale((newscale) * 2 * Math.PI)
+			    .translate(projection(location).map(function(x) { return -x; }));
+		}
+
+		function jump() {
+		  var t = d3.select(this);
+		  (function repeat() {
+		    t = t.transition()
+		        .call(zoomTo(sf, 200000).event)
+		      .transition()
+		        .call(zoomTo(belowsf, 200000).event)
+		        .each("end", repeat);
+		  })();
+		}
+
+zoomed();
+
+function zoomed() {
+  var tiles = tile
+      .scale(zoom.scale())
+      .translate(zoom.translate())
+      ();
+
+  var image = layer
+      .style(prefix + "transform", matrix3d(tiles.scale, tiles.translate))
+    .selectAll(".tile")
+      .data(tiles, function(d) { return d; });
+
+  image.exit()
+      .remove();
+
+  image.enter().append("img")
+      .attr("class", "tile")
+      //https://a.maps.nlp.nokia.com/maptile/2.1/maptile/newest/normal.night/12/450/142/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24
+      .attr("src", function(d) { return "https://1.maps.nlp.nokia.com/maptile/2.1/maptile/newest/normal.night/" + d[2] + "/" + d[0] + "/" + d[1] + "/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q"; })
+      //.attr("src", function(d) { console.log(d); return "http://" + ["a", "b", "c"][Math.random() * 3 | 0] + ".basemaps.cartocdn.com/dark_all/" + d[2] + "/" + d[0] + "/" + d[1] + ".png"; })
+      .style("left", function(d) { return (d[0] << 8) + "px"; })
+      .style("top", function(d) { return (d[1] << 8) + "px"; });
+}
+
+function matrix3d(scale, translate) {
+  var k = scale / 256, r = scale % 1 ? Number : Math.round;
+  return "matrix3d(" + [k, 0, 0, 0, 0, k, 0, 0, 0, 0, k, 0, r(translate[0] * scale), r(translate[1] * scale), 0, 1 ] + ")";
+}
+
+function prefixMatch(p) {
+  var i = -1, n = p.length, s = document.body.style;
+  while (++i < n) if (p[i] + "Transform" in s) return "-" + p[i].toLowerCase() + "-";
+  return "";
+}
+
+function formatLocation(p, k) {
+  var format = d3.format("." + Math.floor(Math.log(k) / 2 - 2) + "f");
+  return (p[1] < 0 ? format(-p[1]) + "°S" : format(p[1]) + "°N") + " "
+       + (p[0] < 0 ? format(-p[0]) + "°W" : format(p[0]) + "°E");
+}
+
+</script>
+</body>
+</html>
