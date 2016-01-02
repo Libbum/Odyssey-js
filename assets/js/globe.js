@@ -237,8 +237,8 @@ function() {
      long /= coords.length;
      return [-lat,-long];
    }
-    var a = 600, //width
-        o = 600, //height
+    var a = 280, //width
+        o = 280, //height
         tripName = "A15",
         proj = n(a, o),
         r = d3.dispatch("world"),

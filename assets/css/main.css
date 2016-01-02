@@ -2031,7 +2031,8 @@ input[type="button"],
 
 /* Globe */
 #map {
-  width: 600px;
+  width: 280px;
+  padding: 0px;
   margin: 0 auto; }
 
 .foreground {
