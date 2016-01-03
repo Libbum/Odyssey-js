@@ -95,12 +95,13 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     gallery = Path(Path.home(), Path('web/Odyssey/gallery'))
+    manifest = Path(Path.home(), Path('web/Odyssey/assets/data/manifest.json'))
 
     exts = '.jpg', '.png'
     maxsize = (500, 500)
     filelist = (x for x in gallery.glob('**/*') if x.is_file() and x.suffix.lower() in exts and not x.stem.startswith('~') and not x.stem.endswith('_small'))
 
-    with open(str(gallery.with_name('manifest.json')),'a+') as manifestFile:
+    with manifest.open(mode='a+') as manifestFile:
         #We need to append to the manifest.json file, so read the data there first.
         manifestFile.seek(0)
         firstChar = manifestFile.read(1) #See if the file is empty coming from a+

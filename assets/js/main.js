@@ -116,16 +116,15 @@
 			  var photos = [],
 					  asc = true,
 						prop = "big";
-				$.getJSON('manifest.json', function(p) {
+				$.getJSON('assets/data/manifest.json', function(p) {
 							photos = p.sort(sortfn);
 							$("#gallery").chromatic(photos);
 				});
 
 				$("#inv").on("click",function(){
 						asc = !asc;
-						photos = photos.sort(sortfn);
-					  $("#gallery").empty();
-						$("#gallery").chromatic(photos);
+						$("#gallery").empty();
+						$("#gallery").chromatic(photos.sort(sortfn));
 
 				});
 	});

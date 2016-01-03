@@ -37,6 +37,7 @@
 { "type": "Feature", "properties": { "name": "Ha Long Bay", "localname": "Vịnh Hạ Long", "country": "VNM" }, "geometry": { "type": "Point", "coordinates": [ 107.18, 20.91 ] } },
 { "type": "Feature", "properties": { "name": "Ko Samui", "localname": "เกาะสมุย", "country": "THA" }, "geometry": { "type": "Point", "coordinates": [ 100.01, 9.51 ] } },
 { "type": "Feature", "properties": { "name": "Ko Tao", "localname": "เกาะเต่า", "country": "THA" }, "geometry": { "type": "Point", "coordinates": [ 99.84, 10.1 ] } },
+{ "type": "Feature", "properties": { "name": "Ayutthaya", "localname": "อยุธยา", "country": "THA" }, "geometry": { "type": "Point", "coordinates": [ 100.37, 14.46 ] } },
 { "type": "Feature", "properties": { "name": "Kanchanaburi", "localname": "กาญจนบุรี", "country": "THA" }, "geometry": { "type": "Point", "coordinates": [ 99.53, 14.02 ] } },
 { "type": "Feature", "properties": { "name": "Bangkok", "localname": "กรุงเทพมหานคร", "country": "THA" }, "geometry": { "type": "Point", "coordinates": [ 100.5, 13.76 ] } },
 { "type": "Feature", "properties": { "name": "Osaka", "localname": "大阪市", "country": "JPN" }, "geometry": { "type": "Point", "coordinates": [ 135.5, 34.7 ] } },
