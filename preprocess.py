@@ -96,6 +96,16 @@ if __name__ == "__main__":
 
     gallery = Path(Path.home(), Path('web/Odyssey/gallery'))
     manifest = Path(Path.home(), Path('web/Odyssey/assets/data/manifest.json'))
+    tripcities = Path(Path.home(), Path('web/Odyssey/_require/tripcities.json'))
+
+    tripdates = []
+    with tripcities.open() as tripFile:
+        tripsdata = json.loads(tripFile.read())
+        for t in tripsdata['trips']:
+            for d in t['dates']:
+                tripdates.append((d, t['name']))
+
+
 
     exts = '.jpg', '.png'
     maxsize = (500, 500)
@@ -125,7 +135,14 @@ if __name__ == "__main__":
                     im.save(str(thumb))
                 except IOError:
                     print("Small image for", infile.relative_to(gallery), "failed.")
-                manifest.append({'small': str(thumb.relative_to(gallery.parent).as_posix()), 'big': str(infile.relative_to(gallery.parent).as_posix()), 'aspect_ratio': ratio})
+                tripfound = False
+                for td in tripdates:
+                    tpath = Path(td[0]).parts
+                    if infile.relative_to(gallery).parts[0:len(tpath)] == tpath:
+                        manifest.append({'small': str(thumb.relative_to(gallery.parent).as_posix()), 'big': str(infile.relative_to(gallery.parent).as_posix()), 'aspect_ratio': ratio, 'trip': td[1], 'date': td[0]}) #Should only be one (or zero) per file..
+                        tripfound = True
+                if not tripfound:
+                    manifest.append({'small': str(thumb.relative_to(gallery.parent).as_posix()), 'big': str(infile.relative_to(gallery.parent).as_posix()), 'aspect_ratio': ratio})
                 if args.loud:
                     print("Processing", infile.relative_to(gallery))
                     print("width: %d - height: %d" % im.size) # returns (width, height) tuple
