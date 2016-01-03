@@ -289,11 +289,12 @@
 	              }
 	          });
 
-						$("#gallery").empty();
-						$("#gallery").chromatic(photos.filter(function (el) {
-									return el.trip == selected;
-						}));
-						
+						filtered = photos.filter(function (el) { return el.trip == selected; });
+				  	$("#gallery").fadeTo(1250, 0, function() {
+						    $(this).empty().chromatic(filtered);
+						    $(this).fadeTo(1250, 1);
+						});
+
 	          d3.transition().delay(250).duration(2250)
 	              .tween("rotate", function() {
 	                interp.source(proj.rotate()).target(coords).distance();
@@ -434,9 +435,11 @@
 
 				$("#inv").on("click",function(){
 						asc = !asc;
-						$("#gallery").empty();
-						$("#gallery").chromatic(photos.sort(sortfn));
-
+						display = photos.sort(sortfn);
+						$("#gallery").fadeTo(1250, 0, function() {
+						    $(this).empty().chromatic(display);
+						    $(this).fadeTo(1250, 1);
+						});
 				});
 	});
 
