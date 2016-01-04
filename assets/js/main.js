@@ -14,8 +14,8 @@
 	});
 
 	var photos = [],
-	   asc = true,
-		 prop = "date";
+	    asc = true,
+		  prop = "date";
 	! function() {
 	  m = d3.behavior.zoom();
 	  function t(t, n, e) {
@@ -290,12 +290,12 @@
 	          });
 
 						filtered = photos.filter(function (el) { return el.trip == selected; });
-				  	$("#gallery").fadeTo(1250, 0, function() {
+				  	$("#gallery").fadeTo(750, 0, function() {
 						    $(this).empty().chromatic(filtered);
-						    $(this).fadeTo(1250, 1);
+						    $(this).fadeTo(750, 1);
 						});
 
-	          d3.transition().delay(250).duration(2250)
+	          d3.transition().delay(1500).duration(2000)
 	              .tween("rotate", function() {
 	                interp.source(proj.rotate()).target(coords).distance();
 	                var sc = d3.interpolate(proj.scale(), a / 2 - 10);
@@ -436,9 +436,9 @@
 				$("#inv").on("click",function(){
 						asc = !asc;
 						display = photos.sort(sortfn);
-						$("#gallery").fadeTo(1250, 0, function() {
+						$("#gallery").fadeTo(750, 0, function() {
 						    $(this).empty().chromatic(display);
-						    $(this).fadeTo(1250, 1);
+						    $(this).fadeTo(750, 1);
 						});
 				});
 	});
