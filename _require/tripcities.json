@@ -12,7 +12,7 @@
     },
     {
       "name": "E14",
-      "cities": ["Melbourne", "Doha", "Copenhagen", "Reykjavik", "Thingvellir", "Geysir", "Reykjavik", "Vik", "Skaftafell", "Jokulsarlon", "Skogarfoss", "Reykjavik", "Kristiansund",
+      "cities": ["Melbourne", "Doha", "Copenhagen", "Roskilde", "Copenhagen", "Reykjavik", "Thingvellir", "Geysir", "Reykjavik", "Vik", "Skaftafell", "Jokulsarlon", "Skogarfoss", "Reykjavik", "Kristiansund",
                  "Trondheim", "Rorvik", "Bodo", "Svolvaer", "Tromso", "Stockholm", "Saint Petersburg", "Petergof", "Pushkin", "Saint Petersburg", "Berlin", "Karlsruhe", "Frankfurt", "Doha"],
       "dates": ["2014/06"]
     },
