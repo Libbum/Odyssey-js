@@ -290,9 +290,10 @@
 	          });
 
 						filtered = photos.filter(function (el) { return el.trip == selected; });
-				  	$("#gallery").fadeTo(750, 0, function() {
-						    $(this).empty().chromatic(filtered);
-						    $(this).fadeTo(750, 1);
+						gallery = $("#gallery");
+				  	gallery.fadeTo(750, 0, function() {
+						    gallery.empty().chromatic(filtered);
+						    gallery.fadeTo(750, 1);
 						});
 
 	          d3.transition().delay(1500).duration(2000)
@@ -307,13 +308,15 @@
 	              });
 	          tripName = selected;
 	      }
+				return false;
 	    }),
 
 	    d3.json("assets/data/world.json", function(t, n) {
-	        d3.selectAll("svg").insert("path", ".graticule").datum({type: "Sphere"}).attr("class", "ocean"),
-	        d3.selectAll("svg").insert("path", ".foreground").datum(topojson.feature(n, n.objects.countries)).attr("class", "countries"),
-	        d3.selectAll("svg").insert("path", ".foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "cities").selectAll("LineString").attr("class", "route"),
-	        d3.selectAll("svg").insert("g", ".cities").attr("id", "routes"),
+				  var svg = d3.selectAll("svg");
+	        svg.insert("path", ".graticule").datum({type: "Sphere"}).attr("class", "ocean"),
+	        svg.insert("path", ".foreground").datum(topojson.feature(n, n.objects.countries)).attr("class", "countries"),
+	        svg.insert("path", ".foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "cities").selectAll("LineString").attr("class", "route"),
+	        svg.insert("g", ".cities").attr("id", "routes"),
 	        d3.selectAll("#routes").selectAll("path").data(topojson.feature(n, n.objects.trips).features).enter()
 	              .append("path").attr("id", function(d) { return d.properties.name; }).attr("class", "route")
 	              .attr("visibility", function(d) {
@@ -440,6 +443,7 @@
 						    $(this).empty().chromatic(display);
 						    $(this).fadeTo(750, 1);
 						});
+						return false;
 				});
 	});
 
