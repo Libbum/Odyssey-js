@@ -131,7 +131,10 @@ if __name__ == "__main__":
                 if infile.suffix.lower() == '.jpg': #PNGs don't have EXIF.
                     exif_data = get_exif_data(im)
                 try:
-                    im.thumbnail(maxsize, Image.ANTIALIAS)
+                    if ratio < 3:
+                        im.thumbnail(maxsize, Image.ANTIALIAS)
+                    else:
+                        im.thumbnail((900,500), Image.ANTIALIAS) #Image is a panorama
                     im.save(str(thumb))
                 except IOError:
                     print("Small image for", infile.relative_to(gallery), "failed.")
