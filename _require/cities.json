@@ -49,6 +49,7 @@
 { "type": "Feature", "properties": { "name": "Singapore", "country": "SGP" }, "geometry": { "type": "Point", "coordinates": [ 103.87, 1.36 ] } },
 { "type": "Feature", "properties": { "name": "London", "country": "GB1" }, "geometry": { "type": "Point", "coordinates": [ -0.13, 51.51 ] } },
 { "type": "Feature", "properties": { "name": "Melbourne", "country": "AU1" }, "geometry": { "type": "Point", "coordinates": [ 144.96, -37.81 ] } },
+{ "type": "Feature", "properties": { "name": "Sydney", "country": "AU1" }, "geometry": { "type": "Point", "coordinates": [ 151.21, -33.87 ] } },
 { "type": "Feature", "properties": { "name": "Hong Kong", "localname": "香港", "country": "CH1" }, "geometry": { "type": "Point", "coordinates": [ 114.18, 22.31 ] } }
 ]
 }
