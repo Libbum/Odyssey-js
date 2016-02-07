@@ -13,8 +13,33 @@
   });
 
   var photos = [],
-      asc = true,
-      prop = "date";
+      viewing = { filterKey: 'trip', filterProp: '', sortBy: ['!date','big','trip']  };
+
+      function filterSort() {
+        return photos.filter(function (el) { return el.trip == viewing.filterProp; }).sort(dynamicSort(viewing.sortBy));
+      }
+      function dynamicSort(property) {
+          var sortOrder = 1;
+          if(property[0] === "!") {
+              sortOrder = -1;
+              property = property.substr(1);
+          }
+          return function (a,b) {
+              var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+              return result * sortOrder;
+          }
+      }
+      function dynamicSortMultiple() {
+          var props = arguments;
+          return function (obj1, obj2) {
+              var i = 0, result = 0, numberOfProperties = props.length;
+              while(result === 0 && i < numberOfProperties) {
+                  result = dynamicSort(props[i])(obj1, obj2);
+                  i++;
+              }
+              return result;
+          }
+      }
   ! function() {
     m = d3.behavior.zoom();
     function t(t, n, e) {
@@ -288,7 +313,10 @@
                 }
             });
 
-            filtered = photos.filter(function (el) { return el.trip == selected; });
+            //filtered = photos.filter(function (el) { return el.trip == selected; }).sort(dynamicSort("big"));
+            viewing.filterProp = selected;
+            viewing.sortBy = ['!big']
+            filtered = filterSort();
             gallery = $("#gallery");
             gallery.fadeTo(750, 0, function() {
                 gallery.empty().chromatic(filtered);
@@ -431,13 +459,17 @@
         }
 
         $.getJSON('assets/data/manifest.json', function(p) {
-              photos = p.sort(sortfn);
+              photos = p.sort(dynamicSortMultiple(viewing.sortBy));
               $("#gallery").chromatic(photos);
         });
 
         $("#inv").on("click",function(){
-            asc = !asc;
-            display = photos.sort(sortfn);
+            if(viewing.sortBy[0][0] === "!") {
+              viewing.sortBy[0] = viewing.sortBy[0].substr(1);
+            } else {
+              viewing.sortBy[0] = "!"+viewing.sortBy[0];
+            }
+            display = filterSort();
             $("#gallery").fadeTo(750, 0, function() {
                 $(this).empty().chromatic(display);
                 $(this).fadeTo(750, 1);

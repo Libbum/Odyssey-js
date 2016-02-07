@@ -144,6 +144,7 @@ if __name__ == "__main__":
                     if infile.relative_to(gallery).parts[0:len(tpath)] == tpath:
                         manifest.append({'small': str(thumb.relative_to(gallery.parent).as_posix()), 'big': str(infile.relative_to(gallery.parent).as_posix()), 'aspect_ratio': ratio, 'trip': td[1], 'date': td[0]}) #Should only be one (or zero) per file..
                         tripfound = True
+                        break
                 if not tripfound:
                     manifest.append({'small': str(thumb.relative_to(gallery.parent).as_posix()), 'big': str(infile.relative_to(gallery.parent).as_posix()), 'aspect_ratio': ratio})
                 if args.loud:
