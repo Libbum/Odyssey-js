@@ -13,10 +13,12 @@
   });
 
   var photos = [],
-      viewing = { filterKey: 'trip', filterProp: '', sortBy: ['!date','big','trip']  };
+      viewing = { filterKey: '', filterProp: '', sortBy: ['!year', '!month', '!trip', 'filename']  };
 
       function filterSort() {
-        return photos.filter(function (el) { return el.trip == viewing.filterProp; }).sort(dynamicSort(viewing.sortBy));
+        //TODO: Filter needsa a similar switch as the sort function does.
+        //Perhaps separate the regex into a function and call it from here and sdm().
+        return photos.filter(function (el) { return el[viewing.filterKey] == viewing.filterProp; }).sort(dynamicSortMultiple(viewing.sortBy));
       }
       function dynamicSort(property) {
           var sortOrder = 1;
@@ -25,13 +27,47 @@
               property = property.substr(1);
           }
           return function (a,b) {
-              var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+              var left = '',
+                  right = '';
+             switch (property) {
+                  case 'date': //NOTE: Probably don't use date, use year & month because date is pulled from trip info and not all images are in a trip.
+                  case 'trip':
+                  case 'big':
+                      left = a[property];
+                      right = b[property];
+                      break;
+                  case 'country':
+                      details = /\d{4}\/\d{2}\/(\w+)/;
+                      left = details.exec(a['big']);
+                      right = details.exec(b['big']);
+                      break;
+                  case 'city':
+                      details = /\d{4}\/\d{2}\/\w+\/(\w+)/;
+                      left = details.exec(a['big']);
+                      right = details.exec(b['big']);
+                      break;
+                  case 'filename':
+                      details = /\d{4}\/\d{2}\/\w+\/\w+\/(\w+)/;
+                      left = details.exec(a['big']);
+                      right = details.exec(b['big']);
+                      break;
+                  case 'year':
+                      details = /(\d{4})\/\d{2}\//;
+                      left = details.exec(a['big']);
+                      right = details.exec(b['big']);
+                      break;
+                  case 'month':
+                      details = /\d{4}\/(\d{2})\//;
+                      left = details.exec(a['big']);
+                      right = details.exec(b['big']);
+                      break;
+              }
+              var result = (left < right) ? -1 : (left > right) ? 1 : 0;
               return result * sortOrder;
           }
       }
-      function dynamicSortMultiple() {
-          var props = arguments;
-          return function (obj1, obj2) {
+      function dynamicSortMultiple(props) {
+        return function (obj1, obj2) {
               var i = 0, result = 0, numberOfProperties = props.length;
               while(result === 0 && i < numberOfProperties) {
                   result = dynamicSort(props[i])(obj1, obj2);
@@ -313,9 +349,9 @@
                 }
             });
 
-            //filtered = photos.filter(function (el) { return el.trip == selected; }).sort(dynamicSort("big"));
+            viewing.filterKey = 'trip';
             viewing.filterProp = selected;
-            viewing.sortBy = ['!big']
+            viewing.sortBy = ['!year', '!month', 'filename'];
             filtered = filterSort();
             gallery = $("#gallery");
             gallery.fadeTo(750, 0, function() {
@@ -453,17 +489,13 @@
             .css('transition', 'none');
 
       //  Gallery
-        var sortfn = function(a,b) {
-          if (asc) return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
-          else return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
-        }
-
         $.getJSON('assets/data/manifest.json', function(p) {
               photos = p.sort(dynamicSortMultiple(viewing.sortBy));
               $("#gallery").chromatic(photos);
         });
 
         $("#inv").on("click",function(){
+            //TODO: This only worries about one param, may need to wory about many.
             if(viewing.sortBy[0][0] === "!") {
               viewing.sortBy[0] = viewing.sortBy[0].substr(1);
             } else {
