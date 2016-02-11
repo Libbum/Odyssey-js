@@ -15,10 +15,46 @@
   var photos = [],
       viewing = { filterKey: '', filterProp: '', sortBy: ['!year', '!month', '!trip', 'filename']  };
 
+      function deepProperties(arr, property) {
+          var res = '';
+         switch (property) {
+              case 'date': //NOTE: Probably don't use date, use year & month because date is pulled from trip info and not all images are in a trip.
+              case 'trip':
+              case 'big':
+                  res = arr[property];
+                  break;
+              case 'country':
+                  details = /\d{4}\/\d{2}\/(\w+)/;
+                  res = details.exec(arr['big']);
+                  break;
+              case 'city':
+                  details = /\d{4}\/\d{2}\/\w+\/(\w+)/;
+                  res = details.exec(arr['big']);
+                  break;
+              case 'filename':
+                  details = /\d{4}\/\d{2}\/\w+\/\w+\/(\w+)/;
+                  res = details.exec(arr['big']);
+                  break;
+              case 'year':
+                  details = /(\d{4})\/\d{2}\//;
+                  res = details.exec(arr['big']);
+                  break;
+              case 'month':
+                  details = /\d{4}\/(\d{2})\//;
+                  res = details.exec(arr['big']);
+                  break;
+          }
+          if (res) {
+              return res[1];
+          } else {
+              return '';
+          }
+      }
+
       function filterSort() {
-        //TODO: Filter needsa a similar switch as the sort function does.
-        //Perhaps separate the regex into a function and call it from here and sdm().
-        return photos.filter(function (el) { return el[viewing.filterKey] == viewing.filterProp; }).sort(dynamicSortMultiple(viewing.sortBy));
+        return photos.filter(function (el) {
+              return deepProperties(el, viewing.filterKey) == viewing.filterProp;
+          }).sort(dynamicSortMultiple(viewing.sortBy));
       }
       function dynamicSort(property) {
           var sortOrder = 1;
@@ -27,41 +63,8 @@
               property = property.substr(1);
           }
           return function (a,b) {
-              var left = '',
-                  right = '';
-             switch (property) {
-                  case 'date': //NOTE: Probably don't use date, use year & month because date is pulled from trip info and not all images are in a trip.
-                  case 'trip':
-                  case 'big':
-                      left = a[property];
-                      right = b[property];
-                      break;
-                  case 'country':
-                      details = /\d{4}\/\d{2}\/(\w+)/;
-                      left = details.exec(a['big']);
-                      right = details.exec(b['big']);
-                      break;
-                  case 'city':
-                      details = /\d{4}\/\d{2}\/\w+\/(\w+)/;
-                      left = details.exec(a['big']);
-                      right = details.exec(b['big']);
-                      break;
-                  case 'filename':
-                      details = /\d{4}\/\d{2}\/\w+\/\w+\/(\w+)/;
-                      left = details.exec(a['big']);
-                      right = details.exec(b['big']);
-                      break;
-                  case 'year':
-                      details = /(\d{4})\/\d{2}\//;
-                      left = details.exec(a['big']);
-                      right = details.exec(b['big']);
-                      break;
-                  case 'month':
-                      details = /\d{4}\/(\d{2})\//;
-                      left = details.exec(a['big']);
-                      right = details.exec(b['big']);
-                      break;
-              }
+              left = deepProperties(a, property);
+              right = deepProperties(b, property);
               var result = (left < right) ? -1 : (left > right) ? 1 : 0;
               return result * sortOrder;
           }
@@ -374,6 +377,22 @@
         return false;
       }),
 
+        $("#csub").on("click",function(){
+            var selected = $("#CountriesList").val();
+            if (selected !== viewing.filterProp) {
+                viewing.filterKey = 'country';
+                viewing.filterProp = selected;
+                viewing.sortBy = ['!year', '!month', 'filename'];
+                filtered = filterSort();
+                gallery = $("#gallery");
+                gallery.fadeTo(750, 0, function() {
+                    gallery.empty().chromatic(filtered);
+                    gallery.fadeTo(750, 1);
+                });
+           }
+            return false;
+        }),
+
       d3.json("assets/data/world.json", function(t, n) {
           var svg = d3.selectAll("svg");
           svg.insert("path", ".graticule").datum({type: "Sphere"}).attr("class", "ocean"),
@@ -487,6 +506,21 @@
         if (skel.vars.os == 'wp' && skel.vars.osVersion < 10)
           $('#titleBar, #header, #wrapper')
             .css('transition', 'none');
+
+      // Menus
+      $.getJSON('assets/data/menu.json', function(m) {
+          var sel =  document.getElementById('CountriesList');
+          var fragment = document.createDocumentFragment();
+
+          m.countries.forEach(function(nfo, index) {
+              var opt = document.createElement('option');
+              opt.innerHTML = nfo;
+              opt.value = nfo;
+              fragment.appendChild(opt);
+          });
+
+          sel.appendChild(fragment);
+        });
 
       //  Gallery
         $.getJSON('assets/data/manifest.json', function(p) {
