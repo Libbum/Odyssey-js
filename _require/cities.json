@@ -19,7 +19,7 @@
 { "type": "Feature", "properties": { "name": "Saint Petersburg", "localname": "Санкт-Петербу́рг", "country": "RUS" }, "geometry": { "type": "Point", "coordinates": [ 30.36, 59.93 ] } },
 { "type": "Feature", "properties": { "name": "Petergof", "localname": "Петергоф", "country": "RUS" }, "geometry": { "type": "Point", "coordinates": [ 29.89, 59.89 ] } },
 { "type": "Feature", "properties": { "name": "Pushkin", "localname": "Пушкин", "country": "RUS" }, "geometry": { "type": "Point", "coordinates": [ 30.41, 59.72 ] } },
-{ "type": "Feature", "properties": { "name": "Paris", "country": "FR1" }, "geometry": { "type": "Point", "coordinates": [ 2.35, 48.86 ] } },
+{ "type": "Feature", "properties": { "name": "Paris", "country": "FRA" }, "geometry": { "type": "Point", "coordinates": [ 2.35, 48.86 ] } },
 { "type": "Feature", "properties": { "name": "Berlin", "country": "DEU" }, "geometry": { "type": "Point", "coordinates": [ 13.41, 52.52 ] } },
 { "type": "Feature", "properties": { "name": "Frankfurt", "country": "DEU" }, "geometry": { "type": "Point", "coordinates": [ 8.68, 50.11 ] } },
 { "type": "Feature", "properties": { "name": "Karlsruhe", "country": "DEU" }, "geometry": { "type": "Point", "coordinates": [ 8.4, 49 ] } },
@@ -28,9 +28,9 @@
 { "type": "Feature", "properties": { "name": "Vienna", "localname": "Wien", "country": "AUS" }, "geometry": { "type": "Point", "coordinates": [ 16.38, 48.21 ] } },
 { "type": "Feature", "properties": { "name": "Budapest", "country": "HUN" }, "geometry": { "type": "Point", "coordinates": [ 19.04, 47.5 ] } },
 { "type": "Feature", "properties": { "name": "Prague", "localname": "Praha", "country": "CZE" }, "geometry": { "type": "Point", "coordinates": [ 14.44, 50.08 ] } },
-{ "type": "Feature", "properties": { "name": "Copenhagen", "localname": "København", "country": "DN1" }, "geometry": { "type": "Point", "coordinates": [ 12.57, 55.68 ] } },
-{ "type": "Feature", "properties": { "name": "Roskilde", "country": "DN1" }, "geometry": { "type": "Point", "coordinates": [ 12.09, 55.64 ] } },
-{ "type": "Feature", "properties": { "name": "Dronningmolle", "localname": "Dronningmølle", "country": "DN1" }, "geometry": { "type": "Point", "coordinates": [ 12.39, 56.1 ] } },
+{ "type": "Feature", "properties": { "name": "Copenhagen", "localname": "København", "country": "DNK" }, "geometry": { "type": "Point", "coordinates": [ 12.57, 55.68 ] } },
+{ "type": "Feature", "properties": { "name": "Roskilde", "country": "DNK" }, "geometry": { "type": "Point", "coordinates": [ 12.09, 55.64 ] } },
+{ "type": "Feature", "properties": { "name": "Dronningmolle", "localname": "Dronningmølle", "country": "DNK" }, "geometry": { "type": "Point", "coordinates": [ 12.39, 56.1 ] } },
 { "type": "Feature", "properties": { "name": "Doha", "localname": "الدوحة‎", "country": "QAT" }, "geometry": { "type": "Point", "coordinates": [ 51.53, 25.29 ] } },
 { "type": "Feature", "properties": { "name": "Ho Chi Minh City", "localname": "Thành phố Hồ Chí Minh", "country": "VNM" }, "geometry": { "type": "Point", "coordinates": [ 106.63, 10.82 ] } },
 { "type": "Feature", "properties": { "name": "Hanoi", "localname": "Hà Nội", "country": "VNM" }, "geometry": { "type": "Point", "coordinates": [ 105.83, 21.03 ] } },
@@ -47,9 +47,9 @@
 { "type": "Feature", "properties": { "name": "Kyoto", "localname": "京都市", "country": "JPN" }, "geometry": { "type": "Point", "coordinates": [ 135.77, 35.01 ] } },
 { "type": "Feature", "properties": { "name": "Tokyo", "localname": "東京", "country": "JPN" }, "geometry": { "type": "Point", "coordinates": [ 139.73, 35.71 ] } },
 { "type": "Feature", "properties": { "name": "Singapore", "country": "SGP" }, "geometry": { "type": "Point", "coordinates": [ 103.87, 1.36 ] } },
-{ "type": "Feature", "properties": { "name": "London", "country": "GB1" }, "geometry": { "type": "Point", "coordinates": [ -0.13, 51.51 ] } },
-{ "type": "Feature", "properties": { "name": "Melbourne", "country": "AU1" }, "geometry": { "type": "Point", "coordinates": [ 144.96, -37.81 ] } },
-{ "type": "Feature", "properties": { "name": "Sydney", "country": "AU1" }, "geometry": { "type": "Point", "coordinates": [ 151.21, -33.87 ] } },
-{ "type": "Feature", "properties": { "name": "Hong Kong", "localname": "香港", "country": "CH1" }, "geometry": { "type": "Point", "coordinates": [ 114.18, 22.31 ] } }
+{ "type": "Feature", "properties": { "name": "London", "country": "GBR" }, "geometry": { "type": "Point", "coordinates": [ -0.13, 51.51 ] } },
+{ "type": "Feature", "properties": { "name": "Melbourne", "country": "AUS" }, "geometry": { "type": "Point", "coordinates": [ 144.96, -37.81 ] } },
+{ "type": "Feature", "properties": { "name": "Sydney", "country": "AUS" }, "geometry": { "type": "Point", "coordinates": [ 151.21, -33.87 ] } },
+{ "type": "Feature", "properties": { "name": "Hong Kong", "localname": "香港", "country": "HKG" }, "geometry": { "type": "Point", "coordinates": [ 114.18, 22.31 ] } }
 ]
 }
