@@ -50,7 +50,16 @@
               return '';
           }
       }
-
+      function gallerySwapout() {
+          filtered = filterSort();
+          if (filtered.length > 1) {
+              gallery = $("#gallery");
+              gallery.fadeTo(750, 0, function() {
+                  gallery.empty().chromatic(filtered);
+                  gallery.fadeTo(750, 1);
+              });
+          }
+      }
       function filterSort() {
         return photos.filter(function (el) {
               return deepProperties(el, viewing.filterKey) == viewing.filterProp;
@@ -355,12 +364,7 @@
             viewing.filterKey = 'trip';
             viewing.filterProp = selected;
             viewing.sortBy = ['!year', '!month', 'filename'];
-            filtered = filterSort();
-            gallery = $("#gallery");
-            gallery.fadeTo(750, 0, function() {
-                gallery.empty().chromatic(filtered);
-                gallery.fadeTo(750, 1);
-            });
+            gallerySwapout();
 
             d3.transition().delay(1500).duration(2000)
                 .tween("rotate", function() {
@@ -383,12 +387,7 @@
                 viewing.filterKey = 'country';
                 viewing.filterProp = selected;
                 viewing.sortBy = ['!year', '!month', 'filename'];
-                filtered = filterSort();
-                gallery = $("#gallery");
-                gallery.fadeTo(750, 0, function() {
-                    gallery.empty().chromatic(filtered);
-                    gallery.fadeTo(750, 1);
-                });
+                gallerySwapout();
            }
             return false;
         }),
