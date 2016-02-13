@@ -316,6 +316,33 @@
 
       return interpolate;
     }
+
+    function tripView(selected) {
+        d3.selectAll(".route").each( function(d, i){
+           if(d.properties.name == selected){
+             d3.select(this).attr("visibility", "visible");
+             coords = getRotation(d.geometry.coordinates);
+           } else {
+             d3.select(this).attr("visibility", "hidden");
+           }
+       });
+       return coords;
+    }
+
+    function gotoView(coords) {
+      var interp = sphereRotate();
+      d3.transition().delay(1500).duration(2000)
+          .tween("rotate", function() {
+            interp.source(proj.rotate()).target(coords).distance();
+            var sc = d3.interpolate(proj.scale(), a / 2 - 10);
+            return function(i) {
+                 proj.rotate(interp(i)).scale(sc(i));
+                 m.scale(sc(i));
+                 d3.select("#map").selectAll("path").attr("d", d3.geo.path().projection(proj));
+               };
+          });
+    }
+
      function getRotation(coords) {
        var lat = 0,
            long = 0,
@@ -330,8 +357,7 @@
      }
       var a = 400,
           o = 400,
-          tripName = "A15",
-          proj = n(a, o),
+          proj = n(a, o).rotate([-40, -30]),
           r = d3.dispatch("world"),
           c = -1,
           d3_radians = Math.PI / 180;
@@ -349,35 +375,16 @@
       }),
 
       $("#tsub").on("click",function(){
-          var coords = [],
-              selected = $("#TripsList").val(),
-              interp = sphereRotate();
-         if (selected !== tripName) {
-             d3.selectAll(".route").each( function(d, i){
-                if(d.properties.name == selected){
-                  d3.select(this).attr("visibility", "visible");
-                  coords = getRotation(d.geometry.coordinates);
-                } else {
-                  d3.select(this).attr("visibility", "hidden");
-                }
-            });
+          var selected = $("#TripsList").val();
+         if (selected !== viewing.filterProp) {
+            coords = tripView(selected);
 
             viewing.filterKey = 'trip';
             viewing.filterProp = selected;
             viewing.sortBy = ['!year', '!month', 'filename'];
             gallerySwapout();
 
-            d3.transition().delay(1500).duration(2000)
-                .tween("rotate", function() {
-                  interp.source(proj.rotate()).target(coords).distance();
-                  var sc = d3.interpolate(proj.scale(), a / 2 - 10);
-                  return function(i) {
-                       proj.rotate(interp(i)).scale(sc(i));
-                       m.scale(sc(i));//update the zoom in the zoom behavior this will sop the jumping effect
-                       d3.select("#map").selectAll("path").attr("d", d3.geo.path().projection(proj));
-                     };
-                });
-            tripName = selected;
+            gotoView(coords);
         }
         return false;
       }),
@@ -385,6 +392,8 @@
         $("#csub").on("click",function(){
             var selected = $("#CountriesList").val();
             if (selected !== viewing.filterProp) {
+                tripView(selected);
+
                 viewing.filterKey = 'country';
                 viewing.filterProp = selected;
                 viewing.sortBy = ['!year', '!month', 'filename'];
@@ -426,7 +435,7 @@
           d3.selectAll("#routes").selectAll("path").data(topojson.feature(n, n.objects.trips).features).enter()
                 .append("path").attr("id", function(d) { return d.properties.name; }).attr("class", "route")
                 .attr("visibility", function(d) {
-                  if (d.properties.name == tripName) {
+                  if ((viewing.filterKey === 'trip') && (d.properties.name == viewing.filterProp)) {
                     proj.rotate(getRotation(d.geometry.coordinates));
                     return "visible";
                   } else {
