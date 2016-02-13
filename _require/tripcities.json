@@ -2,22 +2,26 @@
   "trips": [
     {
       "name": "J07",
+      "description": "Singapore/Japan 2007",
       "cities": ["Melbourne", "Singapore", "Osaka", "Himeji", "Osaka", "Hiroshima", "Koyasan", "Osaka", "Tokyo", "Kyoto", "Osaka"],
       "dates": ["2007/12"]
     },
     {
       "name": "E12",
+      "description": "Europe 2012",
       "cities": ["Melbourne", "Singapore", "Frankfurt", "Karlsruhe", "Munich", "Vienna", "Budapest", "Prague", "Riga", "Copenhagen", "Dronningmolle", "Berlin", "Paris", "Singapore"],
       "dates": ["2012/07", "2012/08"]
     },
     {
       "name": "E14",
+      "description": "Europe/Russia 2014",
       "cities": ["Melbourne", "Doha", "Copenhagen", "Roskilde", "Copenhagen", "Reykjavik", "Thingvellir", "Geysir", "Reykjavik", "Vik", "Skaftafell", "Jokulsarlon", "Skogarfoss", "Reykjavik", "Kristiansund",
                  "Trondheim", "Rorvik", "Bodo", "Svolvaer", "Tromso", "Stockholm", "Saint Petersburg", "Petergof", "Pushkin", "Saint Petersburg", "Berlin", "Karlsruhe", "Frankfurt", "Doha"],
       "dates": ["2014/06"]
     },
     {
       "name": "A15",
+      "description": "Vietnam/Thailand 2015",
       "cities": ["Melbourne", "Singapore", "Ho Chi Minh City", "Hanoi", "Ha Long Bay", "Hanoi", "Bangkok", "Kanchanaburi", "Bangkok", "Ayutthaya", "Bangkok", "Ko Samui", "Ko Tao", "Ko Samui", "Bangkok", "Melbourne"],
       "dates": ["2015/07"]
     }

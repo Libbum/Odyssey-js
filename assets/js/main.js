@@ -25,30 +25,31 @@
                   break;
               case 'country':
                   details = /\d{4}\/\d{2}\/(\w+)/;
-                  res = details.exec(arr['big']);
+                  back = details.exec(arr['big']);
+                  res = back[1];
                   break;
               case 'city':
                   details = /\d{4}\/\d{2}\/\w+\/(\w+)/;
-                  res = details.exec(arr['big']);
+                  back = details.exec(arr['big']);
+                  res = back[1];
                   break;
               case 'filename':
                   details = /\d{4}\/\d{2}\/\w+\/\w+\/(\w+)/;
-                  res = details.exec(arr['big']);
+                  back = details.exec(arr['big']);
+                  res = back[1];
                   break;
               case 'year':
                   details = /(\d{4})\/\d{2}\//;
-                  res = details.exec(arr['big']);
+                  back = details.exec(arr['big']);
+                  res = back[1];
                   break;
               case 'month':
                   details = /\d{4}\/(\d{2})\//;
-                  res = details.exec(arr['big']);
+                  back = details.exec(arr['big']);
+                  res = back[1];
                   break;
           }
-          if (res) {
-              return res[1];
-          } else {
-              return '';
-          }
+          return res;
       }
       function gallerySwapout() {
           filtered = filterSort();
@@ -347,9 +348,9 @@
           })
       }),
 
-      $("#sub").on("click",function(){
+      $("#tsub").on("click",function(){
           var coords = [],
-              selected = $("#Trips").val(),
+              selected = $("#TripsList").val(),
               interp = sphereRotate();
          if (selected !== tripName) {
              d3.selectAll(".route").each( function(d, i){
@@ -508,17 +509,25 @@
 
       // Menus
       $.getJSON('assets/data/menu.json', function(m) {
-          var sel =  document.getElementById('CountriesList');
-          var fragment = document.createDocumentFragment();
+          var cl =  document.getElementById('CountriesList');
+          var tl =  document.getElementById('TripsList');
+          var countriesF = document.createDocumentFragment();
+          var tripsF = document.createDocumentFragment();
 
           m.countries.forEach(function(nfo, index) {
               var opt = document.createElement('option');
               opt.innerHTML = nfo;
               opt.value = nfo;
-              fragment.appendChild(opt);
+              countriesF.appendChild(opt);
           });
-
-          sel.appendChild(fragment);
+          m.trips.forEach(function(nfo, index) {
+              var opt = document.createElement('option');
+              opt.innerHTML = nfo.desc;
+              opt.value = nfo.id;
+              tripsF.appendChild(opt);
+          });
+          cl.appendChild(countriesF);
+          tl.appendChild(tripsF);
         });
 
       //  Gallery

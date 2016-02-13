@@ -17,7 +17,8 @@ Array.prototype.findIndex = function(value){
 
 fs = require('fs'),
 countriesData = require("./countrylist.json"),
-citiesData = require("./cities.json");
+citiesData = require("./cities.json"),
+tripData = require("./tripcities.json");
 
 //So cities is probably always giong to need manual attention, so we'll just use it by default.
 var cc = [];
@@ -35,7 +36,11 @@ ccodes.forEach(function(i){
         console.log(i+" not found in country list.");
     }
 });
-data = data.slice(0,-2) + ' ] }';
+data = data.slice(0,-2) + ' ], "trips": [ ';
+tripData.trips.forEach(function(t){
+    data += '{ "id": "' + t.name + '", "desc": "' + t.description + '" },';
+});
+data = data.slice(0,-2) + '} ] }';
 
 fs.writeFile("../assets/data/menu.json", data, function(err) {
     if(err) {
