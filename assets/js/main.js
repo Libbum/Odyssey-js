@@ -393,6 +393,30 @@
             return false;
         }),
 
+        $("#inv").on("click",function(){
+            isDate = false;
+            if(viewing.sortBy[0][0] === "!") {
+              viewing.sortBy[0] = viewing.sortBy[0].substr(1);
+              if (viewing.sortBy[0] === 'year') {
+                isDate = true;
+              }
+            } else {
+              if (viewing.sortBy[0] === 'year') {
+                isDate = true;
+              }
+              viewing.sortBy[0] = "!"+viewing.sortBy[0];
+            }
+            if (isDate) {
+              if(viewing.sortBy[1][0] === "!") {
+                viewing.sortBy[1] = viewing.sortBy[1].substr(1);
+              } else {
+                viewing.sortBy[1] = "!"+viewing.sortBy[1];
+              }
+            }
+            gallerySwapout();
+            return false;
+        }),
+
       d3.json("assets/data/world.json", function(t, n) {
           var svg = d3.selectAll("svg");
           svg.insert("path", ".graticule").datum({type: "Sphere"}).attr("class", "ocean"),
@@ -536,20 +560,6 @@
               $("#gallery").chromatic(photos);
         });
 
-        $("#inv").on("click",function(){
-            //TODO: This only worries about one param, may need to wory about many.
-            if(viewing.sortBy[0][0] === "!") {
-              viewing.sortBy[0] = viewing.sortBy[0].substr(1);
-            } else {
-              viewing.sortBy[0] = "!"+viewing.sortBy[0];
-            }
-            display = filterSort();
-            $("#gallery").fadeTo(750, 0, function() {
-                $(this).empty().chromatic(display);
-                $(this).fadeTo(750, 1);
-            });
-            return false;
-        });
   });
 
 })(jQuery);
