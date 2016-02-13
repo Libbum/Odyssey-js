@@ -31,12 +31,12 @@ data = '{ "countries": [ ';
 ccodes.forEach(function(i){
     idx = countriesData.findIndex(i);
     if (idx >= 0) {
-        data += '"' + countriesData[idx].name.common + '", ';
+        data += '{ "id": "' + countriesData[idx].cca3 + '", "desc": "' + countriesData[idx].name.common + '" },';
     } else {
         console.log(i+" not found in country list.");
     }
 });
-data = data.slice(0,-2) + ' ], "trips": [ ';
+data = data.slice(0,-2) + '} ], "trips": [ ';
 tripData.trips.forEach(function(t){
     data += '{ "id": "' + t.name + '", "desc": "' + t.description + '" },';
 });

@@ -13,6 +13,7 @@
   });
 
   var photos = [],
+      countries = [],
       viewing = { filterKey: '', filterProp: '', sortBy: ['!year', '!month', '!trip', 'filename']  };
 
       function deepProperties(arr, property) {
@@ -317,16 +318,20 @@
       return interpolate;
     }
 
-    function tripView(selected) {
+    function tripView(selected, getCoords) {
         d3.selectAll(".route").each( function(d, i){
            if(d.properties.name == selected){
              d3.select(this).attr("visibility", "visible");
-             coords = getRotation(d.geometry.coordinates);
+             if (getCoords) {
+               coords = getRotation(d.geometry.coordinates);
+             }
            } else {
              d3.select(this).attr("visibility", "hidden");
            }
        });
-       return coords;
+       if (getCoords) {
+          return coords;
+       }
     }
 
     function gotoView(coords) {
@@ -377,7 +382,7 @@
       $("#tsub").on("click",function(){
           var selected = $("#TripsList").val();
          if (selected !== viewing.filterProp) {
-            coords = tripView(selected);
+            coords = tripView(selected, true);
 
             viewing.filterKey = 'trip';
             viewing.filterProp = selected;
@@ -391,14 +396,24 @@
 
         $("#csub").on("click",function(){
             var selected = $("#CountriesList").val();
-            if (selected !== viewing.filterProp) {
-                tripView(selected);
+            for (var i=0; i < countries.length; i++) {
+              if (countries[i].properties.su_a3 == selected) {
+                if (countries[i].properties.name !== viewing.filterProp) {
+                  var centroid = d3.geo.path().projection(function(d) { return d; }).centroid;
+                  coords = centroid(countries[i]);
 
-                viewing.filterKey = 'country';
-                viewing.filterProp = selected;
-                viewing.sortBy = ['!year', '!month', 'filename'];
-                gallerySwapout();
-           }
+                  tripView(selected, false);
+
+                  viewing.filterKey = 'country';
+                  viewing.filterProp = countries[i].properties.name;
+                  viewing.sortBy = ['!year', '!month', 'filename'];
+                  gallerySwapout();
+
+                  gotoView([-coords[0], -coords[1]]);
+                  break;
+                }
+              }
+            }
             return false;
         }),
 
@@ -428,6 +443,7 @@
 
       d3.json("assets/data/world.json", function(t, n) {
           var svg = d3.selectAll("svg");
+          countries = topojson.feature(n, n.objects.countries).features;
           svg.insert("path", ".graticule").datum({type: "Sphere"}).attr("class", "ocean"),
           svg.insert("path", ".foreground").datum(topojson.feature(n, n.objects.countries)).attr("class", "countries"),
           svg.insert("path", ".foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "cities").selectAll("LineString").attr("class", "route"),
@@ -549,8 +565,8 @@
 
           m.countries.forEach(function(nfo, index) {
               var opt = document.createElement('option');
-              opt.innerHTML = nfo;
-              opt.value = nfo;
+              opt.innerHTML = nfo.desc;
+              opt.value = nfo.id;
               countriesF.appendChild(opt);
           });
           m.trips.forEach(function(nfo, index) {
