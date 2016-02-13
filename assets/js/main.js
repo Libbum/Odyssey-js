@@ -319,6 +319,9 @@
     }
 
     function tripView(selected, getCoords) {
+        if (viewing.filterKey == 'country') {
+          d3.selectAll(".countries").attr("style", null);
+        }
         d3.selectAll(".route").each( function(d, i){
            if(d.properties.name == selected){
              d3.select(this).attr("visibility", "visible");
@@ -403,6 +406,7 @@
                   coords = centroid(countries[i]);
 
                   tripView(selected, false);
+                  d3.select("#"+selected).style("fill", "#962d3e");
 
                   viewing.filterKey = 'country';
                   viewing.filterProp = countries[i].properties.name;
@@ -443,11 +447,14 @@
 
       d3.json("assets/data/world.json", function(t, n) {
           var svg = d3.selectAll("svg");
+          svg.insert("path", ".graticule").datum({type: "Sphere"}).attr("class", "ocean");
           countries = topojson.feature(n, n.objects.countries).features;
-          svg.insert("path", ".graticule").datum({type: "Sphere"}).attr("class", "ocean"),
-          svg.insert("path", ".foreground").datum(topojson.feature(n, n.objects.countries)).attr("class", "countries"),
-          svg.insert("path", ".foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "cities").selectAll("LineString").attr("class", "route"),
-          svg.insert("g", ".cities").attr("id", "routes"),
+          svg.insert("g", ".foreground").attr("id", "countries");
+          d3.selectAll("#countries").selectAll("path").data(countries).enter()
+                .append("path").attr("class", "countries")
+                .attr("id", function(d,i) { return d.properties.su_a3; });
+          svg.insert("path", ".foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "cities").selectAll("LineString").attr("class", "route");
+          svg.insert("g", ".cities").attr("id", "routes");
           d3.selectAll("#routes").selectAll("path").data(topojson.feature(n, n.objects.trips).features).enter()
                 .append("path").attr("id", function(d) { return d.properties.name; }).attr("class", "route")
                 .attr("visibility", function(d) {
@@ -457,8 +464,8 @@
                   } else {
                     return "hidden";
                   }
-                }),
-          r.world()
+                });
+          r.world();
       })
   }();
 
