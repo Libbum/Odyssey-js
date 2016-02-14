@@ -52,8 +52,7 @@
           }
           return res;
       }
-      function gallerySwapout() {
-          filtered = filterSort();
+      function gallerySwapout(filtered) {
           if (filtered.length > 1) {
               gallery = $("#gallery");
               gallery.fadeTo(750, 0, function() {
@@ -382,53 +381,81 @@
           })
       }),
 
-      $("#tsub").on("click",function(){
-          var selected = $("#TripsList").val();
-         if (selected !== viewing.filterProp) {
-            coords = tripView(selected, true);
+        $("#navsub").click(function(){
+            if ($("#galSelTrip").is(":checked")) {
+              var selected = $("#MenuList").val();
+              if (selected !== viewing.filterProp) {
+                 coords = tripView(selected, true);
 
-            viewing.filterKey = 'trip';
-            viewing.filterProp = selected;
-            viewing.sortBy = ['!year', '!month', 'filename'];
-            gallerySwapout();
+                 viewing.filterKey = 'trip';
+                 viewing.filterProp = selected;
+                 viewing.sortBy = ['!filename', '!year', '!month'];
+                 if(viewing.sortBy[0][0] === "!") {
+                   viewing.sortBy = ['!filename', '!year', '!month'];
+                   $("#inv").html('<i class="fa fa-chevron-down"></i>');
+                 } else {
+                   viewing.sortBy = ['filename', '!year', '!month'];
+                   $("#inv").html('<i class="fa fa-chevron-up"></i>');
+                 }
+                 gallerySwapout(filterSort());
 
-            gotoView(coords);
-        }
-        return false;
-      }),
+                 gotoView(coords);
+             }
+            } else if ($("#galSelCountry").is(":checked")) {
+              var selected = $("#MenuList").val();
+              for (var i=0; i < countries.length; i++) {
+                if (countries[i].id == selected) {
+                  if (countries[i].properties.name !== viewing.filterProp) {
+                    var centroid = d3.geo.path().projection(function(d) { return d; }).centroid;
+                    coords = centroid(countries[i]);
 
-        $("#csub").on("click",function(){
-            var selected = $("#CountriesList").val();
-            for (var i=0; i < countries.length; i++) {
-              if (countries[i].id == selected) {
-                if (countries[i].properties.name !== viewing.filterProp) {
-                  var centroid = d3.geo.path().projection(function(d) { return d; }).centroid;
-                  coords = centroid(countries[i]);
+                    tripView(selected, false);
+                    d3.select("#"+selected).style("fill", "#962d3e");
 
-                  tripView(selected, false);
-                  d3.select("#"+selected).style("fill", "#962d3e");
+                    viewing.filterKey = 'country';
+                    viewing.filterProp = countries[i].properties.name;
+                    if(viewing.sortBy[0][0] === "!") {
+                      viewing.sortBy = ['!year', '!month', 'filename'];
+                      $("#inv").html('<i class="fa fa-chevron-down"></i>');
+                    } else {
+                      viewing.sortBy = ['year', 'month', 'filename'];
+                      $("#inv").html('<i class="fa fa-chevron-up"></i>');
+                    }
 
-                  viewing.filterKey = 'country';
-                  viewing.filterProp = countries[i].properties.name;
-                  viewing.sortBy = ['!year', '!month', 'filename'];
-                  gallerySwapout();
+                    gallerySwapout(filterSort());
 
-                  gotoView([-coords[0], -coords[1]]);
-                  break;
+                    gotoView([-coords[0], -coords[1]]);
+                    break;
+                  }
                 }
               }
+            } else {
+              tripView('', false);
+              if(viewing.sortBy[0][0] === "!") {
+                viewing = { filterKey: '', filterProp: '', sortBy: ['!year', '!month', '!trip', 'filename']  };
+                $("#inv").html('<i class="fa fa-chevron-down"></i>');
+              } else {
+                viewing = { filterKey: '', filterProp: '', sortBy: ['year', 'month', '!trip', 'filename']  };
+                $("#inv").html('<i class="fa fa-chevron-up"></i>');
+              }
+              var filtered = photos.sort(dynamicSortMultiple(viewing.sortBy));
+              gallerySwapout(filtered);
+
+              gotoView([-40, -30]);
             }
             return false;
         }),
 
-        $("#inv").on("click",function(){
-            isDate = false;
+        $("#inv").click(function(){
+            var isDate = false;
             if(viewing.sortBy[0][0] === "!") {
+              $(this).html('<i class="fa fa-chevron-up"></i>');
               viewing.sortBy[0] = viewing.sortBy[0].substr(1);
               if (viewing.sortBy[0] === 'year') {
                 isDate = true;
               }
             } else {
+              $(this).html('<i class="fa fa-chevron-down"></i>');
               if (viewing.sortBy[0] === 'year') {
                 isDate = true;
               }
@@ -441,7 +468,7 @@
                 viewing.sortBy[1] = "!"+viewing.sortBy[1];
               }
             }
-            gallerySwapout();
+            gallerySwapout(filterSort());
             return false;
         }),
 
@@ -479,6 +506,7 @@
     // Fix: Placeholder polyfill.
       $('form').placeholder();
 
+      $('#MenuList').hide();
     // Prioritize "important" elements on medium.
       skel.on('+medium -medium', function() {
         $.prioritize(
@@ -564,26 +592,9 @@
             .css('transition', 'none');
 
       // Menus
+      var menu;
       $.getJSON('assets/data/menu.json', function(m) {
-          var cl =  document.getElementById('CountriesList');
-          var tl =  document.getElementById('TripsList');
-          var countriesF = document.createDocumentFragment();
-          var tripsF = document.createDocumentFragment();
-
-          m.countries.forEach(function(nfo, index) {
-              var opt = document.createElement('option');
-              opt.innerHTML = nfo.desc;
-              opt.value = nfo.id;
-              countriesF.appendChild(opt);
-          });
-          m.trips.forEach(function(nfo, index) {
-              var opt = document.createElement('option');
-              opt.innerHTML = nfo.desc;
-              opt.value = nfo.id;
-              tripsF.appendChild(opt);
-          });
-          cl.appendChild(countriesF);
-          tl.appendChild(tripsF);
+          menu = m;
         });
 
       //  Gallery
@@ -592,6 +603,37 @@
               $("#gallery").chromatic(photos);
         });
 
+        function fillMenu(type) {
+          var menuList =  document.getElementById('MenuList');
+          while (menuList.firstChild) {
+              menuList.removeChild(menuList.firstChild);
+          }
+          var fragment = document.createDocumentFragment();
+          menu[type].forEach(function(nfo, index) {
+              var opt = document.createElement('option');
+              opt.innerHTML = nfo.desc;
+              opt.value = nfo.id;
+              fragment.appendChild(opt);
+          });
+          menuList.appendChild(fragment);
+        };
+
+        $("input[name='galSelection']").change(function(){
+          switch ($(this).attr('id')) {
+            case 'galSelAll':
+                $('#MenuList').hide('fast');
+                break;
+            case 'galSelTrip':
+                fillMenu('trips');
+                $('#MenuList:hidden').show('fast');
+                break;
+            case 'galSelCountry':
+                fillMenu('countries');
+                $('#MenuList:hidden').show('fast');
+                break;
+          }
+          return false;
+      });
   });
 
 })(jQuery);

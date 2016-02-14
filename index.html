@@ -50,15 +50,22 @@
 						<!-- One -->
 							<section id="one">
 								<div class="container">
-									<select id="TripsList">
-									</select>
-									<input type="button" id="tsub" value="OK"/>
+									<form>
+									<fieldset>
+									Viewing: &nbsp;
+									<input type="radio" id="galSelAll" name="galSelection" checked>
+									<label for="galSelAll">Everything</label>
+									<input type="radio" id="galSelTrip" name="galSelection">
+									<label for="galSelTrip">A Trip</label>
+									<input type="radio" id="galSelCountry" name="galSelection">
+									<label for="galSelCountry">A Country</label>
+									<button type="submit" id="inv" class="button"><i class="fa fa-chevron-down"></i></button>
 
-									<input type="button" id="inv" value="ASC/DESC"/>
+								 </fieldset>
+								 <select id="MenuList"></select>
+								 <input type="button" id="navsub" value="OK"/>
+							 </form>
 
-									<select id="CountriesList">
-									</select>
-									<input type="button" id="csub" value="OK"/>
 								</div>
 							</section>
 
