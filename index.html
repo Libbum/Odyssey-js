@@ -27,19 +27,42 @@
 						<span class="quote-right">&mdash; Aurelius Augustinus Hipponensis</span></p>
 				</header>
 				<nav id="nav">
-					<ul>
+					<div class="row">
+
+					    <div class="-1u 6u align-left">
+								<input type="radio" id="galSelAll" name="galSelection" checked>
+								<label for="galSelAll">Everything</label><br>
+								<input type="radio" id="galSelTrip" name="galSelection">
+								<label for="galSelTrip">A Trip</label><br>
+								<input type="radio" id="galSelCountry" name="galSelection">
+								<label for="galSelCountry">A Country</label>
+							</div>
+					    <div class="4u$">
+								<button type="submit" id="inv" class="button fit"><i class="fa fa-chevron-down"></i></button><br>
+								<input type="button" class="fit" id="navsub" value="View"/>
+							</div>
+							<div class="12u">
+								<select id="MenuList"></select>
+							</div>
+					</div>
+
+
+
+
+
+					<!--<ul>
 						<li><a href="#one" class="active">Introduction</a></li>
 						<li><a href="#two">Gallery</a></li>
-					</ul>
+					</ul>-->
 				</nav>
-				<footer>
+			<!--	<footer> -->
 					<ul class="icons">
 						<li><a href="https://github.com/Libbum/Odyssey" class="icon fa-github"><span class="label">Github</span></a></li>
 						<li><a href="https://www.facebook.com/Libbum" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
 						<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li> <!--TODO: Build a modal for this-->
 						<li><a href="https:/telegram.me/Libbum" class="icon fa-location-arrow"><span class="label">Telegram</span></a></li>
 					</ul>
-				</footer>
+			<!--	</footer> -->
 			</section>
 
 		<!-- Wrapper -->
@@ -47,32 +70,9 @@
 
 				<!-- Main -->
 					<div id="main">
-						<!-- One -->
-							<section id="one">
-								<div class="container">
-									<form>
-									<fieldset>
-									Viewing: &nbsp;
-									<input type="radio" id="galSelAll" name="galSelection" checked>
-									<label for="galSelAll">Everything</label>
-									<input type="radio" id="galSelTrip" name="galSelection">
-									<label for="galSelTrip">A Trip</label>
-									<input type="radio" id="galSelCountry" name="galSelection">
-									<label for="galSelCountry">A Country</label>
-									<button type="submit" id="inv" class="button"><i class="fa fa-chevron-down"></i></button>
 
-								 </fieldset>
-								 <select id="MenuList"></select>
-								 <input type="button" id="navsub" value="OK"/>
-							 </form>
-
-								</div>
-							</section>
-
-						<!-- Two -->
-							<section id="two">
 								<div id="gallery"></div>
-							</section>
+
 					</div>
 
 			</div>

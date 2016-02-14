@@ -3267,7 +3267,7 @@ body {
   background: #fff; }
 
 body, input, select, textarea {
-  color: #888;
+  color: #343642;
   font-family: "Lato", sans-serif;
   font-size: 16pt;
   font-weight: 400;
@@ -3435,7 +3435,6 @@ textarea {
   border-radius: 5px;
   border: none;
   border: solid 2px #e4e4e4;
-  color: inherit;
   display: block;
   outline: 0;
   padding: 0 1em;
@@ -3504,7 +3503,7 @@ input[type="radio"] {
   input[type="checkbox"] + label,
   input[type="radio"] + label {
     text-decoration: none;
-    color: #888;
+    color: #cce1e6;
     cursor: pointer;
     display: inline-block;
     font-size: 1em;
@@ -3522,9 +3521,9 @@ input[type="radio"] {
       text-transform: none !important; }
     input[type="checkbox"] + label:before,
     input[type="radio"] + label:before {
-      background: #fafafa;
+      background: #343642;
       border-radius: 5px;
-      border: solid 2px #e4e4e4;
+      border: solid 2px #348899;
       content: '';
       display: inline-block;
       height: 1.65em;
@@ -3536,13 +3535,13 @@ input[type="radio"] {
       width: 1.65em; }
   input[type="checkbox"]:checked + label:before,
   input[type="radio"]:checked + label:before {
-    background: #989898;
-    border-color: #989898;
-    color: #ffffff;
+    background: #348899;
+    border-color: #cce1e6;
+    color: #343642;
     content: '\f00c'; }
   input[type="checkbox"]:focus + label:before,
   input[type="radio"]:focus + label:before {
-    border-color: #343642; }
+    border-color: #cce1e6; }
 
 input[type="checkbox"] + label:before {
   border-radius: 5px; }
@@ -3691,6 +3690,7 @@ ul {
         top: 0;
         width: 2.5em; }
   ul.icons {
+    margin-top: 1em;
     cursor: default;
     list-style: none;
     padding-left: 0; }
@@ -3798,7 +3798,7 @@ input[type="button"],
   -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  background-color: #989898;
+  background-color: #348899;
   border-radius: 5px;
   border: 0;
   color: #ffffff !important;
@@ -3821,7 +3821,7 @@ input[type="button"],
   input[type="reset"]:active,
   input[type="button"]:active,
   .button:active {
-    background-color: #8b8b8b; }
+    background-color: #9dc5cd; }
   input[type="submit"].icon,
   input[type="reset"].icon,
   input[type="button"].icon,
@@ -3837,7 +3837,7 @@ input[type="button"],
   input[type="button"].fit,
   .button.fit {
     display: block;
-    margin: 0 0 1.125em 0;
+    margin: 10px 0 0 0;
     width: 100%; }
   input[type="submit"].small,
   input[type="reset"].small,

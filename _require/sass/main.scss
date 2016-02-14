@@ -54,7 +54,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 	}
 
 	body, input, select, textarea {
-		color: _palette(fg);
+		color: _palette(tuna);
 		font-family: _font(family);
 		font-size: 16pt;
 		font-weight: _font(weight);
@@ -270,7 +270,6 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 		border-radius: _size(border-radius);
 		border: none;
 		border: solid _size(border-width) _palette(border2);
-		color: inherit;
 		display: block;
 		outline: 0;
 		padding: 0 1em;
@@ -333,7 +332,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 
 		& + label {
 			@include icon;
-			color: _palette(fg);
+			color: _palette(header, fg);
 			cursor: pointer;
 			display: inline-block;
 			font-size: 1em;
@@ -343,9 +342,9 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 			position: relative;
 
 			&:before {
-				background: _palette(border-bg);
+				background: _palette(tuna);
 				border-radius: _size(border-radius);
-				border: solid _size(border-width) _palette(border2);
+				border: solid _size(border-width) _palette(header, fg-bold);
 				content: '';
 				display: inline-block;
 				height: (_size(element-height) * 0.6);
@@ -360,16 +359,16 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 
 		&:checked + label {
 			&:before {
-				background: _palette(accent2, bg);
-				border-color: _palette(accent2, bg);
-				color: _palette(accent2, fg-bold);
+				background: _palette(astral);
+				border-color: _palette(header, fg);
+				color: _palette(tuna);
 				content: '\f00c';
 			}
 		}
 
 		&:focus + label {
 			&:before {
-				border-color: _palette(accent1, bg);
+				border-color: _palette(header, fg);
 			}
 		}
 	}
@@ -567,6 +566,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 		}
 
 		&.icons {
+			margin-top: 1em;
 			cursor: default;
 			list-style: none;
 			padding-left: 0;
@@ -749,7 +749,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 	.button {
 		@include vendor('appearance', 'none');
 		@include vendor('transition', ('background-color #{_duration(transition)} ease-in-out', 'color #{_duration(transition)} ease-in-out'));
-		background-color: _palette(accent2, bg);
+		background-color: _palette(header, fg-bold);
 		border-radius: _size(border-radius);
 		border: 0;
 		color: _palette(accent2, fg-bold) !important;
@@ -769,7 +769,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 		}
 
 		&:active {
-			background-color: darken(_palette(accent2, bg), 5);
+			background-color: darken(_palette(header, fg-light), 5);
 		}
 
 		&.icon {
@@ -782,7 +782,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 
 		&.fit {
 			display: block;
-			margin: 0 0 (_size(element-margin) * 0.5) 0;
+			margin: 10px 0 0 0;
 			width: 100%;
 		}
 
