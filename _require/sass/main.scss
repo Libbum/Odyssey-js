@@ -1170,55 +1170,6 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
   fill: _palette(stiletto);
 }
 
-/* One */
-
-	#one {
-		&:before {
-			background-image: url('../../images/banner.jpg');
-			background-position: top right;
-			background-repeat: no-repeat;
-			background-size: cover;
-			content: '';
-			display: block;
-			height: 15em;
-			width: 100%;
-		}
-	}
-
-/* Footer */
-
-	#footer {
-		background: #fafafa;
-		border-top: 0;
-		color: #c0c0c0;
-		overflow: hidden;
-		padding: 4em 0 2em 0;
-
-		.copyright {
-			line-height: 1em;
-			list-style: none;
-			padding: 0;
-
-			li {
-				border-left: solid 1px #d4d4d4;
-				display: inline-block;
-				font-size: 0.8em;
-				margin-left: 1em;
-				padding-left: 1em;
-
-				&:first-child {
-					border-left: 0;
-					margin-left: 0;
-					padding-left: 0;
-				}
-
-				a {
-					color: inherit;
-				}
-			}
-		}
-	}
-
 /* XLarge */
 
 	@include breakpoint(xlarge) {
@@ -1369,14 +1320,6 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 				@include vendor('backface-visibility', 'hidden');
 				@include vendor('transition', 'transform #{_duration(header)} ease');
 				padding: 44px 0 1px 0;
-			}
-
-		/* One */
-
-			#one {
-				&:before {
-					height: 10em;
-				}
 			}
 
 		/* Off-Canvas Navigation */
@@ -1596,34 +1539,6 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 				> section {
 					> .container {
 						padding: 2em 0 0 0;
-					}
-				}
-			}
-
-		/* One */
-
-			#one {
-				&:before {
-					height: 7em;
-				}
-			}
-
-		/* Footer */
-
-			#footer {
-				text-align: center;
-
-				.copyright {
-					li {
-						border-left: 0;
-						display: block;
-						line-height: 1.75em;
-						margin: 0.75em 0 0 0;
-						padding-left: 0;
-
-						&:first-child {
-							margin-top: 0;
-						}
 					}
 				}
 			}

@@ -17,4 +17,4 @@ cabal.sandbox.config
 gallery/
 manifest.json
 .sass-cache
-main.css.map
+*.css.map
