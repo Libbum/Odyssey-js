@@ -400,7 +400,7 @@
         $("#csub").on("click",function(){
             var selected = $("#CountriesList").val();
             for (var i=0; i < countries.length; i++) {
-              if (countries[i].properties.su_a3 == selected) {
+              if (countries[i].id == selected) {
                 if (countries[i].properties.name !== viewing.filterProp) {
                   var centroid = d3.geo.path().projection(function(d) { return d; }).centroid;
                   coords = centroid(countries[i]);
@@ -450,9 +450,9 @@
           svg.insert("path", ".graticule").datum({type: "Sphere"}).attr("class", "ocean");
           countries = topojson.feature(n, n.objects.countries).features;
           svg.insert("g", ".foreground").attr("id", "countries");
-          d3.selectAll("#countries").selectAll("path").data(countries).enter()
+          d3.selectAll("#countries").selectAll("path").data(countries.filter(function(d) { return d.geometry.type !== 'Point'; })).enter()
                 .append("path").attr("class", "countries")
-                .attr("id", function(d,i) { return d.properties.su_a3; });
+                .attr("id", function(d,i) { return d.id; });
           svg.insert("path", ".foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "cities").selectAll("LineString").attr("class", "route");
           svg.insert("g", ".cities").attr("id", "routes");
           d3.selectAll("#routes").selectAll("path").data(topojson.feature(n, n.objects.trips).features).enter()
