@@ -274,7 +274,8 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 		outline: 0;
 		padding: 0 1em;
 		text-decoration: none;
-		width: 100%;
+		width: 90%;
+		margin: 0 auto 1em auto;
 
 		&:invalid {
 			box-shadow: none;

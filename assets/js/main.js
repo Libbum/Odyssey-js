@@ -502,11 +502,11 @@
       $header = $('#header'),
       $nav = $('#nav'), $nav_a = $nav.find('a'),
       $wrapper = $('#wrapper');
-
+      $menuList = $('#MenuList');
     // Fix: Placeholder polyfill.
       $('form').placeholder();
-
-      $('#MenuList').hide();
+      $menuList.css({'visibility': 'hidden', 'opacity': 0});
+      // $('#MenuList').hide();
     // Prioritize "important" elements on medium.
       skel.on('+medium -medium', function() {
         $.prioritize(
@@ -621,15 +621,15 @@
         $("input[name='galSelection']").change(function(){
           switch ($(this).attr('id')) {
             case 'galSelAll':
-                $('#MenuList').hide('fast');
+                $menuList.animate({opacity: 0}, 1000, function(){$(this).css('visibility', 'hidden');});
                 break;
             case 'galSelTrip':
                 fillMenu('trips');
-                $('#MenuList:hidden').show('fast');
+                $menuList.css('visibility', 'visible').animate({opacity: 1}, 1000);
                 break;
             case 'galSelCountry':
                 fillMenu('countries');
-                $('#MenuList:hidden').show('fast');
+                $menuList.css('visibility', 'visible').animate({opacity: 1}, 1000);
                 break;
           }
           return false;
