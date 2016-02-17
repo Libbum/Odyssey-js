@@ -275,7 +275,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 		padding: 0 1em;
 		text-decoration: none;
 		width: 90%;
-		margin: 0 auto 1em auto;
+		margin: 1em auto;
 
 		&:invalid {
 			box-shadow: none;
@@ -789,6 +789,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 
 		&.small {
 			font-size: 0.8em;
+			line-height: 1.8em;
 		}
 
 		&.big {
@@ -919,6 +920,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 		> header {
 			padding: 3em;
 			padding-top: 0.5em;
+			padding-bottom: 1em;
 
 			.avatar {
 				display: block;
@@ -942,6 +944,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 			bottom: 0;
 			left: 0;
 			padding: 2em;
+			padding-top: 0.5em;
 			position: absolute;
 			width: 100%;
 
@@ -1191,10 +1194,12 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 				> header {
 					padding: 2em;
 					padding-top: 0.5em;
+					padding-bottom: 1em;
 				}
 
 				> footer {
 					padding: 1.5em;
+					padding-top: 0.5em;
 				}
 			}
 
@@ -1514,6 +1519,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 				> header {
 					padding: 2em;
 					padding-top: 0.5em;
+					padding-bottom: 1em;
 
 					.avatar {
 						margin: 0 auto (_size(element-margin) * 0.75) auto;
@@ -1531,6 +1537,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 
 				> footer {
 					padding: 1.5em;
+					padding-top: 0.5em;
 				}
 			}
 

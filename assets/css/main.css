@@ -3440,7 +3440,7 @@ textarea {
   padding: 0 1em;
   text-decoration: none;
   width: 90%;
-  margin: 0 auto 1em auto; }
+  margin: 1em auto; }
   input[type="text"]:invalid,
   input[type="password"]:invalid,
   input[type="email"]:invalid,
@@ -3844,7 +3844,8 @@ input[type="button"],
   input[type="reset"].small,
   input[type="button"].small,
   .button.small {
-    font-size: 0.8em; }
+    font-size: 0.8em;
+    line-height: 1.8em; }
   input[type="submit"].big,
   input[type="reset"].big,
   input[type="button"].big,
@@ -3947,7 +3948,8 @@ input[type="button"],
       color: #348899 !important; }
   #header > header {
     padding: 3em;
-    padding-top: 0.5em; }
+    padding-top: 0.5em;
+    padding-bottom: 1em; }
     #header > header .avatar {
       display: block;
       margin: 0 auto 2.25em auto;
@@ -3963,6 +3965,7 @@ input[type="button"],
     bottom: 0;
     left: 0;
     padding: 2em;
+    padding-top: 0.5em;
     position: absolute;
     width: 100%; }
     #header > footer .icons {
@@ -4159,9 +4162,11 @@ input[type="button"],
     width: 21em; }
     #header > header {
       padding: 2em;
-      padding-top: 0.5em; }
+      padding-top: 0.5em;
+      padding-bottom: 1em; }
     #header > footer {
-      padding: 1.5em; }
+      padding: 1.5em;
+      padding-top: 0.5em; }
 
   /* Wrapper */
   #wrapper {
@@ -4367,7 +4372,8 @@ input[type="button"],
     right: 0; }
     #header > header {
       padding: 2em;
-      padding-top: 0.5em; }
+      padding-top: 0.5em;
+      padding-bottom: 1em; }
       #header > header .avatar {
         margin: 0 auto 1.6875em auto;
         width: 6em; }
@@ -4376,7 +4382,8 @@ input[type="button"],
       #header > header p {
         margin: 1em 0 0 0; }
     #header > footer {
-      padding: 1.5em; }
+      padding: 1.5em;
+      padding-top: 0.5em; }
 
   /* Main */
   #main > section > .container {

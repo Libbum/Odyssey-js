@@ -503,8 +503,11 @@
       $nav = $('#nav'), $nav_a = $nav.find('a'),
       $wrapper = $('#wrapper');
       $menuList = $('#MenuList');
+      $navMenu = $('#navMenu');
+      $navTitle = $('#navTitle');
     // Fix: Placeholder polyfill.
       $('form').placeholder();
+      $navMenu.hide();
       $menuList.css({'visibility': 'hidden', 'opacity': 0});
       // $('#MenuList').hide();
     // Prioritize "important" elements on medium.
@@ -595,6 +598,11 @@
       var menu;
       $.getJSON('assets/data/menu.json', function(m) {
           menu = m;
+        });
+        $('#showMenu').click(function(){
+            $navTitle.toggle('fast', function(){
+               $navMenu.toggle();
+            });
         });
 
       //  Gallery
