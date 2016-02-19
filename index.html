@@ -50,10 +50,6 @@
 
 
 
-					<!--<ul>
-						<li><a href="#one" class="active">Introduction</a></li>
-						<li><a href="#two">Gallery</a></li>
-					</ul>-->
 				</nav>
 				<footer>
 					<ul class="icons">
@@ -72,6 +68,20 @@
 					<div id="main">
 
 								<div id="gallery"></div>
+
+								<form id="contactForm" method="post" action="process.php">
+																	<div class="row uniform 50%">
+																		<div class="6u 12u$(xsmall)"><input type="text" name="name" required= id="name" placeholder="Name" /></div>
+																		<div class="6u$ 12u$(xsmall)"><input type="email" name="email" required id="email" placeholder="Email" /></div>
+																		<div class="12u$"><textarea name="message" id="message" placeholder="Message" spellcheck="true" required rows="4"></textarea></div>
+																		<div class="3u"><img src="image.php" class="verify-img" alt="Verification code" /></div>
+																		<div class="9u$"><input name="verify" type="text" id="verify" size="6" placeholder="Copy the code" required title="This confirms you are a human user or strong AI and not a spam-bot." /></div>
+																	</div>
+																<ul class="actions">
+																	<li><input type="submit" value="Send Message" /></li>
+																</ul>
+																<div id="response" class="response"></div>
+																</form>
 
 					</div>
 
