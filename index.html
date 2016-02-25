@@ -4,93 +4,93 @@
 	Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is released under the MIT license.
 -->
 <html>
-	<head>
-		<title>Odyssey</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-		<script src="assets/js/chromatic.js" type="text/javascript"></script>
-		<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-	</head>
-	<body>
 
-		<!-- Header -->
-			<section id="header">
-				<div id="map"></div>
-				<header id="navTitle">
-					<h1 id="logo"><a href="#">Odyssey</a></h1>
-					<p>The world is a book and those who do not travel	read only one page.<br />
-						<span class="quote-right">&mdash; Aurelius Augustinus Hipponensis</span></p>
-				</header>
-				<button type="submit" id="showMenu" class="button small"><i class="fa fa-sliders fa-2x"></i></button>
-				<nav id="nav">
-					<div class="row" id="navMenu">
-							<div class="12u">
-								<select id="MenuList"></select>
-							</div>
-					    <div class="-1u 6u align-left">
-								<input type="radio" id="galSelAll" name="galSelection" checked>
-								<label for="galSelAll">Everything</label><br>
-								<input type="radio" id="galSelTrip" name="galSelection">
-								<label for="galSelTrip">A Trip</label><br>
-								<input type="radio" id="galSelCountry" name="galSelection">
-								<label for="galSelCountry">A Country</label>
-							</div>
-					    <div class="4u$">
-								<button type="submit" id="inv" class="button fit"><i class="fa fa-chevron-down"></i></button><br>
-								<input type="button" class="fit" id="navsub" value="View"/>
-							</div>
-					</div>
+<head>
+   <title>Odyssey</title>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+   <script src="assets/js/chromatic.js" type="text/javascript"></script>
+   <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
+   <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+   <link rel="stylesheet" href="assets/css/main.css" />
+   <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+</head>
 
+<body>
 
+   <!-- Header -->
+   <section id="header">
+      <div id="map"></div>
+      <header id="navTitle">
+         <h1 id="logo"><a href="#">Odyssey</a></h1>
+         <p>The world is a book and those who do not travel read only one page.<br />
+            <span class="quote-right">&mdash; Aurelius Augustinus Hipponensis</span></p>
+      </header>
+      <button type="submit" id="showMenu" class="button small"><i class="fa fa-sliders fa-2x"></i></button>
+      <nav id="nav">
+         <div class="row" id="navMenu">
+            <div class="12u">
+               <select id="MenuList"></select>
+            </div>
+            <div class="-1u 6u align-left">
+               <input type="radio" id="galSelAll" name="galSelection" checked>
+               <label for="galSelAll">Everything</label><br>
+               <input type="radio" id="galSelTrip" name="galSelection">
+               <label for="galSelTrip">A Trip</label><br>
+               <input type="radio" id="galSelCountry" name="galSelection">
+               <label for="galSelCountry">A Country</label>
+            </div>
+            <div class="4u$">
+               <button type="submit" id="inv" class="button fit"><i class="fa fa-chevron-down"></i></button><br>
+               <input type="button" class="fit" id="navsub" value="View" />
+            </div>
+         </div>
 
+      </nav>
+      <footer>
+         <ul class="icons">
+            <li><a href="https://github.com/Libbum/Odyssey" class="icon fa-github"><span class="label">Github</span></a></li>
+            <li><a href="https://www.facebook.com/Libbum" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+            <li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+            <!--TODO: Build a modal for this-->
+            <li><a href="https:/telegram.me/Libbum" class="icon fa-location-arrow"><span class="label">Telegram</span></a></li>
+         </ul>
+      </footer>
+   </section>
 
+   <!-- Wrapper -->
+   <div id="wrapper">
 
-				</nav>
-				<footer>
-					<ul class="icons">
-						<li><a href="https://github.com/Libbum/Odyssey" class="icon fa-github"><span class="label">Github</span></a></li>
-						<li><a href="https://www.facebook.com/Libbum" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li> <!--TODO: Build a modal for this-->
-						<li><a href="https:/telegram.me/Libbum" class="icon fa-location-arrow"><span class="label">Telegram</span></a></li>
-					</ul>
-				</footer>
-			</section>
+      <!-- Main -->
+      <div id="main">
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+         <div id="gallery"></div>
 
-				<!-- Main -->
-					<div id="main">
+         <form id="contactForm" method="post" action="process.php">
+            <div class="row uniform 50%">
+               <div class="6u 12u$(xsmall)"><input type="text" name="name" required=i d="name" placeholder="Name" /></div>
+               <div class="6u$ 12u$(xsmall)"><input type="email" name="email" required id="email" placeholder="Email" /></div>
+               <div class="12u$"><textarea name="message" id="message" placeholder="Message" spellcheck="true" required rows="4"></textarea></div>
+               <div class="3u"><img src="image.php" class="verify-img" alt="Verification code" /></div>
+               <div class="9u$"><input name="verify" type="text" id="verify" size="6" placeholder="Copy the code" required title="This confirms you are a human user or strong AI and not a spam-bot." /></div>
+            </div>
+            <ul class="actions">
+               <li><input type="submit" value="Send Message" /></li>
+            </ul>
+            <div id="response" class="response"></div>
+         </form>
 
-								<div id="gallery"></div>
+      </div>
 
-								<form id="contactForm" method="post" action="process.php">
-																	<div class="row uniform 50%">
-																		<div class="6u 12u$(xsmall)"><input type="text" name="name" required= id="name" placeholder="Name" /></div>
-																		<div class="6u$ 12u$(xsmall)"><input type="email" name="email" required id="email" placeholder="Email" /></div>
-																		<div class="12u$"><textarea name="message" id="message" placeholder="Message" spellcheck="true" required rows="4"></textarea></div>
-																		<div class="3u"><img src="image.php" class="verify-img" alt="Verification code" /></div>
-																		<div class="9u$"><input name="verify" type="text" id="verify" size="6" placeholder="Copy the code" required title="This confirms you are a human user or strong AI and not a spam-bot." /></div>
-																	</div>
-																<ul class="actions">
-																	<li><input type="submit" value="Send Message" /></li>
-																</ul>
-																<div id="response" class="response"></div>
-																</form>
+   </div>
 
-					</div>
+   <!-- Scripts -->
+   <script src="assets/js/skel.min.js"></script>
+   <script src="assets/js/util.js"></script>
+   <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+   <script src="assets/js/main.js"></script>
+</body>
 
-			</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
-	</body>
 </html>
