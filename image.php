@@ -14,7 +14,7 @@ session_write_close();
 
 // Verification Image Background Selection
 
-$bgs = array("images/verify/1.png","images/verify/2.png","images/verify/3.png");
+$bgs = array("assets/verify/1.png","assets/verify/2.png","assets/verify/3.png");
 $background = array_rand($bgs, 1);
 
 // Verification Image Variables
@@ -38,4 +38,3 @@ imagepng($img_handle);
 // Destroy the Image to keep Server Space
 
 imagedestroy($img_handle);
-

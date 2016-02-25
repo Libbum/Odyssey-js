@@ -9,7 +9,7 @@ if(!$_POST) exit;
         $message        = $_POST['message'];
         //sumbission data
         $ipaddress = $_SERVER['REMOTE_ADDR'];
-        $dateTime = new DateTime('now', new DateTimeZone('Australia/Melbourne'));
+        $dateTime = new DateTime('now', new DateTimeZone('Europe/Stockholm'));
         $date = $dateTime->format('d/m/Y');
         $time = $dateTime->format('H:i:s');
 
@@ -26,10 +26,10 @@ if(!$_POST) exit;
                 if (empty($session_verify)) $session_verify = $_COOKIE['verify'];
 
         if(!isEmail($email)) {
-            echo '<font color="red">Error: You have entered an invalid e-mail address.</font>';
+            echo '<font color="#962d3e">Error: You have entered an invalid e-mail address.</font>';
             exit();
         } else if($session_verify != $posted_verify) {
-            echo '<font color="red">Error: the verification code you entered is incorrect.</font>';
+            echo '<font color="#962d3e">Error: the verification code you entered is incorrect.</font>';
             exit();
         }
 
@@ -59,7 +59,7 @@ if(!$_POST) exit;
 
                  $e_body = "You have been contacted by $name through the Odyssey contact form." . PHP_EOL . PHP_EOL;
                  $e_content = "<p><strong>Name: </strong> {$name} </p>
-                                           <p><strong>Email Address: </strong> {$email} </p>";
+                               <p><strong>Email Address: </strong> {$email} </p>";
                  $e_content .= "<p><strong>Message: </strong> {$message} </p>" . PHP_EOL . PHP_EOL;
 
                  $e_footer = "<p>This message was sent from the IP Address: {$ipaddress} on {$date} at {$time}</p>";
@@ -79,7 +79,7 @@ if(!$_POST) exit;
                  // Email has sent successfully, echo a success page.
 
                  echo "<p>Thanks for your message <strong>$name</strong>.<br>I'll get back to you as soon as possible.</p>";
-                 
+
                  } else {
 
                  echo 'ERROR!';
@@ -95,4 +95,3 @@ function isEmail($email) { // Email address verification, do not edit.
 }
 
 ?>
-
