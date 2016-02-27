@@ -5,6 +5,8 @@
 
 (function($) {
   skel.breakpoints({
+    shortest: '(max-height: 700px)',
+    short: '(max-height: 880px)',
     xlarge: '(max-width: 1680px)',
     large: '(max-width: 1280px)',
     medium: '(max-width: 1024px)',
@@ -570,7 +572,6 @@
       'visibility': 'hidden',
       'opacity': 0
     });
-    // $('#MenuList').hide();
     // Prioritize "important" elements on medium.
     skel.on('+medium -medium', function() {
       $.prioritize(
@@ -578,12 +579,6 @@
         skel.breakpoint('medium').active
       );
     });
-
-    // Header.
-    var ids = [];
-
-
-    // Off-Canvas Navigation.
 
     // Title Bar.
     $(
@@ -624,7 +619,9 @@
     });
 
     $('#contactButton').click(function() {
-      $('#contactModal').modal({ fadeDuration: 500 });
+      $('#contactModal').modal({
+        fadeDuration: 500
+      });
       return false;
     });
 

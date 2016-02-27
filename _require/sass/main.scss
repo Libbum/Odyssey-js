@@ -13,11 +13,13 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 	@import "libs/skel";
 
 	@include skel-breakpoints((
-		xlarge: '(max-width: 1680px)',
-		large: '(max-width: 1280px)',
-		medium: '(max-width: 1024px)',
-		small: '(max-width: 736px)',
-		xsmall: '(max-width: 480px)'
+      shortest: '(max-height: 700px)',
+      short:    '(max-height: 880px)',
+		xlarge:   '(max-width: 1680px)',
+		large:    '(max-width: 1280px)',
+		medium:   '(max-width: 1024px)',
+		small:    '(max-width: 736px)',
+		xsmall:   '(max-width: 480px)'
 	));
 
 	@include skel-layout((
@@ -1266,6 +1268,57 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
   fill: _palette(stiletto);
 }
 
+/* Short */
+@include breakpoint(short) {
+
+   $size-header: 21em;
+
+   /* Basic */
+
+      body, input, select, textarea {
+         font-size: 13pt;
+      }
+
+   /* Header */
+
+      #header {
+         width: $size-header;
+
+         > header {
+            padding: 2em;
+            padding-top: 0.5em;
+            padding-bottom: 1em;
+         }
+
+         > footer {
+            padding: 1.5em;
+            padding-top: 0.5em;
+         }
+      }
+
+   /* Wrapper */
+
+      #wrapper {
+         @if _misc(header-side) == 'right' {
+            padding-right: $size-header;
+         }
+         @else {
+            padding-left: $size-header;
+         }
+      }
+
+   /* Main */
+
+      #main {
+         > section {
+            > .container {
+               padding: 4em 0 2em 0;
+            }
+         }
+      }
+
+}
+
 /* XLarge */
 
 	@include breakpoint(xlarge) {
@@ -1348,6 +1401,39 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 			}
 
 	}
+
+
+   /* Shortest */
+
+   	@include breakpoint(shortest) {
+
+   		$size-header: 20em;
+
+   		/* Basic */
+
+   			body, input, select, textarea {
+   				font-size: 11pt;
+   			}
+
+   		/* Header */
+
+   			#header {
+   				width: $size-header;
+   			}
+
+   		/* Wrapper */
+
+   			#wrapper {
+   				@if _misc(header-side) == 'right' {
+   					padding-right: $size-header;
+   				}
+   				@else {
+   					padding-left: $size-header;
+   				}
+   			}
+
+   	}
+
 
 /* Medium */
 
