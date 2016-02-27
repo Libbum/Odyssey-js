@@ -623,6 +623,11 @@
       });
     });
 
+    $('#contactButton').click(function() {
+      $('#contactModal').modal({ fadeDuration: 500 });
+      return false;
+    });
+
     //  Gallery
     $.getJSON('assets/data/manifest.json', function(p) {
       photos = p.sort(dynamicSortMultiple(viewing.sortBy));
