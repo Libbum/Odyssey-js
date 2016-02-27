@@ -17,7 +17,7 @@ Maps and other interactivity are using [D3.js](http://d3js.org/), mostly built s
 * [ ] When globe is max size, menu overflows atm. Need to address this depending on what ends up being there.
 * [x] Category capability. 
 * [ ] Tile map "explore" category.
-* [ ] Add country highlights to globe.
+* [x] Add country highlights to globe.
 * [ ] Sass needs a min-width I think. There's a problem with chromatic when we scale too small.
 * [x] Build backend.
 * [x] File processing.
