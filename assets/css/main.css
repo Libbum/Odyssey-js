@@ -3631,6 +3631,9 @@ body {
   .\-1u\28xsmall\29 {
     margin-left: 8.33333%; } }
 /* Basic */
+html, body {
+  min-width: 700px; }
+
 body {
   background: #fff; }
 
@@ -4761,7 +4764,7 @@ input[type="button"],
     z-index: 10001;
     background: #222;
     color: #fff;
-    min-width: 320px; }
+    min-width: 450px; }
     #titleBar .title {
       color: #fff;
       display: block;
@@ -4900,7 +4903,7 @@ input[type="button"],
 @media screen and (max-width: 480px) {
   /* Basic */
   html, body {
-    min-width: 320px; }
+    min-width: 450px; }
 
   body, input, select, textarea {
     font-size: 12pt; }

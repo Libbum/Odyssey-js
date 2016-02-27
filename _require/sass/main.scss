@@ -50,7 +50,9 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 	$size-header: 23em;
 
 /* Basic */
-
+   html, body {
+      min-width: 700px;
+   }
 	body {
 		background: _palette(bg);
 	}
@@ -1009,8 +1011,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 
 	#wrapper {
 		background: _palette(bg);
-
-		@if _misc(header-side) == 'right' {
+      @if _misc(header-side) == 'right' {
 			padding-right: $size-header;
 		}
 		@else {
@@ -1520,7 +1521,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 				z-index: _misc(z-index-base) + 1;
 				background: #222;
 				color: #fff;
-				min-width: 320px;
+				min-width: 450px;
 
 				.title {
 					color: #fff;
@@ -1765,7 +1766,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 		/* Basic */
 
 			html, body {
-				min-width: 320px;
+				min-width: 450px;
 			}
 
 			body, input, select, textarea {
