@@ -50,6 +50,7 @@
 { "type": "Feature", "properties": { "name": "London", "country": "GBR" }, "geometry": { "type": "Point", "coordinates": [ -0.13, 51.51 ] } },
 { "type": "Feature", "properties": { "name": "Melbourne", "country": "AUS" }, "geometry": { "type": "Point", "coordinates": [ 144.96, -37.81 ] } },
 { "type": "Feature", "properties": { "name": "Sydney", "country": "AUS" }, "geometry": { "type": "Point", "coordinates": [ 151.21, -33.87 ] } },
-{ "type": "Feature", "properties": { "name": "Hong Kong", "localname": "香港", "country": "HKG" }, "geometry": { "type": "Point", "coordinates": [ 114.18, 22.31 ] } }
+{ "type": "Feature", "properties": { "name": "Hong Kong", "localname": "香港", "country": "HKG" }, "geometry": { "type": "Point", "coordinates": [ 114.18, 22.31 ] } },
+{ "type": "Feature", "properties": { "name": "Amsterdam", "country": "NLD" }, "geometry": { "type": "Point", "coordinates": [ 4.9, 52.37 ] } }
 ]
 }
