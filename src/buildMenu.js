@@ -42,7 +42,7 @@ tripData.trips.forEach(function(t){
 });
 data = data.slice(0,-2) + '} ] }';
 
-fs.writeFile("../assets/data/menu.json", data, function(err) {
+fs.writeFile("../dist/assets/data/menu.json", data, function(err) {
     if(err) {
         return console.log(err);
     }

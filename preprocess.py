@@ -94,9 +94,9 @@ if __name__ == "__main__":
     parser.add_argument('-v','--verbose', help="Noisy output", action='store_true', dest='loud', required=False, default=False)
     args = parser.parse_args()
 
-    gallery = Path(Path.home(), Path('web/Odyssey/gallery'))
-    manifest = Path(Path.home(), Path('web/Odyssey/assets/data/manifest.json'))
-    tripcities = Path(Path.home(), Path('web/Odyssey/_require/tripcities.json'))
+    gallery = Path(Path.home(), Path('web/Odyssey/dist/gallery'))
+    manifest = Path(Path.home(), Path('web/Odyssey/dist/assets/data/manifest.json'))
+    tripcities = Path(Path.home(), Path('web/Odyssey/src/tripcities.json'))
 
     tripdates = []
     with tripcities.open() as tripFile:
