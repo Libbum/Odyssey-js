@@ -1,7 +1,6 @@
 #!/bin/bash
 # Sync Data to Akasha
 
-find dist -name *.js -exec chmod 644 {} \;
-find dist -name *.css -exec chmod 644 {} \;
-find dist -name *.htc -exec chmod 644 {} \;
+find dist -type d -exec chmod 750 {} \;
+find dist -type f -exec chmod 640 {} \;
 rsync -v -rz --checksum --delete -e ssh dist/ AkashaO:odyssey/sandbox/
