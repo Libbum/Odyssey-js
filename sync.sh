@@ -1,5 +1,7 @@
 #!/bin/bash
 # Sync Data to Akasha
 
-rsync -v -rz --checksum --exclude-from '.exclude-list.rsync' --delete -e ssh . AkashaO:odyssey/sandbox/
-
+find dist -name *.js -exec chmod 644 {} \;
+find dist -name *.css -exec chmod 644 {} \;
+find dist -name *.htc -exec chmod 644 {} \;
+rsync -v -rz --checksum --delete -e ssh dist/ AkashaO:odyssey/sandbox/

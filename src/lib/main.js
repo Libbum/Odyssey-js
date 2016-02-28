@@ -291,15 +291,15 @@
   function() {
     function t(t, n, e) {
       var a = n.projection();
-      t.append("path").datum(d3.geo.graticule()).attr("class", "graticule").attr("d", n),
+      t.append("path").datum(d3.geo.graticule()).attr("class", "iglobe-graticule").attr("d", n),
         t.append("path").datum({
           type: "Sphere"
-        }).attr("class", "foreground").attr("d", n).on("mousedown.grab", function() {
+       }).attr("class", "iglobe-foreground").attr("d", n).on("mousedown.grab", function() {
           var n;
-          e && (n = t.insert("path", ".foreground").datum({
+          e && (n = t.insert("path", ".iglobe-foreground").datum({
             type: "Point",
             coordinates: a.invert(d3.mouse(this))
-          }).attr("class", "point").attr("d", o));
+         }).attr("class", "iglobe-point").attr("d", o));
           var o = d3.select(this).classed("zooming", !0),
             r = d3.select(window).on("mouseup.grab", function() {
               o.classed("zooming", !1), r.on("mouseup.grab", null), e && n.remove()
@@ -361,9 +361,9 @@
 
     function tripView(selected, getCoords) {
       if (viewing.filterKey == 'country') {
-        d3.selectAll(".countries").attr("style", null);
+        d3.selectAll(".iglobe-countries").attr("style", null);
       }
-      d3.selectAll(".route").each(function(d, i) {
+      d3.selectAll(".iglobe-route").each(function(d, i) {
         if (d.properties.name == selected) {
           d3.select(this).attr("visibility", "visible");
           if (getCoords) {
@@ -414,7 +414,7 @@
     d3.selectAll("#map").data([proj]).append("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 " + a + " " + o).each(function(p) {
         var e = d3.geo.path().projection(p),
           a = d3.select(this).call(t, e, !0);
-        a.selectAll(".foreground").call(d3.geo.zoom().projection(p).scaleExtent([0.7 * p.scale(), 10 * p.scale()]).on("zoom.redraw", function() {
+        a.selectAll(".iglobe-foreground").call(d3.geo.zoom().projection(p).scaleExtent([0.7 * p.scale(), 10 * p.scale()]).on("zoom.redraw", function() {
             d3.event.sourceEvent.preventDefault && d3.event.sourceEvent.preventDefault(),
               a.selectAll("path").attr("d", e)
           })),
@@ -526,24 +526,24 @@
 
       d3.json("assets/data/world.json", function(t, n) {
         var svg = d3.selectAll("svg");
-        svg.insert("path", ".graticule").datum({
+        svg.insert("path", ".iglobe-graticule").datum({
           type: "Sphere"
-        }).attr("class", "ocean");
+        }).attr("class", "iglobe-ocean");
         countries = topojson.feature(n, n.objects.countries).features;
-        svg.insert("g", ".foreground").attr("id", "countries");
+        svg.insert("g", ".iglobe-foreground").attr("id", "countries");
         d3.selectAll("#countries").selectAll("path").data(countries.filter(function(d) {
             return d.geometry.type !== 'Point';
           })).enter()
-          .append("path").attr("class", "countries")
+          .append("path").attr("class", "iglobe-countries")
           .attr("id", function(d, i) {
             return d.id;
           });
-        svg.insert("path", ".foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "cities").selectAll("LineString").attr("class", "route");
-        svg.insert("g", ".cities").attr("id", "routes");
+        svg.insert("path", ".iglobe-foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "iglobe-cities").selectAll("LineString").attr("class", "iglobe-route");
+        svg.insert("g", ".iglobe-cities").attr("id", "routes");
         d3.selectAll("#routes").selectAll("path").data(topojson.feature(n, n.objects.trips).features).enter()
           .append("path").attr("id", function(d) {
             return d.properties.name;
-          }).attr("class", "route")
+          }).attr("class", "iglobe-route")
           .attr("visibility", function(d) {
             if ((viewing.filterKey === 'trip') && (d.properties.name == viewing.filterProp)) {
               proj.rotate(getRotation(d.geometry.coordinates));
