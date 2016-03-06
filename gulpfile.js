@@ -1,11 +1,27 @@
 var gulp   = require('gulp');
+var coffee = require("gulp-coffee");
+var del = require('del');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var uncss = require('gulp-uncss');
 var nano = require('gulp-cssnano');
 
-gulp.task('javascripttop', function() {
+gulp.task('coffee', function() {
+  return gulp.src(['./src/chromatic/views/**.coffee', './src/chromatic/plugin.coffee'])
+    .pipe(coffee())
+    .pipe(concat('plugin.js'))
+    .pipe(gulp.dest('./src/chromatic/build'))
+})
+
+gulp.task('chromatic', ['coffee'], function() {
+  return gulp.src(['./src/chromatic/lib/*.js', './src/chromatic/build/plugin.js'])
+   // .pipe(uglify())
+    .pipe(concat('chromatic.js'))
+    .pipe(gulp.dest('./src/lib/'))
+})
+
+gulp.task('javascripttop', ['chromatic'], function() {
   return gulp.src(['./src/lib/jquery.modal.min.js', './src/lib/chromatic.js'])
     .pipe(uglify())
     .pipe(concat('odysseytop.js'))
@@ -30,4 +46,8 @@ gulp.task('css', function () {
     .pipe(gulp.dest('./dist/assets/css'));
 });
 
-gulp.task('default', ['javascripttop', 'javascriptbottom', 'css'])
+gulp.task('build-and-clean', ['javascripttop', 'javascriptbottom', 'css'], function() {
+  del(['./src/chromatic/build']);
+})
+
+gulp.task('default', ['build-and-clean'])
