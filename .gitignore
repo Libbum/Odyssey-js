@@ -15,3 +15,6 @@ manifest.json
 .sass-cache
 *.css.map
 node_modules
+dist/assets/css/*.css
+src/lib/chromatic.js
+
