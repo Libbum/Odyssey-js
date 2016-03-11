@@ -10,7 +10,7 @@ jQuery.event.special.swipe.settings.sensitivity = 100
 class Chromatic.ZoomView
   constructor: (photos, options) ->
     @el = $('<div class="chromatic-zoom"/>')
-    @el.html("<div class=\"chromatic-zoom-arrow-left\"></div><div class=\"chromatic-zoom-arrow-right\"></div>")
+    @el.html("<div class=\"chromatic-zoom-arrow-left\"></div><div class=\"chromatic-zoom-arrow-right\"></div><div class=\"chromatic-zoom-arrow-up\"></div>")
     @photos = photos
     $(document.body).append(@el)
     @el.hide()
@@ -21,6 +21,7 @@ class Chromatic.ZoomView
       .on('swiperight', @showPrevious)
       .on('click', '.chromatic-zoom-arrow-right', @showNext)
       .on('swipeleft', @showNext)
+      .on('click', '.chromatic-zoom-arrow-up', @showInfo)
       .on('move', @move) # FIXME
       .on('swipecanceled', @cancel)
     @_debouncedLayout = _.debounce((=> @layout()), 100)
@@ -91,13 +92,20 @@ class Chromatic.ZoomView
     @current_zoom_photo_view.layout('current', 0, true)
     @previous_zoom_photo_view.layout('previous', 0, false)
 
+  showInfo: (e) =>
+     if e
+       e.preventDefault()
+       e.stopPropagation()
+       if e.type == "keydown" then @hideArrows() else @showArrows()
+     alert "Info"
+
   showArrows: =>
-    @el.find(".chromatic-zoom-arrow-left, .chromatic-zoom-arrow-right").stop().animate({opacity: 1}, 200)
+    @el.find(".chromatic-zoom-arrow-left, .chromatic-zoom-arrow-right, .chromatic-zoom-arrow-up").stop().animate({opacity: 1}, 200)
     clearTimeout(@arrows_timer)
     @arrows_timer = window.setTimeout((=> @hideArrows(true)), 3000)
 
   hideArrows: (animated) =>
-    @el.find(".chromatic-zoom-arrow-left, .chromatic-zoom-arrow-right").animate({opacity: 0.01}, animated ? 1000 : 0) # still clickable
+    @el.find(".chromatic-zoom-arrow-left, .chromatic-zoom-arrow-right, .chromatic-zoom-arrow-up").animate({opacity: 0.01}, animated ? 1000 : 0) # still clickable
 
   layout: (offset=0, animated) =>
     @current_zoom_photo_view.layout('current', offset, animated)
