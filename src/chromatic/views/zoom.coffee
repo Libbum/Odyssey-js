@@ -14,7 +14,7 @@ class Chromatic.ZoomView
     @photos = photos
     $(document.body).append(@el)
     @el.hide()
-      .on('click swipeup', @close)
+      .on('click', @close)
       .on('mousemove mouseenter', @showArrows)
       .on('mouseleave', @hideArrows)
       .on('click', '.chromatic-zoom-arrow-left', @showPrevious)
@@ -22,6 +22,9 @@ class Chromatic.ZoomView
       .on('click', '.chromatic-zoom-arrow-right', @showNext)
       .on('swipeleft', @showNext)
       .on('click', '.chromatic-zoom-arrow-up', @showInfo)
+      .on('swipeup', @showInfo)
+      .on('click', '.chromatic-zoom-arrow-down', @hideInfo)
+      .on('swipedown', @hideInfo)
       .on('move', @move) # FIXME
       .on('swipecanceled', @cancel)
     @_debouncedLayout = _.debounce((=> @layout()), 100)
@@ -29,7 +32,7 @@ class Chromatic.ZoomView
   close: =>
     $(document.body).css('overflowY', 'auto')
     clearTimeout(@arrows_timer)
-    key.unbind 'esc'; key.unbind 'enter'; key.unbind 'up'; key.unbind 'left'; key.unbind 'j'; key.unbind 'right'; key.unbind 'k'; # doesnt support multiple keys
+    key.unbind 'esc'; key.unbind 'enter'; key.unbind 'up'; key.unbind 'down'; key.unbind 'left'; key.unbind 'j'; key.unbind 'right'; key.unbind 'k'; # doesnt support multiple keys
     # $(window).off 'resize orientationchange', @_debouncedLayout
     @el.fadeOut 500, =>
       @previous_zoom_photo_view.remove()
@@ -97,15 +100,28 @@ class Chromatic.ZoomView
        e.preventDefault()
        e.stopPropagation()
        if e.type == "keydown" then @hideArrows() else @showArrows()
-     alert "Info"
+     @el.find(".chromatic-zoom-arrow-up").removeClass('chromatic-zoom-arrow-up').addClass('chromatic-zoom-arrow-down')
+     description = @el.find(".chromatic-zoom-desc")
+     if description
+       description.animate({opacity: 0.7}, 200)
+
+  hideInfo: (e) =>
+     if e
+        e.preventDefault()
+        e.stopPropagation()
+        if e.type == "keydown" then @hideArrows() else @showArrows()
+      @el.find(".chromatic-zoom-arrow-down").removeClass('chromatic-zoom-arrow-down').addClass('chromatic-zoom-arrow-up')
+      description = @el.find(".chromatic-zoom-desc")
+      if description
+        description.animate({opacity: 0.01}, 200)
 
   showArrows: =>
-    @el.find(".chromatic-zoom-arrow-left, .chromatic-zoom-arrow-right, .chromatic-zoom-arrow-up").stop().animate({opacity: 1}, 200)
+    @el.find(".chromatic-zoom-arrow-left, .chromatic-zoom-arrow-right, .chromatic-zoom-arrow-up, .chromatic-zoom-arrow-down").stop().animate({opacity: 1}, 200)
     clearTimeout(@arrows_timer)
     @arrows_timer = window.setTimeout((=> @hideArrows(true)), 3000)
 
   hideArrows: (animated) =>
-    @el.find(".chromatic-zoom-arrow-left, .chromatic-zoom-arrow-right, .chromatic-zoom-arrow-up").animate({opacity: 0.01}, animated ? 1000 : 0) # still clickable
+    @el.find(".chromatic-zoom-arrow-left, .chromatic-zoom-arrow-right, .chromatic-zoom-arrow-up, .chromatic-zoom-arrow-down").animate({opacity: 0.01}, animated ? 1000 : 0) # still clickable
 
   layout: (offset=0, animated) =>
     @current_zoom_photo_view.layout('current', offset, animated)
