@@ -17,4 +17,4 @@ manifest.json
 node_modules
 dist/assets/css/*.css
 src/lib/chromatic.js
-
+dist/assets/js/odyssey*.js
