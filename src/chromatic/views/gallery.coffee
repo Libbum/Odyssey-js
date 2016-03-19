@@ -74,7 +74,7 @@ class Chromatic.GalleryView
     threshold = 1000
     viewport_top = @el.scrollTop() - threshold
     viewport_bottom = (@el.height() || $(window).height()) + @el.scrollTop() + threshold
-    _.each @photo_views, (photo_view) =>
+    _.each @photo_views, (photo_view) ->
       if photo_view.top < viewport_bottom && photo_view.bottom > viewport_top
         photo_view.load()
       else

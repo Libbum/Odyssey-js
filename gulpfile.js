@@ -13,12 +13,18 @@ var coffeelint = require('gulp-coffeelint');
 var cstylish = require('coffeelint-stylish');
 
 gulp.task('lint', function () {
-    gulp.src(['./src/lib/main.js', './src/lib/util.js', './src/lib/jquery.modal.js'])
+    gulp.src(['./src/lib/main.js', './src/lib/util.js', './src/lib/jquery.modal.js', './src/chromatic/lib/*.js'])
         .pipe(jshint())
         .pipe(jshint.reporter(jstylish));
     gulp.src(['./src/chromatic/views/**.coffee', './src/chromatic/plugin.coffee'])
         .pipe(coffeelint())
         .pipe(coffeelint.reporter(cstylish));
+});
+
+gulp.task('lintcjs', function () {
+    gulp.src('./src/lib/chromatic.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter(jstylish));
 });
 
 gulp.task('coffee', function() {

@@ -99,26 +99,26 @@ class Chromatic.ZoomView
     @previous_zoom_photo_view.layout('previous', 0, false, @descVis)
 
   showInfo: (e) =>
-     if e
-       e.preventDefault()
-       e.stopPropagation()
-       if e.type == "keydown" then @hideArrows() else @showArrows()
-     @el.find(".chromatic-zoom-arrow-up").removeClass('chromatic-zoom-arrow-up').addClass('chromatic-zoom-arrow-down')
-     @descVis = true
-     description = @el.find(".chromatic-zoom-desc")
-     if description
-       description.animate({opacity: 0.7}, 200)
+    if e
+      e.preventDefault()
+      e.stopPropagation()
+      if e.type == "keydown" then @hideArrows() else @showArrows()
+    @el.find(".chromatic-zoom-arrow-up").removeClass('chromatic-zoom-arrow-up').addClass('chromatic-zoom-arrow-down')
+    @descVis = true
+    description = @el.find(".chromatic-zoom-desc")
+    if description
+      description.animate({opacity: 0.7}, 200)
 
   hideInfo: (e) =>
-     if e
-        e.preventDefault()
-        e.stopPropagation()
-        if e.type == "keydown" then @hideArrows() else @showArrows()
-      @el.find(".chromatic-zoom-arrow-down").removeClass('chromatic-zoom-arrow-down').addClass('chromatic-zoom-arrow-up')
-      @descVis = false
-      description = @el.find(".chromatic-zoom-desc")
-      if description
-        description.animate({opacity: 0.01}, 200)
+    if e
+      e.preventDefault()
+      e.stopPropagation()
+      if e.type == "keydown" then @hideArrows() else @showArrows()
+    @el.find(".chromatic-zoom-arrow-down").removeClass('chromatic-zoom-arrow-down').addClass('chromatic-zoom-arrow-up')
+    @descVis = false
+    description = @el.find(".chromatic-zoom-desc")
+    if description
+      description.animate({opacity: 0.01}, 200)
 
   showArrows: =>
     @el.find(".chromatic-zoom-arrow-left, .chromatic-zoom-arrow-right, .chromatic-zoom-arrow-up, .chromatic-zoom-arrow-down").stop().animate({opacity: 1}, 200)

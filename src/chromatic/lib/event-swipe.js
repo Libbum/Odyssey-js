@@ -104,10 +104,10 @@
 	jQuery.event.special.swipeup =
 	jQuery.event.special.swipedown = {
 		setup: function( data, namespaces, eventHandle ) {
-			var data = getData(this);
+			var tdata = getData(this);
 
 			// If another swipe event is already setup, don't setup again.
-			if (data.count++ > 0) { return; }
+			if (tdata.count++ > 0) { return; }
 
 			add(this, 'moveend', moveend);
 
@@ -115,10 +115,10 @@
 		},
 
 		teardown: function() {
-			var data = getData(this);
+			var ddata = getData(this);
 
 			// If another swipe event is still setup, don't teardown.
-			if (--data.count > 0) { return; }
+			if (-d-data.count > 0) { return; }
 
 			remove(this, 'moveend', moveend);
 

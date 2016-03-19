@@ -60,7 +60,8 @@ if (typeof _ === "undefined" || _ === null) {
       return obj.reduce(iterator, memo);
     }
     _.each(obj, function(value, index, list) {
-      return memo = iterator.call(context, memo, value, index, list);
+      memo = iterator.call(context, memo, value, index, list);
+      return memo;
     });
     return memo;
   };
