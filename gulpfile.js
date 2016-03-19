@@ -6,6 +6,14 @@ var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var uncss = require('gulp-uncss');
 var nano = require('gulp-cssnano');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
+
+gulp.task('lint', function () {
+    gulp.src(['./src/lib/main.js'])
+        .pipe(jshint())
+        .pipe(jshint.reporter(stylish));
+});
 
 gulp.task('coffee', function() {
   return gulp.src(['./src/chromatic/views/**.coffee', './src/chromatic/plugin.coffee'])
