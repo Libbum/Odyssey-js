@@ -219,7 +219,7 @@
           var r = d3.mouse(this),
             i = e(h.rotate()),
             u = n(h, r);
-          if (u) (p = u);
+          if (u) p = u;
           M.call(m, "zoom", function() {
             h.scale(z.k = d3.event.scale);
             var e = d3.mouse(this),
@@ -250,7 +250,7 @@
             o = d3.transition(t);
           if (o !== t) {
             o.each("start.zoom", function() {
-              if (this.__chart__) (z = this.__chart__);
+              if (this.__chart__) z = this.__chart__;
                h.rotate(z.r).scale(z.k);
                s(n);
             }).tween("zoom:zoom", function() {
@@ -286,7 +286,7 @@
       t.append("path").datum(d3.geo.graticule()).attr("class", "iglobe-graticule").attr("d", n);
       t.append("path").datum({ type: "Sphere" }).attr("class", "iglobe-foreground").attr("d", n).on("mousedown.grab", function() {
           var n;
-          if (e) (n = t.insert("path", ".iglobe-foreground").datum({ type: "Point", coordinates: a.invert(d3.mouse(this)) }).attr("class", "iglobe-point").attr("d", o));
+          if (e) n = t.insert("path", ".iglobe-foreground").datum({ type: "Point", coordinates: a.invert(d3.mouse(this)) }).attr("class", "iglobe-point").attr("d", o);
           var o = d3.select(this).classed("zooming", !0),
               r = d3.select(window).on("mouseup.grab", function() {
                  o.classed("zooming", !1);

@@ -10,7 +10,7 @@ var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 
 gulp.task('lint', function () {
-    gulp.src(['./src/lib/main.js'])
+    gulp.src(['./src/lib/main.js', './src/lib/util.js', './src/lib/jquery.modal.js', './src/lib/chromatic.js'])
         .pipe(jshint())
         .pipe(jshint.reporter(stylish));
 });
@@ -30,7 +30,7 @@ gulp.task('chromatic', ['coffee'], function() {
 })
 
 gulp.task('javascripttop', ['chromatic'], function() {
-  return gulp.src(['./src/lib/jquery.modal.min.js', './src/lib/chromatic.js'])
+  return gulp.src(['./src/lib/jquery.modal.js', './src/lib/chromatic.js'])
     .pipe(uglify())
     .pipe(concat('odysseytop.js'))
     .pipe(gulp.dest('./dist/assets/js/'))
