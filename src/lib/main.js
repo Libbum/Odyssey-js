@@ -457,7 +457,7 @@
                 d3.select("#" + selected).style("fill", "#962d3e");
 
                 viewing.filterKey = 'country';
-                viewing.filterProp = countries[i].properties.name;
+                viewing.filterProp = countries[i].properties.name.replace(/ /g,'_').replace(/\./g,'');
                 if (viewing.sortBy[0][0] === "!") {
                   viewing.sortBy = ['!year', '!month', 'filename'];
                   $("#inv").html('<i class="fa fa-chevron-down"></i>');
