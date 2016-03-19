@@ -32,27 +32,27 @@
         break;
       case 'country':
         details = /\d{4}\/\d{2}\/(\w+)/;
-        back = details.exec(arr['big']);
+        back = details.exec(arr.big);
         res = back[1];
         break;
       case 'city':
         details = /\d{4}\/\d{2}\/\w+\/(\w+)/;
-        back = details.exec(arr['big']);
+        back = details.exec(arr.big);
         res = back[1];
         break;
       case 'filename':
         details = /\d{4}\/\d{2}\/\w+\/\w+\/(\w+)/;
-        back = details.exec(arr['big']);
+        back = details.exec(arr.big);
         res = back[1];
         break;
       case 'year':
         details = /(\d{4})\/\d{2}\//;
-        back = details.exec(arr['big']);
+        back = details.exec(arr.big);
         res = back[1];
         break;
       case 'month':
         details = /\d{4}\/(\d{2})\//;
-        back = details.exec(arr['big']);
+        back = details.exec(arr.big);
         res = back[1];
         break;
     }
@@ -86,7 +86,7 @@
       right = deepProperties(b, property);
       var result = (left < right) ? -1 : (left > right) ? 1 : 0;
       return result * sortOrder;
-    }
+    };
   }
 
   function dynamicSortMultiple(props) {
@@ -99,8 +99,9 @@
         i++;
       }
       return result;
-    }
-  }! function() {
+    };
+  }
+  ! function() {
     m = d3.behavior.zoom();
 
     function t(t, n, e) {
@@ -193,66 +194,54 @@
       var o = d3.dispatch.apply(null, a);
       return o.of = function(n, e) {
         return function(a) {
+          var r;
           try {
-            var r = a.sourceEvent = d3.event;
-            a.target = t, d3.event = a, o[a.type].apply(n, e);
+            r = a.sourceEvent = d3.event;
+            a.target = t;
+            d3.event = a;
+            o[a.type].apply(n, e);
           } finally {
             d3.event = r;
           }
-        }
+        };
       }, o;
     }
 
     var d = Math.PI / 180,
-      h = 180 / Math.PI;
+        h = 180 / Math.PI;
     d3.geo.zoom = function() {
-      function s(t) {
-        v++ || t({
-          type: "zoomstart"
-        })
-      }
-
-      function l(t) {
-        t({
-          type: "zoom"
-        })
-      }
-
-      function d(t) {
-        --v || t({
-          type: "zoomend"
-        })
-      }
+      function s(t) { v++ || t({ type: "zoomstart" }); }
+      function l(t) { t({ type: "zoom" }); }
+      function d(t) { --v || t({ type: "zoomend" }); }
       var h, f, p, v = 0,
-        g = u(m, "zoomstart", "zoom", "zoomend");
+          g = u(m, "zoomstart", "zoom", "zoomend");
       m.on("zoomstart", function() {
           var r = d3.mouse(this),
             i = e(h.rotate()),
             u = n(h, r);
-          u && (p = u), M.call(m, "zoom", function() {
+          if (u) (p = u);
+          M.call(m, "zoom", function() {
             h.scale(z.k = d3.event.scale);
             var e = d3.mouse(this),
               s = o(p, n(h, e));
-            h.rotate(z.r = c(i = s ? a(i, s) : a(t(h, r, e), i))), r = e, l(g.of(this, arguments))
-          }), s(g.of(this, arguments))
+            h.rotate(z.r = c(i = s ? a(i, s) : a(t(h, r, e), i)));
+            r = e;
+            l(g.of(this, arguments));
+          });
+         s(g.of(this, arguments));
         }).on("zoomend", function() {
-          M.call(m, "zoom", null), d(g.of(this, arguments))
-        }),
-        M = m.on,
-        z = {
-          r: [0, 0, 0],
-          k: 1
-        };
+          M.call(m, "zoom", null);
+          d(g.of(this, arguments));
+        });
+        M = m.on;
+        z = { r: [0, 0, 0], k: 1 };
       return m.rotateTo = function(t) {
         var n = o(i(t), i([-z.r[0], -z.r[1]]));
-        return c(a(e(z.r), n))
+        return c(a(e(z.r), n));
       }, m.projection = function(t) {
-        return arguments.length ? (h = t, z = {
-          r: h.rotate(),
-          k: h.scale()
-        }, m.scale(z.k)) : h
+        return arguments.length ? (h = t, z = { r: h.rotate(), k: h.scale() }, m.scale(z.k)) : h;
       }, m.duration = function(t) {
-        return arguments.length ? (f = t, m) : f
+        return arguments.length ? (f = t, m) : f;
       }, m.event = function(t) {
         t.each(function() {
           var t = d3.select(this),
@@ -261,7 +250,9 @@
             o = d3.transition(t);
           if (o !== t) {
             o.each("start.zoom", function() {
-              this.__chart__ && (z = this.__chart__), h.rotate(z.r).scale(z.k), s(n)
+              if (this.__chart__) (z = this.__chart__);
+               h.rotate(z.r).scale(z.k);
+               s(n);
             }).tween("zoom:zoom", function() {
               var t = m.size()[0],
                 i = r(e(z.r), e(a.r)),
@@ -270,48 +261,43 @@
               return f && o.duration(f(0.001 * u.duration)),
                 function(e) {
                   var a = u(e);
-                  this.__chart__ = z = {
-                    r: c(i(a[0] / s)),
-                    k: t / a[2]
-                  }, h.rotate(z.r).scale(z.k), m.scale(z.k), l(n)
-                }
-            }).each("end.zoom", function() {
-              d(n)
-            });
+                  this.__chart__ = z = { r: c(i(a[0] / s)), k: t / a[2] };
+                  h.rotate(z.r).scale(z.k);
+                  m.scale(z.k);
+                  l(n);
+               };
+            }).each("end.zoom", function() { d(n); });
             try {
-              o.each("interrupt.zoom", function() {
-                d(n)
-              })
+              o.each("interrupt.zoom", function() { d(n); });
             } catch (i) {}
-          } else this.__chart__ = z, s(n), l(n), d(n)
-        })
-      }, d3.rebind(m, g, "on")
-    }
+         } else {
+            this.__chart__ = z;
+            s(n);
+            l(n);
+            d(n);
+          }
+       });
+    }, d3.rebind(m, g, "on");
+};
   }(),
   function() {
     function t(t, n, e) {
       var a = n.projection();
-      t.append("path").datum(d3.geo.graticule()).attr("class", "iglobe-graticule").attr("d", n),
-        t.append("path").datum({
-          type: "Sphere"
-       }).attr("class", "iglobe-foreground").attr("d", n).on("mousedown.grab", function() {
+      t.append("path").datum(d3.geo.graticule()).attr("class", "iglobe-graticule").attr("d", n);
+      t.append("path").datum({ type: "Sphere" }).attr("class", "iglobe-foreground").attr("d", n).on("mousedown.grab", function() {
           var n;
-          e && (n = t.insert("path", ".iglobe-foreground").datum({
-            type: "Point",
-            coordinates: a.invert(d3.mouse(this))
-         }).attr("class", "iglobe-point").attr("d", o));
+          if (e) (n = t.insert("path", ".iglobe-foreground").datum({ type: "Point", coordinates: a.invert(d3.mouse(this)) }).attr("class", "iglobe-point").attr("d", o));
           var o = d3.select(this).classed("zooming", !0),
-            r = d3.select(window).on("mouseup.grab", function() {
-              o.classed("zooming", !1), r.on("mouseup.grab", null), e && n.remove()
-            })
-        })
+              r = d3.select(window).on("mouseup.grab", function() {
+                 o.classed("zooming", !1);
+                 r.on("mouseup.grab", null);
+                 if (e) n.remove();
+           });
+        });
     }
 
     function n(t, n) {
-      return d3.geo.orthographic().precision(0.5).clipAngle(90).clipExtent([
-        [-1, -1],
-        [t + 1, n + 1]
-      ]).translate([t / 2, n / 2]).scale(t / 2 - 10)
+      return d3.geo.orthographic().precision(0.5).clipAngle(90).clipExtent([ [-1, -1], [t + 1, n + 1] ]).translate([t / 2, n / 2]).scale(t / 2 - 10);
     }
 
     function sphereRotate() {
@@ -330,7 +316,7 @@
       }
 
       interpolate.distance = function() {
-        if (d == null) k = 1 / Math.sin(d = Math.acos(Math.max(-1, Math.min(1, sy0 * sy1 + cy0 * cy1 * Math.cos(x1 - x0)))));
+        if (d === null) k = 1 / Math.sin(d = Math.acos(Math.max(-1, Math.min(1, sy0 * sy1 + cy0 * cy1 * Math.cos(x1 - x0)))));
         return d;
       };
 
@@ -415,17 +401,17 @@
         var e = d3.geo.path().projection(p),
           a = d3.select(this).call(t, e, !0);
         a.selectAll(".iglobe-foreground").call(d3.geo.zoom().projection(p).scaleExtent([0.7 * p.scale(), 10 * p.scale()]).on("zoom.redraw", function() {
-            d3.event.sourceEvent.preventDefault && d3.event.sourceEvent.preventDefault(),
-              a.selectAll("path").attr("d", e)
-          })),
-          r.on("world." + ++c, function() {
-            a.selectAll("path").attr("d", e)
-          })
-      }),
+            if (d3.event.sourceEvent.preventDefault) d3.event.sourceEvent.preventDefault();
+            a.selectAll("path").attr("d", e);
+         }));
+         r.on("world." + c++, function() {
+            a.selectAll("path").attr("d", e);
+         });
+      });
 
       $("#navsub").click(function() {
+         var selected = $("#MenuList").val();
         if ($("#galSelTrip").is(":checked")) {
-          var selected = $("#MenuList").val();
           if (selected !== viewing.filterProp) {
             coords = tripView(selected, true);
 
@@ -444,7 +430,6 @@
             gotoView(coords);
           }
         } else if ($("#galSelCountry").is(":checked")) {
-          var selected = $("#MenuList").val();
           for (var i = 0; i < countries.length; i++) {
             if (countries[i].id == selected) {
               if (countries[i].properties.name !== viewing.filterProp) {
@@ -496,7 +481,7 @@
           gotoView([-40, -30]);
         }
         return false;
-      }),
+     });
 
       $("#inv").click(function() {
         var isDate = false;
@@ -522,28 +507,19 @@
         }
         gallerySwapout(filterSort());
         return false;
-      }),
+     });
 
       d3.json("assets/data/world.json", function(t, n) {
         var svg = d3.selectAll("svg");
-        svg.insert("path", ".iglobe-graticule").datum({
-          type: "Sphere"
-        }).attr("class", "iglobe-ocean");
+        svg.insert("path", ".iglobe-graticule").datum({ type: "Sphere" }).attr("class", "iglobe-ocean");
         countries = topojson.feature(n, n.objects.countries).features;
         svg.insert("g", ".iglobe-foreground").attr("id", "countries");
-        d3.selectAll("#countries").selectAll("path").data(countries.filter(function(d) {
-            return d.geometry.type !== 'Point';
-          })).enter()
-          .append("path").attr("class", "iglobe-countries")
-          .attr("id", function(d, i) {
-            return d.id;
-          });
+        d3.selectAll("#countries").selectAll("path").data(countries.filter(function(d) {return d.geometry.type !== 'Point'; }))
+          .enter().append("path").attr("class", "iglobe-countries").attr("id", function(d, i) { return d.id; });
         svg.insert("path", ".iglobe-foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "iglobe-cities").selectAll("LineString").attr("class", "iglobe-route");
         svg.insert("g", ".iglobe-cities").attr("id", "routes");
         d3.selectAll("#routes").selectAll("path").data(topojson.feature(n, n.objects.trips).features).enter()
-          .append("path").attr("id", function(d) {
-            return d.properties.name;
-          }).attr("class", "iglobe-route")
+          .append("path").attr("id", function(d) { return d.properties.name; }).attr("class", "iglobe-route")
           .attr("visibility", function(d) {
             if ((viewing.filterKey === 'trip') && (d.properties.name == viewing.filterProp)) {
               proj.rotate(getRotation(d.geometry.coordinates));
@@ -553,7 +529,7 @@
             }
           });
         r.world();
-      })
+     });
   }();
 
   $(function() {
@@ -644,7 +620,7 @@
         fragment.appendChild(opt);
       });
       menuList.appendChild(fragment);
-    };
+    }
 
     $("input[name='galSelection']").change(function() {
       switch ($(this).attr('id')) {
