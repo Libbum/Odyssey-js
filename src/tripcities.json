@@ -9,7 +9,7 @@
     {
       "name": "E12",
       "description": "Europe 2012",
-      "cities": ["Melbourne", "Singapore", "Frankfurt", "Karlsruhe", "Munich", "Vienna", "Budapest", "Prague", "Riga", "Copenhagen", "Dronningmolle", "Berlin", "Paris", "Singapore"],
+      "cities": ["Melbourne", "Singapore", "Frankfurt", "Karlsruhe", "Heidelberg", "Munich", "Vienna", "Budapest", "Prague", "Riga", "Copenhagen", "Dronningmolle", "Helsingor", "Helsingborg", "Copenhagen", "Berlin", "Paris", "Singapore"],
       "dates": ["2012/07", "2012/08"]
     },
     {
