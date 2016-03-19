@@ -6,13 +6,19 @@ var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var uncss = require('gulp-uncss');
 var nano = require('gulp-cssnano');
+
 var jshint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
+var jstylish = require('jshint-stylish');
+var coffeelint = require('gulp-coffeelint');
+var cstylish = require('coffeelint-stylish');
 
 gulp.task('lint', function () {
-    gulp.src(['./src/lib/main.js', './src/lib/util.js', './src/lib/jquery.modal.js', './src/lib/chromatic.js'])
+    gulp.src(['./src/lib/main.js', './src/lib/util.js', './src/lib/jquery.modal.js'])
         .pipe(jshint())
-        .pipe(jshint.reporter(stylish));
+        .pipe(jshint.reporter(jstylish));
+    gulp.src(['./src/chromatic/views/**.coffee', './src/chromatic/plugin.coffee'])
+        .pipe(coffeelint())
+        .pipe(coffeelint.reporter(cstylish));
 });
 
 gulp.task('coffee', function() {
