@@ -28,7 +28,7 @@
 { "type": "Feature", "properties": { "name": "Karlsruhe", "country": "DEU" }, "geometry": { "type": "Point", "coordinates": [ 8.4, 49 ] } },
 { "type": "Feature", "properties": { "name": "Munich", "country": "DEU" }, "geometry": { "type": "Point", "coordinates": [ 11.58, 48.14 ] } },
 { "type": "Feature", "properties": { "name": "Riga", "localname": "Rīga", "country": "LVA" }, "geometry": { "type": "Point", "coordinates": [ 24.11, 56.95 ] } },
-{ "type": "Feature", "properties": { "name": "Vienna", "localname": "Wien", "country": "AUS" }, "geometry": { "type": "Point", "coordinates": [ 16.38, 48.21 ] } },
+{ "type": "Feature", "properties": { "name": "Vienna", "localname": "Wien", "country": "AUT" }, "geometry": { "type": "Point", "coordinates": [ 16.38, 48.21 ] } },
 { "type": "Feature", "properties": { "name": "Budapest", "country": "HUN" }, "geometry": { "type": "Point", "coordinates": [ 19.04, 47.5 ] } },
 { "type": "Feature", "properties": { "name": "Prague", "localname": "Praha", "country": "CZE" }, "geometry": { "type": "Point", "coordinates": [ 14.44, 50.08 ] } },
 { "type": "Feature", "properties": { "name": "Copenhagen", "localname": "København", "country": "DNK" }, "geometry": { "type": "Point", "coordinates": [ 12.57, 55.68 ] } },
