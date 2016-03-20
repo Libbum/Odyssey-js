@@ -23,7 +23,7 @@
     };
 
   function deepProperties(arr, property) {
-    var res = '';
+    var res = '', details, back;
     switch (property) {
       case 'date': //NOTE: Probably don't use date, use year & month because date is pulled from trip info and not all images are in a trip.
       case 'trip':
@@ -61,7 +61,7 @@
 
   function gallerySwapout(filtered) {
     if (filtered.length > 1) {
-      gallery = $("#gallery");
+      var gallery = $("#gallery");
       gallery.fadeTo(750, 0, function() {
         gallery.empty().chromatic(filtered);
         gallery.fadeTo(750, 1);
@@ -82,9 +82,9 @@
       property = property.substr(1);
     }
     return function(a, b) {
-      left = deepProperties(a, property);
-      right = deepProperties(b, property);
-      var result = (left < right) ? -1 : (left > right) ? 1 : 0;
+      var left = deepProperties(a, property),
+          right = deepProperties(b, property),
+          result = (left < right) ? -1 : (left > right) ? 1 : 0;
       return result * sortOrder;
     };
   }
@@ -101,7 +101,7 @@
       return result;
     };
   }
-  ! function() {
+ ! function() {
     m = d3.behavior.zoom();
 
     function t(t, n, e) {
@@ -159,9 +159,7 @@
         var c = a * Math.sin((1 - e) * o) / r,
           i = Math.sin(e * o) / r;
         return [t[0] * c + n[0] * i, t[1] * c + n[1] * i, t[2] * c + n[2] * i, t[3] * c + n[3] * i];
-      } : function() {
-        return t;
-      };
+      } : function() { return t; };
     }
 
     function c(t) {
@@ -178,7 +176,6 @@
     function s(t, n) {
       var a = t.length - 1,
         o = 0;
-
       do {
         o += t[a] * n[a];
       } while (a--);
@@ -217,13 +214,13 @@
           g = u(m, "zoomstart", "zoom", "zoomend");
       m.on("zoomstart", function() {
           var r = d3.mouse(this),
-            i = e(h.rotate()),
-            u = n(h, r);
+              i = e(h.rotate()),
+              u = n(h, r);
           if (u) p = u;
           M.call(m, "zoom", function() {
             h.scale(z.k = d3.event.scale);
             var e = d3.mouse(this),
-              s = o(p, n(h, e));
+                s = o(p, n(h, e));
             h.rotate(z.r = c(i = s ? a(i, s) : a(t(h, r, e), i)));
             r = e;
             l(g.of(this, arguments));
@@ -280,7 +277,7 @@
     }, d3.rebind(m, g, "on");
 };
   }(),
-  function() {
+ function() {
     function t(t, n, e) {
       var a = n.projection();
       t.append("path").datum(d3.geo.graticule()).attr("class", "iglobe-graticule").attr("d", n);
@@ -303,8 +300,7 @@
     function sphereRotate() {
       var x0, y0, cy0, sy0, kx0, ky0,
         x1, y1, cy1, sy1, kx1, ky1,
-        d,
-        k;
+        d, k;
 
       function interpolate(t) {
         var B = Math.sin(t *= d) * k,
@@ -410,7 +406,7 @@
       });
 
       $("#navsub").click(function() {
-         var selected = $("#MenuList").val();
+        var selected = $("#MenuList").val();
         if ($("#galSelTrip").is(":checked")) {
           if (selected !== viewing.filterProp) {
             coords = tripView(selected, true);
@@ -532,7 +528,7 @@
      });
   }();
 
-  $(function() {
+ $(function() {
 
     var $body = $('body'),
       $header = $('#header'),
@@ -544,10 +540,7 @@
     // Fix: Placeholder polyfill.
     $('form').placeholder();
     $navMenu.hide();
-    $menuList.css({
-      'visibility': 'hidden',
-      'opacity': 0
-    });
+    $menuList.css({ 'visibility': 'hidden', 'opacity': 0 });
     // Prioritize "important" elements on medium.
     skel.on('+medium -medium', function() {
       $.prioritize(
@@ -566,8 +559,7 @@
       .appendTo($body);
 
     // Header.
-    $header
-      .panel({
+    $header.panel({
         delay: 500,
         hideOnClick: true,
         hideOnSwipe: true,
@@ -579,15 +571,14 @@
       });
 
     // Fix: Remove navPanel transitions on WP<10 (poor/buggy performance).
-    if (skel.vars.os == 'wp' && skel.vars.osVersion < 10)
-      $('#titleBar, #header, #wrapper')
-      .css('transition', 'none');
+    if (skel.vars.os == 'wp' && skel.vars.osVersion < 10)  $('#titleBar, #header, #wrapper').css('transition', 'none');
 
     // Menus
     var menu;
     $.getJSON('assets/data/menu.json', function(m) {
       menu = m;
     });
+
     $('#showMenu').click(function() {
       $navTitle.toggle('fast', function() {
         $navMenu.toggle();
@@ -625,23 +616,17 @@
     $("input[name='galSelection']").change(function() {
       switch ($(this).attr('id')) {
         case 'galSelAll':
-          $menuList.animate({
-            opacity: 0
-          }, 1000, function() {
+          $menuList.animate({ opacity: 0 }, 1000, function() {
             $(this).css('visibility', 'hidden');
           });
           break;
         case 'galSelTrip':
           fillMenu('trips');
-          $menuList.css('visibility', 'visible').animate({
-            opacity: 1
-          }, 1000);
+          $menuList.css('visibility', 'visible').animate({ opacity: 1 }, 1000);
           break;
         case 'galSelCountry':
           fillMenu('countries');
-          $menuList.css('visibility', 'visible').animate({
-            opacity: 1
-          }, 1000);
+          $menuList.css('visibility', 'visible').animate({ opacity: 1 }, 1000);
           break;
       }
       return false;
@@ -654,13 +639,9 @@
         url: $(this).attr('action'),
         data: $(this).serialize(), // serializes the form's elements.
         success: function(data) {
-          $('#response').animate({
-            'opacity': 0
-          }, 500, function() {
+          $('#response').animate({ 'opacity': 0 }, 500, function() {
             $(this).html(data);
-          }).animate({
-            'opacity': 1
-          }, 500);
+          }).animate({ 'opacity': 1 }, 500);
           if (~data.indexOf('Thanks')) {
             $('#contactForm')[0].reset(); //clear the form if information was sent
           }
