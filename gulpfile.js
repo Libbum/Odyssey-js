@@ -60,7 +60,7 @@ gulp.task('css', function () {
     .pipe(sass().on('error', sass.logError))
     .pipe(uncss({
         html: ['./dist/index.html'],
-        ignore: [/chromatic-.*/, /iglobe-.*/, '#map', '.modal', /modal-.*/, '.modal a.close-modal', '.blocker', '.blocker:before', '#titleBar', '#gallery div']
+        ignore: [/chromatic-.*/, /iglobe-.*/, '#map', '.modal', /modal-.*/, '.modal a.close-modal', '.blocker', '.blocker:before', '#titleBar', '#gallery div', '.fa-chevron-up']
     }))
     .pipe(nano())
     .pipe(gulp.dest('./dist/assets/css'));
