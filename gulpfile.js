@@ -40,17 +40,10 @@ gulp.task('chromatic', ['coffee'], function() {
     .pipe(gulp.dest('./src/lib/'))
 })
 
-gulp.task('javascripttop', ['chromatic'], function() {
-  return gulp.src(['./src/lib/jquery.modal.js', './src/lib/chromatic.js'])
+gulp.task('javascript', ['chromatic'], function() {
+  return gulp.src(['./src/lib/*.js'])
     .pipe(uglify())
-    .pipe(concat('odysseytop.js'))
-    .pipe(gulp.dest('./dist/assets/js/'))
-})
-
-gulp.task('javascriptbottom', function() {
-  return gulp.src(['./src/lib/globe.js', './src/lib/control.js', './src/lib/galleryctl.js', './src/lib/util.js'])
-    .pipe(uglify())
-    .pipe(concat('odysseybottom.js'))
+    .pipe(concat('odyssey.js'))
     .pipe(gulp.dest('./dist/assets/js/'))
 })
 
@@ -65,7 +58,7 @@ gulp.task('css', function () {
     .pipe(gulp.dest('./dist/assets/css'));
 });
 
-gulp.task('build-and-clean', ['javascripttop', 'javascriptbottom', 'css'], function() {
+gulp.task('build-and-clean', ['javascript', 'css'], function() {
   del(['./src/chromatic/build']);
 })
 
