@@ -49,8 +49,8 @@ gulp.task('javascripttop', ['chromatic'], function() {
 })
 
 gulp.task('javascriptbottom', function() {
-  return gulp.src(['./src/lib/main.js', './src/lib/util.js'])
-    .pipe(uglify())
+  return gulp.src(['./src/lib/main2.js', './src/lib/util.js'])
+   // .pipe(uglify())
     .pipe(concat('odysseybottom.js'))
     .pipe(gulp.dest('./dist/assets/js/'))
 })
