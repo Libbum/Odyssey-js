@@ -9,6 +9,8 @@
       xsmall: '(max-width: 480px)'
    });
 
+   viewing = { filterKey: '', filterProp: '', sortBy: ['!year', '!month', '!trip', 'filename'] };
+   
    function gotoView(coords) {
       var interp = sphereRotate();
       d3.transition().delay(1500).duration(2000)
@@ -87,7 +89,6 @@
       }
    }
 
-
    function getRotation(coords) {
       var lat = 0,
          long = 0,
@@ -100,7 +101,6 @@
       long /= coords.length;
       return [-lat, -long];
    }
-   var viewing = { filterKey: '', filterProp: '', sortBy: ['!year', '!month', '!trip', 'filename'] };
 
    $(function() {
       var $body = $('body'),
@@ -211,7 +211,7 @@
                   viewing.sortBy = ['filename', '!year', '!month'];
                   $("#inv").html('<i class="fa fa-chevron-up"></i>');
                }
-               //   gallerySwapout(filterSort());
+               gallerySwapout(filterSort());
 
                gotoView(coords);
             }
@@ -237,7 +237,7 @@
                         $("#inv").html('<i class="fa fa-chevron-up"></i>');
                      }
 
-                     //   gallerySwapout(filterSort());
+                     gallerySwapout(filterSort());
 
                      gotoView([-coords[0], -coords[1]]);
                      break;
@@ -253,8 +253,8 @@
                viewing = { filterKey: '', filterProp: '', sortBy: ['year', 'month', '!trip', 'filename'] };
                $("#inv").html('<i class="fa fa-chevron-up"></i>');
             }
-            //   var filtered = photos.sort(dynamicSortMultiple(viewing.sortBy));
-            //gallerySwapout(filtered);
+            var filtered = photos.sort(dynamicSortMultiple(viewing.sortBy));
+            gallerySwapout(filtered);
 
             gotoView([-40, -30]);
          }
@@ -279,9 +279,15 @@
                viewing.sortBy[1] = "!" + viewing.sortBy[1];
             }
          }
-         //gallerySwapout(filterSort());
+         gallerySwapout(filterSort());
          return false;
       });
+
+      //  Gallery
+     $.getJSON('assets/data/manifest.json', function(p) {
+        photos = p.sort(dynamicSortMultiple(viewing.sortBy));
+        $("#gallery").chromatic(photos);
+     });
 
       //contact
       $("#contactForm").submit(function(e) {

@@ -13,12 +13,12 @@ var coffeelint = require('gulp-coffeelint');
 var cstylish = require('coffeelint-stylish');
 
 gulp.task('lint', function () {
-    gulp.src(['./src/lib/control.js', './src/lib/globe.js', './src/lib/util.js', './src/lib/jquery.modal.js', './src/chromatic/lib/*.js'])
+    gulp.src(['./src/lib/control.js', './src/lib/globe.js', './src/lib/galleryctl.js', './src/lib/util.js', './src/lib/jquery.modal.js', './src/chromatic/lib/*.js'])
         .pipe(jshint())
         .pipe(jshint.reporter(jstylish));
-    //gulp.src(['./src/chromatic/views/**.coffee', './src/chromatic/plugin.coffee'])
-      //  .pipe(coffeelint())
-       // .pipe(coffeelint.reporter(cstylish));
+    gulp.src(['./src/chromatic/views/**.coffee', './src/chromatic/plugin.coffee'])
+        .pipe(coffeelint())
+        .pipe(coffeelint.reporter(cstylish));
 });
 
 gulp.task('lintcjs', function () {
@@ -48,8 +48,8 @@ gulp.task('javascripttop', ['chromatic'], function() {
 })
 
 gulp.task('javascriptbottom', function() {
-  return gulp.src(['./src/lib/globe.js', './src/lib/control.js', './src/lib/util.js'])
-    //.pipe(uglify())
+  return gulp.src(['./src/lib/globe.js', './src/lib/control.js', './src/lib/galleryctl.js', './src/lib/util.js'])
+    .pipe(uglify())
     .pipe(concat('odysseybottom.js'))
     .pipe(gulp.dest('./dist/assets/js/'))
 })
