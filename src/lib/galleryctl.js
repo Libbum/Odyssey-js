@@ -2,7 +2,6 @@ function deepProperties(arr, property) {
    var res = '',
       details, back;
    switch (property) {
-      case 'date': //NOTE: Probably don't use date, use year & month because date is pulled from trip info and not all images are in a trip.
       case 'trip':
       case 'big':
          res = arr[property];
