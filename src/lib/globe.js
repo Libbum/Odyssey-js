@@ -1,6 +1,10 @@
 (function() {
    m = d3.behavior.zoom();
-   var d = Math.PI / 180,
+   proj = d3.geo.orthographic().precision(0.5).clipAngle(90).clipExtent([[-1, -1],[401, 401]]).translate([200, 200]).scale(190).rotate([-40, -30]);
+
+   var c = -1,
+       rr = d3.dispatch("world"),
+       d = Math.PI / 180,
        h = 180 / Math.PI;
 
    function t(t, n, e) {
@@ -51,7 +55,7 @@
       };
    }
 
-   function c(t) {
+   function cc(t) {
       return [Math.atan2(2 * (t[0] * t[1] + t[2] * t[3]), 1 - 2 * (t[1] * t[1] + t[2] * t[2])) * h, Math.asin(Math.max(-1, Math.min(1, 2 * (t[0] * t[2] - t[3] * t[1])))) * h, Math.atan2(2 * (t[0] * t[3] + t[1] * t[2]), 1 - 2 * (t[2] * t[2] + t[3] * t[3])) * h];
    }
 
@@ -106,7 +110,7 @@
             h.scale(z.k = d3.event.scale);
             var e = d3.mouse(this),
                s = o(p, n(h, e));
-            h.rotate(z.r = c(i = s ? a(i, s) : a(t(h, r, e), i)));
+            h.rotate(z.r = cc(i = s ? a(i, s) : a(t(h, r, e), i)));
             r = e;
             l(g.of(this, arguments));
          });
@@ -119,7 +123,7 @@
       z = { r: [0, 0, 0], k: 1 };
       return m.rotateTo = function(t) {
          var n = o(i(t), i([-z.r[0], -z.r[1]]));
-         return c(a(e(z.r), n));
+         return cc(a(e(z.r), n));//
       }, m.projection = function(t) {
          return arguments.length ? (h = t, z = {
             r: h.rotate(),
@@ -146,7 +150,7 @@
                   return f && o.duration(f(0.001 * u.duration)),
                      function(e) {
                         var a = u(e);
-                        this.__chart__ = z = { r: c(i(a[0] / s)), k: t / a[2] };
+                        this.__chart__ = z = { r: cc(i(a[0] / s)), k: t / a[2] };//
                         h.rotate(z.r).scale(z.k);
                         m.scale(z.k);
                         l(n);
@@ -165,223 +169,47 @@
       }, d3.rebind(m, g, "on");
    };
 
-})();
-
-//r = d3.dispatch("world");
-
-(function() {
-
-
-   proj = d3.geo.orthographic().precision(0.5).clipAngle(90).clipExtent([[-1, -1],[401, 401]]).translate([200, 200]).scale(190).rotate([-40, -30]);
-
-   var c = -1,
-   r = d3.dispatch("world");
-   var viewing = { filterKey: '', filterProp: '',
-      sortBy: ['!year', '!month', '!trip', 'filename']
-   };
-
-       function grab(t, n, e) {
-          var a = n.projection(); //From d3
-          t.append("path").datum(d3.geo.graticule()).attr("class", "iglobe-graticule").attr("d", n);
-          t.append("path").datum({ type: "Sphere" }).attr("class", "iglobe-foreground").attr("d", n).on("mousedown.grab", function() {
-             var n;
-             if (e) n = t.insert("path", ".iglobe-foreground").datum({ type: "Point", coordinates: a.invert(d3.mouse(this)) })
-                         .attr("class", "iglobe-point").attr("d", o);
-             var o = d3.select(this).classed("zooming", !0),
-                r = d3.select(window).on("mouseup.grab", function() {
-                   o.classed("zooming", !1);
-                   r.on("mouseup.grab", null);
-                   if (e) n.remove();
-                });
-          });
-       }
-
-       d3.selectAll("#map").data([proj]).append("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 400 400").each(function(p) {
-          var e = d3.geo.path().projection(p),
-             a = d3.select(this).call(grab, e, !0);
-          a.selectAll(".iglobe-foreground").call(d3.geo.zoom().projection(p).scaleExtent([0.7 * p.scale(), 10 * p.scale()]).on("zoom.redraw", function() {
-             if (d3.event.sourceEvent.preventDefault) d3.event.sourceEvent.preventDefault();
-             a.selectAll("path").attr("d", e);
-          }));
-          r.on("world." + c++, function() {
-             a.selectAll("path").attr("d", e);
-          });
+    function grab(t, n, e) {
+       var a = n.projection(); //From d3
+       t.append("path").datum(d3.geo.graticule()).attr("class", "iglobe-graticule").attr("d", n);
+       t.append("path").datum({ type: "Sphere" }).attr("class", "iglobe-foreground").attr("d", n).on("mousedown.grab", function() {
+          var n;
+          if (e) n = t.insert("path", ".iglobe-foreground").datum({ type: "Point", coordinates: a.invert(d3.mouse(this)) })
+                      .attr("class", "iglobe-point").attr("d", o);
+          var o = d3.select(this).classed("zooming", !0),
+             rr = d3.select(window).on("mouseup.grab", function() {
+                o.classed("zooming", !1);
+                rr.on("mouseup.grab", null);
+                if (e) n.remove();
+             });
        });
+    }
 
-      d3.json("assets/data/world.json", function(t, n) {
-         var svg = d3.selectAll("svg");
-         svg.insert("path", ".iglobe-graticule").datum({ type: "Sphere"}).attr("class", "iglobe-ocean");
-         countries = topojson.feature(n, n.objects.countries).features;
-         svg.insert("g", ".iglobe-foreground").attr("id", "countries");
-         d3.selectAll("#countries").selectAll("path").data(countries.filter(function(d) {
-               return d.geometry.type !== 'Point';
-            }))
-            .enter().append("path").attr("class", "iglobe-countries").attr("id", function(d, i) {
-               return d.id;
-            });
-         svg.insert("path", ".iglobe-foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "iglobe-cities").selectAll("LineString").attr("class", "iglobe-route");
-         svg.insert("g", ".iglobe-cities").attr("id", "routes");
-         d3.selectAll("#routes").selectAll("path").data(topojson.feature(n, n.objects.trips).features).enter()
-            .append("path").attr("id", function(d) { return d.properties.name; }).attr("class", "iglobe-route")
-            .attr("visibility", function(d) { return "hidden"; });
-         r.world();
-      });
+    d3.selectAll("#map").data([proj]).append("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 400 400").each(function(p) {
+       var e = d3.geo.path().projection(p),
+          a = d3.select(this).call(grab, e, !0);
+       a.selectAll(".iglobe-foreground").call(d3.geo.zoom().projection(p).scaleExtent([0.7 * p.scale(), 10 * p.scale()]).on("zoom.redraw", function() {
+          if (d3.event.sourceEvent.preventDefault) d3.event.sourceEvent.preventDefault();
+          a.selectAll("path").attr("d", e);
+       }));
+       rr.on("world." + c++, function() {
+          a.selectAll("path").attr("d", e);
+       });
+    });
 
-      function gotoView(coords) {
-         var interp = sphereRotate();
-         d3.transition().delay(1500).duration(2000)
-            .tween("rotate", function() {
-               interp.source(proj.rotate()).target(coords).distance();
-               var sc = d3.interpolate(proj.scale(), 190); //width / 2 - 10 = 190
-               return function(i) {
-                  proj.rotate(interp(i)).scale(sc(i));
-                  m.scale(sc(i));
-                  d3.select("#map").selectAll("path").attr("d", d3.geo.path().projection(proj));
-               };
-            });
-      }
+   d3.json("assets/data/world.json", function(t, n) {
+      var svg = d3.selectAll("svg");
+      svg.insert("path", ".iglobe-graticule").datum({ type: "Sphere"}).attr("class", "iglobe-ocean");
+      countries = topojson.feature(n, n.objects.countries).features;
+      svg.insert("g", ".iglobe-foreground").attr("id", "countries");
+      d3.selectAll("#countries").selectAll("path").data(countries.filter(function(d) { return d.geometry.type !== 'Point'; }))
+         .enter().append("path").attr("class", "iglobe-countries").attr("id", function(d, i) { return d.id; });
+      svg.insert("path", ".iglobe-foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "iglobe-cities").selectAll("LineString").attr("class", "iglobe-route");
+      svg.insert("g", ".iglobe-cities").attr("id", "routes");
+      d3.selectAll("#routes").selectAll("path").data(topojson.feature(n, n.objects.trips).features).enter()
+         .append("path").attr("id", function(d) { return d.properties.name; }).attr("class", "iglobe-route")
+         .attr("visibility", function(d) { return "hidden"; });
+      rr.world();
+   });
 
-      function sphereRotate() {
-         var x0, y0, cy0, sy0, kx0, ky0,
-            x1, y1, cy1, sy1, kx1, ky1,
-            d, k;
-
-         function interpolate(t) {
-            var B = Math.sin(t *= d) * k,
-               A = Math.sin(d - t) * k,
-               x = A * kx0 + B * kx1,
-               y = A * ky0 + B * ky1,
-               z = A * sy0 + B * sy1;
-            return [Math.atan2(y, x) / d, Math.atan2(z, Math.sqrt(x * x + y * y)) / d];
-         }
-
-         interpolate.distance = function() {
-            if (d === null) k = 1 / Math.sin(d = Math.acos(Math.max(-1, Math.min(1, sy0 * sy1 + cy0 * cy1 * Math.cos(x1 - x0)))));
-            return d;
-         };
-
-         interpolate.source = function(_) {
-            var cx0 = Math.cos(x0 = _[0] * d),
-               sx0 = Math.sin(x0);
-            cy0 = Math.cos(y0 = _[1] * d);
-            sy0 = Math.sin(y0);
-            kx0 = cy0 * cx0;
-            ky0 = cy0 * sx0;
-            d = null;
-            return interpolate;
-         };
-
-         interpolate.target = function(_) {
-            var cx1 = Math.cos(x1 = _[0] * d),
-               sx1 = Math.sin(x1);
-            cy1 = Math.cos(y1 = _[1] * d);
-            sy1 = Math.sin(y1);
-            kx1 = cy1 * cx1;
-            ky1 = cy1 * sx1;
-            d = null;
-            return interpolate;
-         };
-
-         return interpolate;
-      }
-
-      function tripView(selected, getCoords) {
-         //var coords;
-         if (viewing.filterKey == 'country') {
-            d3.selectAll(".iglobe-countries").attr("style", null);
-         }
-         d3.selectAll(".iglobe-route").each(function(d, i) {
-            if (d.properties.name == selected) {
-               d3.select(this).attr("visibility", "visible");
-               if (getCoords) { coords = getRotation(d.geometry.coordinates); }
-            } else {
-               d3.select(this).attr("visibility", "hidden");
-            }
-         });
-         if (getCoords) { return coords; }
-      }
-
-
-      function getRotation(coords) {
-         var lat = 0,
-            long = 0,
-            len = coords.length - 1;
-         do {
-            lat += coords[len][0];
-            long += coords[len][1];
-         } while (len--);
-         lat /= coords.length;
-         long /= coords.length;
-         return [-lat, -long];
-      }
-      $("#navsub").click(function() {
-         var //coords,
-            selected = $("#MenuList").val();
-         if ($("#galSelTrip").is(":checked")) {
-            if (selected !== viewing.filterProp) {
-               coords = tripView(selected, true);
-
-               viewing.filterKey = 'trip';
-               viewing.filterProp = selected;
-               viewing.sortBy = ['!filename', '!year', '!month'];
-               if (viewing.sortBy[0][0] === "!") {
-                  viewing.sortBy = ['!filename', '!year', '!month'];
-                  $("#inv").html('<i class="fa fa-chevron-down"></i>');
-               } else {
-                  viewing.sortBy = ['filename', '!year', '!month'];
-                  $("#inv").html('<i class="fa fa-chevron-up"></i>');
-               }
-            //   gallerySwapout(filterSort());
-
-               gotoView(coords);
-            }
-         } else if ($("#galSelCountry").is(":checked")) {
-            for (var i = 0; i < countries.length; i++) {
-               if (countries[i].id == selected) {
-                  if (countries[i].properties.name !== viewing.filterProp) {
-                     var centroid = d3.geo.path().projection(function(d) {
-                        return d;
-                     }).centroid;
-                     coords = centroid(countries[i]);
-
-                     tripView(selected, false);
-                     d3.select("#" + selected).style("fill", "#962d3e");
-
-                     viewing.filterKey = 'country';
-                     viewing.filterProp = countries[i].properties.name.replace(/ /g, '_').replace(/\./g, '');
-                     if (viewing.sortBy[0][0] === "!") {
-                        viewing.sortBy = ['!year', '!month', 'filename'];
-                        $("#inv").html('<i class="fa fa-chevron-down"></i>');
-                     } else {
-                        viewing.sortBy = ['year', 'month', 'filename'];
-                        $("#inv").html('<i class="fa fa-chevron-up"></i>');
-                     }
-
-                  //   gallerySwapout(filterSort());
-
-                     gotoView([-coords[0], -coords[1]]);
-                     break;
-                  }
-               }
-            }
-         } else {
-            tripView('', false);
-            if (viewing.sortBy[0][0] === "!") {
-               viewing = { filterKey: '', filterProp: '',
-                  sortBy: ['!year', '!month', '!trip', 'filename']
-               };
-               $("#inv").html('<i class="fa fa-chevron-down"></i>');
-            } else {
-               viewing = { filterKey: '', filterProp: '',
-                  sortBy: ['year', 'month', '!trip', 'filename']
-               };
-               $("#inv").html('<i class="fa fa-chevron-up"></i>');
-            }
-         //   var filtered = photos.sort(dynamicSortMultiple(viewing.sortBy));
-            //gallerySwapout(filtered);
-
-            gotoView([-40, -30]);
-         }
-         return false;
-      });
 })();
