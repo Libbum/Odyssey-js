@@ -105,7 +105,7 @@
     m = d3.behavior.zoom();
 
     function t(t, n, e) {
-      var a = t.translate(),
+      var a = t.translate(), //From d3
         o = Math.atan2(n[1] - a[1], n[0] - a[0]) - Math.atan2(e[1] - a[1], e[0] - a[0]);
       return [Math.cos(o / 2), 0, 0, Math.sin(o / 2)];
     }
@@ -279,7 +279,7 @@
   }(),
  function() {
     function t(t, n, e) {
-      var a = n.projection();
+      var a = n.projection(); //Frmo d3
       t.append("path").datum(d3.geo.graticule()).attr("class", "iglobe-graticule").attr("d", n);
       t.append("path").datum({ type: "Sphere" }).attr("class", "iglobe-foreground").attr("d", n).on("mousedown.grab", function() {
           var n;
