@@ -10,7 +10,7 @@
    });
 
    viewing = { filterKey: '', filterProp: '', sortBy: ['!year', '!month', '!trip', 'filename'] };
-   
+
    function gotoView(coords) {
       var interp = sphereRotate();
       d3.transition().delay(1500).duration(2000)
@@ -146,6 +146,11 @@
       // Fix: Remove navPanel transitions on WP<10 (poor/buggy performance).
       if (skel.vars.os == 'wp' && skel.vars.osVersion < 10) $('#titleBar, #header, #wrapper').css('transition', 'none');
 
+      // Photos
+      $.getJSON('assets/data/manifest.json', function(p) {
+        photos = p.sort(dynamicSortMultiple(viewing.sortBy));
+        $("#gallery").removeClass('chromatic-waiting').chromatic(photos);
+      });
       // Menus
       var menu;
       $.getJSON('assets/data/menu.json', function(m) { menu = m; });
@@ -282,12 +287,6 @@
          gallerySwapout(filterSort());
          return false;
       });
-
-      //  Gallery
-     $.getJSON('assets/data/manifest.json', function(p) {
-        photos = p.sort(dynamicSortMultiple(viewing.sortBy));
-        $("#gallery").chromatic(photos);
-     });
 
       //contact
       $("#contactForm").submit(function(e) {
