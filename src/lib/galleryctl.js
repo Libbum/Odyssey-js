@@ -45,7 +45,7 @@ function gallerySwapout(filtered) {
    }
 }
 
-function filterSort() {
+function filterSort(photos) {
    return photos.filter(function(el) {
       return deepProperties(el, viewing.filterKey) == viewing.filterProp;
    }).sort(dynamicSortMultiple(viewing.sortBy));
@@ -76,4 +76,19 @@ function dynamicSortMultiple(props) {
       }
       return result;
    };
+}
+
+function updateGallery(filtered) {
+   var $next = $('#nextPage');
+   galleryLength = filtered.length;
+   numPages = Math.ceil(galleryLength/100);
+   if (galleryLength > 100) {
+      gallerySwapout(filtered.slice(0,100));
+      $next.css({ 'visibility': 'visible', 'opacity': 1 });
+   } else {
+      gallerySwapout(filtered);
+      $next.css({ 'visibility': 'hidden', 'opacity': 0 });
+   }
+   currPage = 0;
+   $('#prevPage').css({ 'visibility': 'hidden', 'opacity': 0 });
 }

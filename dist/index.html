@@ -24,7 +24,17 @@
          <p>The world is a book and those who do not travel read only one page.<br />
             <span class="quote-right">&mdash; Aurelius Augustinus Hipponensis</span></p>
       </header>
-      <button type="submit" id="showMenu" class="button small"><i class="fa fa-sliders fa-2x"></i></button>
+      <div class="row">
+         <div class="-1u 3u">
+            <button type="submit" id="prevPage" class="button"><i class="fa fa-arrow-left"></i></button>
+         </div>
+         <div class="4u">
+            <button type="submit" id="showMenu" class="button small"><i class="fa fa-sliders fa-2x"></i></button>
+         </div>
+         <div class="3u 1u">
+            <button type="submit" id="nextPage" class="button"><i class="fa fa-arrow-right"></i></button>
+         </div>
+      </div>
       <nav id="nav">
          <div class="row" id="navMenu">
             <div class="12u">
@@ -62,7 +72,7 @@
       <div id="main">
 
          <div id="gallery" class="chromatic-waiting"></div>
-
+         <div id="bottom"></div>
       </div>
 
    </div>

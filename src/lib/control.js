@@ -102,6 +102,15 @@
       return [-lat, -long];
    }
 
+   function element_in_scroll(elem) {
+      var docViewTop = $(window).scrollTop(),
+            docViewBottom = docViewTop + $(window).height(),
+            elemTop = $(elem).offset().top,
+            elemBottom = elemTop + $(elem).height();
+
+      return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+   }
+
    $(function() {
       var $body = $('body'),
          $header = $('#header'),
@@ -109,7 +118,16 @@
          $wrapper = $('#wrapper'),
          $menuList = $('#MenuList'),
          $navMenu = $('#navMenu'),
-         $navTitle = $('#navTitle');
+         $next = $('#nextPage'),
+         $prev = $('#prevPage'),
+         $gallery = $('#gallery'),
+         $navTitle = $('#navTitle'),
+         filtered,
+         photos,
+         notClicked = true;
+
+      currPage = 0;
+
       // Fix: Placeholder polyfill.
       $('form').placeholder();
       $navMenu.hide();
@@ -146,11 +164,6 @@
       // Fix: Remove navPanel transitions on WP<10 (poor/buggy performance).
       if (skel.vars.os == 'wp' && skel.vars.osVersion < 10) $('#titleBar, #header, #wrapper').css('transition', 'none');
 
-      // Photos
-      $.getJSON('assets/data/manifest.json', function(p) {
-        photos = p.sort(dynamicSortMultiple(viewing.sortBy));
-        $("#gallery").removeClass('chromatic-waiting').chromatic(photos);
-      });
       // Menus
       var menu;
       $.getJSON('assets/data/menu.json', function(m) { menu = m; });
@@ -163,7 +176,6 @@
          $('#contactModal').modal({ fadeDuration: 500 });
          return false;
       });
-
 
       function fillMenu(type) {
          var menuList = document.getElementById('MenuList');
@@ -216,7 +228,8 @@
                   viewing.sortBy = ['filename', '!year', '!month'];
                   $("#inv").html('<i class="fa fa-chevron-up"></i>');
                }
-               gallerySwapout(filterSort());
+               filtered = filterSort(photos);
+               updateGallery(filtered);
 
                gotoView(coords);
             }
@@ -241,8 +254,8 @@
                         viewing.sortBy = ['year', 'month', 'filename'];
                         $("#inv").html('<i class="fa fa-chevron-up"></i>');
                      }
-
-                     gallerySwapout(filterSort());
+                     filtered = filterSort(photos);
+                     updateGallery(filtered);
 
                      gotoView([-coords[0], -coords[1]]);
                      break;
@@ -258,8 +271,8 @@
                viewing = { filterKey: '', filterProp: '', sortBy: ['year', 'month', '!trip', 'filename'] };
                $("#inv").html('<i class="fa fa-chevron-up"></i>');
             }
-            var filtered = photos.sort(dynamicSortMultiple(viewing.sortBy));
-            gallerySwapout(filtered);
+            filtered = photos.sort(dynamicSortMultiple(viewing.sortBy));
+            updateGallery(filtered);
 
             gotoView([-40, -30]);
          }
@@ -306,5 +319,51 @@
          e.preventDefault(); // don't execute the actual form submission.
       });
 
+      // Photos
+      $.getJSON('assets/data/manifest.json', function(p) {
+        photos = p.sort(dynamicSortMultiple(viewing.sortBy));
+        filtered = photos;
+        galleryLength = photos.length;
+        numPages = Math.ceil(galleryLength/100);
+        if (galleryLength > 100) {
+            $gallery.chromatic(photos.slice(0,100)).removeClass('chromatic-waiting');
+        } else {
+           $gallery.chromatic(photos).removeClass('chromatic-waiting');
+           $next.css({ 'visibility': 'hidden', 'opacity': 0 });
+        }
+      });
+      $prev.css({ 'visibility': 'hidden', 'opacity': 0 });
+
+      $next.click(function() {
+         notClicked = false;
+         currPage = currPage+1;
+         var offset = currPage*100;
+         gallerySwapout(filtered.slice(offset,Math.min(offset+100, galleryLength)));
+         if (numPages-1 == currPage) {
+             $next.css({ 'visibility': 'hidden', 'opacity': 0 });
+         }
+         $prev.css({ 'visibility': 'visible', 'opacity': 1 });
+         return false;
+      });
+
+      $prev.click(function() {
+         currPage = currPage-1;
+         var offset = currPage*100;
+         gallerySwapout(filtered.slice(offset,offset+100));
+         if (currPage === 0) {
+             $prev.css({ 'visibility': 'hidden', 'opacity': 0 });
+         }
+         $next.css({ 'visibility': 'visible', 'opacity': 1 });
+         return false;
+      });
+
+      $(document).scroll(function(e) {
+         if (notClicked) {
+            if (element_in_scroll("#bottom")) {
+               //$next.fadeTo(750, 0.5, function() { $next.fadeTo(750, 1); });
+               $next.fadeTo(500, 0.5).fadeTo(500, 1).fadeTo(500, 0.75).fadeTo(500, 1).fadeTo(500, 0.5).fadeTo(500, 1);
+            }
+         }
+      });
    });
 })(jQuery);
