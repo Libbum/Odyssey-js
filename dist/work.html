@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+   <title>Odyssey</title>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <script src="assets/js/catiline.min.js"></script>
+</head>
+
+<body>
+
+
+   <!-- Scripts -->
+
+   <script>
+      console.log('Were here');
+      var worker = cw({
+          sum:function(a,callback){
+              callback(a[0]+a[1]);
+          },
+          square:function(a){
+              return a*a;
+          }
+      });
+      worker.sum([2,5]).then(function(a){
+          console.log(a);
+      })//prints 7
+      worker.square(5).then(function(a){
+          console.log(a);
+      })//prints 25
+   //
+
+      var worker2 = cw(function(text){
+         return 'Hello ' + text;
+      });
+
+      worker2.data('World').then(function(result){
+        console.log(result);
+     });
+   //   worker2.close();
+      console.log('and done');
+      worker.close();
+  worker2.close();
+   </script>
+</body>
+
+</html>

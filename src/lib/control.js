@@ -146,11 +146,6 @@
       // Fix: Remove navPanel transitions on WP<10 (poor/buggy performance).
       if (skel.vars.os == 'wp' && skel.vars.osVersion < 10) $('#titleBar, #header, #wrapper').css('transition', 'none');
 
-      // Photos
-      $.getJSON('assets/data/manifest.json', function(p) {
-        photos = p.sort(dynamicSortMultiple(viewing.sortBy));
-        $("#gallery").removeClass('chromatic-waiting').chromatic(photos);
-      });
       // Menus
       var menu;
       $.getJSON('assets/data/menu.json', function(m) { menu = m; });
@@ -304,6 +299,12 @@
             }
          });
          e.preventDefault(); // don't execute the actual form submission.
+      });
+
+      // Photos
+      $.getJSON('assets/data/manifest.json', function(p) {
+        photos = p.sort(dynamicSortMultiple(viewing.sortBy));
+        $("#gallery").chromatic(photos).removeClass('chromatic-waiting'); //.slice(0,100)
       });
 
    });
