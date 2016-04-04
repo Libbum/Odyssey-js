@@ -1,7 +1,7 @@
 # Odyssey
 A Photoblog of my adventures.
 
-Uses a heavily modified [chromatic.js](https://github.com/crispymtn/chromatic.js) gallery, with maps and other interactivity powered [D3.js](http://d3js.org/). A Python script builds the manifest of files needed in the gallery array; menus and trip/city information have [Node.js](https://nodejs.org) build scripts.
+Uses a heavily modified [chromatic.js](https://github.com/crispymtn/chromatic.js) gallery, with maps and other interactivity powered by [D3.js](http://d3js.org/). Python scripts build the manifest of files which are needed in the gallery array and descriptor files for captions; menus and trip/city information have [Node.js](https://nodejs.org) build scripts.
 
 All of this essentially becomes a static site generator that simply rsyncs to my VPS.
 
