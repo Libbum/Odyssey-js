@@ -15,6 +15,10 @@ class Chromatic.GalleryPhotoView
       @photo.aspect_ratio = image.width/image.height
       callback() if callback
       @el.css('backgroundImage', "url(#{@photo.small})")
+      locale = "#{@photo.locale}"
+      @el.mouseover ->
+         $('#locale').html(locale)
+         return
       @loaded = true
     image.src = @photo.small
 

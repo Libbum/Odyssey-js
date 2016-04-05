@@ -42,7 +42,7 @@ gulp.task('chromatic', ['coffee'], function() {
 
 gulp.task('javascript', ['chromatic'], function() {
   return gulp.src(['./src/lib/*.js'])
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(concat('odyssey.js'))
     .pipe(gulp.dest('./dist/assets/js/'))
 })
