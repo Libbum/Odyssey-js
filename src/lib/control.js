@@ -111,17 +111,31 @@
       return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
    }
 
+   function fillMenu(type) {
+      var menuList = document.getElementById('MenuList');
+      while (menuList.firstChild) {
+         menuList.removeChild(menuList.firstChild);
+      }
+      var fragment = document.createDocumentFragment();
+      menu[type].forEach(function(nfo, index) {
+         var opt = document.createElement('option');
+         opt.innerHTML = nfo.desc;
+         opt.value = nfo.id;
+         fragment.appendChild(opt);
+      });
+      menuList.appendChild(fragment);
+   }
+
    $(function() {
       var $body = $('body'),
          $header = $('#header'),
-         $nav = $('#nav'),
-         $wrapper = $('#wrapper'),
          $menuList = $('#MenuList'),
          $navMenu = $('#navMenu'),
          $next = $('#nextPage'),
          $prev = $('#prevPage'),
          $gallery = $('#gallery'),
          $navTitle = $('#navTitle'),
+         menu,
          filtered,
          photos,
          notClicked = true;
@@ -165,7 +179,6 @@
       if (skel.vars.os == 'wp' && skel.vars.osVersion < 10) $('#titleBar, #header, #wrapper').css('transition', 'none');
 
       // Menus
-      var menu;
       $.getJSON('assets/data/menu.json', function(m) { menu = m; });
 
       $('#showMenu').click(function() {
@@ -176,21 +189,6 @@
          $('#contactModal').modal({ fadeDuration: 500 });
          return false;
       });
-
-      function fillMenu(type) {
-         var menuList = document.getElementById('MenuList');
-         while (menuList.firstChild) {
-            menuList.removeChild(menuList.firstChild);
-         }
-         var fragment = document.createDocumentFragment();
-         menu[type].forEach(function(nfo, index) {
-            var opt = document.createElement('option');
-            opt.innerHTML = nfo.desc;
-            opt.value = nfo.id;
-            fragment.appendChild(opt);
-         });
-         menuList.appendChild(fragment);
-      }
 
       $("input[name='galSelection']").change(function() {
          switch ($(this).attr('id')) {
@@ -360,7 +358,6 @@
       $(document).scroll(function(e) {
          if (notClicked) {
             if (element_in_scroll("#bottom")) {
-               //$next.fadeTo(750, 0.5, function() { $next.fadeTo(750, 1); });
                $next.fadeTo(500, 0.5).fadeTo(500, 1).fadeTo(500, 0.75).fadeTo(500, 1).fadeTo(500, 0.5).fadeTo(500, 1);
             }
          }
