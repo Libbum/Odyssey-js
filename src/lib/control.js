@@ -111,21 +111,6 @@
       return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
    }
 
-   function fillMenu(type) {
-      var menuList = document.getElementById('MenuList');
-      while (menuList.firstChild) {
-         menuList.removeChild(menuList.firstChild);
-      }
-      var fragment = document.createDocumentFragment();
-      menu[type].forEach(function(nfo, index) {
-         var opt = document.createElement('option');
-         opt.innerHTML = nfo.desc;
-         opt.value = nfo.id;
-         fragment.appendChild(opt);
-      });
-      menuList.appendChild(fragment);
-   }
-
    $(function() {
       var $body = $('body'),
          $header = $('#header'),
@@ -362,5 +347,21 @@
             }
          }
       });
+
+      function fillMenu(type) {
+         var menuList = document.getElementById('MenuList');
+         while (menuList.firstChild) {
+            menuList.removeChild(menuList.firstChild);
+         }
+         var fragment = document.createDocumentFragment();
+         menu[type].forEach(function(nfo, index) {
+            var opt = document.createElement('option');
+            opt.innerHTML = nfo.desc;
+            opt.value = nfo.id;
+            fragment.appendChild(opt);
+         });
+         menuList.appendChild(fragment);
+      }
+
    });
 })(jQuery);
