@@ -31,3 +31,4 @@ The starting point I used as a base came from Read Only by html5up.net | @n33co,
 * [x] Lint the js files, they're a mess.
 * [x] Fill descriptions, think of a nice way to automate that.
 * [ ] Consider a push-new-to-fb option.
+* [ ] Mouseover locale values and world highlight / track
