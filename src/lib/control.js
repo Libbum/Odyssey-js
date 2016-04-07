@@ -19,15 +19,20 @@ function flushLocation(selected) {
 
 function gotoView(coords) {
    var interp = sphereRotate();
+
    d3.transition().delay(1500).duration(2000)
       .tween("rotate", function() {
-         interp.source(proj.rotate()).target(coords).distance();
          var sc = d3.interpolate(proj.scale(), 190); //width / 2 - 10 = 190
-         return function(i) {
-            proj.rotate(interp(i)).scale(sc(i));
-            m.scale(sc(i));
-            d3.select("#map").selectAll("path").attr("d", d3.geo.path().projection(proj));
-         };
+         //If statement stops us from transitioning to ourself and NaNing out.
+         if (interp.source(proj.rotate()).target(coords).distance() > 0) {
+            return function(i) {
+               proj.rotate(interp(i)).scale(sc(i));
+               m.scale(sc(i));
+               d3.select("#map").selectAll("path").attr("d", d3.geo.path().projection(proj));
+            };
+         } else {
+            return false;
+         }
       });
 }
 
