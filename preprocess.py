@@ -3,6 +3,7 @@ import argparse
 import json
 import os
 import sys
+import datetime
 from pathlib import *
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
@@ -171,15 +172,16 @@ if __name__ == "__main__":
                 except IOError:
                     print("Small image for", infile.relative_to(gallery), "failed.")
 
+                locale = placeNFO[str(infile.parts[-2])]+"; "+datetime.date(int(infile.relative_to(gallery).parts[0]), int(infile.relative_to(gallery).parts[1]), 1).strftime("%B %Y")
                 tripfound = False
                 for td in tripdates:
                     tpath = Path(td[0]).parts
                     if infile.relative_to(gallery).parts[0:len(tpath)] == tpath:
-                        manifest.append({'small': str(thumb.relative_to(gallery.parent).as_posix()), 'big': str(infile.relative_to(gallery.parent).as_posix()), 'aspect_ratio': ratio, 'trip': td[1], 'desc': description, 'locale': placeNFO[str(infile.parts[-2])]})
+                        manifest.append({'small': str(thumb.relative_to(gallery.parent).as_posix()), 'big': str(infile.relative_to(gallery.parent).as_posix()), 'aspect_ratio': ratio, 'trip': td[1], 'desc': description, 'locale': locale})
                         tripfound = True
                         break
                 if not tripfound:
-                    manifest.append({'small': str(thumb.relative_to(gallery.parent).as_posix()), 'big': str(infile.relative_to(gallery.parent).as_posix()), 'aspect_ratio': ratio, 'desc': description, 'locale': placeNFO[str(infile.parts[-2])]})
+                    manifest.append({'small': str(thumb.relative_to(gallery.parent).as_posix()), 'big': str(infile.relative_to(gallery.parent).as_posix()), 'aspect_ratio': ratio, 'desc': description, 'locale': locale})
                 if args.loud:
                     print("Processing", infile.relative_to(gallery))
                     print("width: %d - height: %d" % im.size) # returns (width, height) tuple
