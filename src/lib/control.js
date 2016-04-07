@@ -1,3 +1,80 @@
+function locationHighlight(selected) {
+   var city = selected.replace(/_/g," ");
+   for (var i = 0; i < cities.length; i++) {
+      if (cities[i].properties.name == city) {
+         var coords = cities[i].geometry.coordinates;
+         gotoView([-coords[0], -coords[1]]);
+      }
+   }
+   flushLocation(selected);
+   d3.select("#cities").append("use").attr("xlink:href", "#"+selected);
+   d3.select("#"+selected).style("fill", "#962d3e");
+   return false;
+}
+
+function flushLocation(selected) {
+   d3.select("#cities").selectAll("use").remove();
+   d3.select("#"+selected).attr("style", null)
+}
+
+function gotoView(coords) {
+   var interp = sphereRotate();
+   d3.transition().delay(1500).duration(2000)
+      .tween("rotate", function() {
+         interp.source(proj.rotate()).target(coords).distance();
+         var sc = d3.interpolate(proj.scale(), 190); //width / 2 - 10 = 190
+         return function(i) {
+            proj.rotate(interp(i)).scale(sc(i));
+            m.scale(sc(i));
+            d3.select("#map").selectAll("path").attr("d", d3.geo.path().projection(proj));
+         };
+      });
+}
+
+function sphereRotate() {
+   var x0, y0, cy0, sy0, kx0, ky0,
+      x1, y1, cy1, sy1, kx1, ky1,
+      d, k, d3_radians = Math.PI / 180;
+
+   function interpolate(t) {
+      var B = Math.sin(t *= d) * k,
+         A = Math.sin(d - t) * k,
+         x = A * kx0 + B * kx1,
+         y = A * ky0 + B * ky1,
+         z = A * sy0 + B * sy1;
+      return [Math.atan2(y, x) / d3_radians, Math.atan2(z, Math.sqrt(x * x + y * y)) / d3_radians];
+   }
+
+   interpolate.distance = function() {
+      if (d === null) k = 1 / Math.sin(d = Math.acos(Math.max(-1, Math.min(1, sy0 * sy1 + cy0 * cy1 * Math.cos(x1 - x0)))));
+      return d;
+   };
+
+   interpolate.source = function(_) {
+      var cx0 = Math.cos(x0 = _[0] * d3_radians),
+         sx0 = Math.sin(x0);
+      cy0 = Math.cos(y0 = _[1] * d3_radians);
+      sy0 = Math.sin(y0);
+      kx0 = cy0 * cx0;
+      ky0 = cy0 * sx0;
+      d = null;
+      return interpolate;
+   };
+
+   interpolate.target = function(_) {
+      var cx1 = Math.cos(x1 = _[0] * d3_radians),
+         sx1 = Math.sin(x1);
+      cy1 = Math.cos(y1 = _[1] * d3_radians);
+      sy1 = Math.sin(y1);
+      kx1 = cy1 * cx1;
+      ky1 = cy1 * sx1;
+      d = null;
+      return interpolate;
+   };
+
+   return interpolate;
+}
+
 (function($) {
    skel.breakpoints({
       shortest: '(max-height: 700px)',
@@ -10,64 +87,6 @@
    });
 
    viewing = { filterKey: '', filterProp: '', sortBy: ['!year', '!month', '!trip', 'filename'] };
-
-   function gotoView(coords) {
-      var interp = sphereRotate();
-      d3.transition().delay(1500).duration(2000)
-         .tween("rotate", function() {
-            interp.source(proj.rotate()).target(coords).distance();
-            var sc = d3.interpolate(proj.scale(), 190); //width / 2 - 10 = 190
-            return function(i) {
-               proj.rotate(interp(i)).scale(sc(i));
-               m.scale(sc(i));
-               d3.select("#map").selectAll("path").attr("d", d3.geo.path().projection(proj));
-            };
-         });
-   }
-
-   function sphereRotate() {
-      var x0, y0, cy0, sy0, kx0, ky0,
-         x1, y1, cy1, sy1, kx1, ky1,
-         d, k, d3_radians = Math.PI / 180;
-
-      function interpolate(t) {
-         var B = Math.sin(t *= d) * k,
-            A = Math.sin(d - t) * k,
-            x = A * kx0 + B * kx1,
-            y = A * ky0 + B * ky1,
-            z = A * sy0 + B * sy1;
-         return [Math.atan2(y, x) / d3_radians, Math.atan2(z, Math.sqrt(x * x + y * y)) / d3_radians];
-      }
-
-      interpolate.distance = function() {
-         if (d === null) k = 1 / Math.sin(d = Math.acos(Math.max(-1, Math.min(1, sy0 * sy1 + cy0 * cy1 * Math.cos(x1 - x0)))));
-         return d;
-      };
-
-      interpolate.source = function(_) {
-         var cx0 = Math.cos(x0 = _[0] * d3_radians),
-            sx0 = Math.sin(x0);
-         cy0 = Math.cos(y0 = _[1] * d3_radians);
-         sy0 = Math.sin(y0);
-         kx0 = cy0 * cx0;
-         ky0 = cy0 * sx0;
-         d = null;
-         return interpolate;
-      };
-
-      interpolate.target = function(_) {
-         var cx1 = Math.cos(x1 = _[0] * d3_radians),
-            sx1 = Math.sin(x1);
-         cy1 = Math.cos(y1 = _[1] * d3_radians);
-         sy1 = Math.sin(y1);
-         kx1 = cy1 * cx1;
-         ky1 = cy1 * sx1;
-         d = null;
-         return interpolate;
-      };
-
-      return interpolate;
-   }
 
    function tripView(selected, getCoords) {
       var coords;
@@ -220,9 +239,7 @@
             for (var i = 0; i < countries.length; i++) {
                if (countries[i].id == selected) {
                   if (countries[i].properties.name !== viewing.filterProp) {
-                     var centroid = d3.geo.path().projection(function(d) {
-                        return d;
-                     }).centroid;
+                     var centroid = d3.geo.path().projection(function(d) { return d; }).centroid;
                      coords = centroid(countries[i]);
 
                      tripView(selected, false);

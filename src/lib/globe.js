@@ -201,11 +201,14 @@
       var svg = d3.selectAll("svg");
       svg.insert("path", ".iglobe-graticule").datum({ type: "Sphere"}).attr("class", "iglobe-ocean");
       countries = topojson.feature(n, n.objects.countries).features;
+      cities = topojson.feature(n, n.objects.cities).features;
       svg.insert("g", ".iglobe-foreground").attr("id", "countries");
       d3.selectAll("#countries").selectAll("path").data(countries.filter(function(d) { return d.geometry.type !== 'Point'; }))
          .enter().append("path").attr("class", "iglobe-countries").attr("id", function(d, i) { return d.id; });
-      svg.insert("path", ".iglobe-foreground").datum(topojson.feature(n, n.objects.cities)).attr("class", "iglobe-cities").selectAll("LineString").attr("class", "iglobe-route");
-      svg.insert("g", ".iglobe-cities").attr("id", "routes");
+      svg.insert("g", ".iglobe-foreground").attr("id", "cities");
+      d3.selectAll("#cities").selectAll("path").data(cities).enter().append("path").attr("class", "iglobe-cities")
+         .attr("id", function(d, i) { return d.properties.name.replace(/ /g,"_"); }).selectAll("LineString").attr("class", "iglobe-route");
+      svg.insert("g", "#cities").attr("id", "routes");
       d3.selectAll("#routes").selectAll("path").data(topojson.feature(n, n.objects.trips).features).enter()
          .append("path").attr("id", function(d) { return d.properties.name; }).attr("class", "iglobe-route")
          .attr("visibility", function(d) { return "hidden"; });
