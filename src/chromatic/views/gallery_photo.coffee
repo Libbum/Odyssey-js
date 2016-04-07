@@ -12,13 +12,17 @@ class Chromatic.GalleryPhotoView
     return if @loaded
     image = new Image()
     image.onload = =>
+      $locale = $('#locale')
       @photo.aspect_ratio = image.width/image.height
       callback() if callback
       @el.css('backgroundImage', "url(#{@photo.small})")
       locale = "#{@photo.locale}"
-      @el.mouseover ->
-         $('#locale').html(locale)
-         return
+      @el.mouseenter ->
+         if $locale.html() != locale
+            $locale.stop(true,true).html(locale).fadeIn()
+         else
+            $locale.stop(true,true).fadeIn(0)
+      @el.mouseleave -> $locale.stop(true,true).fadeOut()
       @loaded = true
     image.src = @photo.small
 
