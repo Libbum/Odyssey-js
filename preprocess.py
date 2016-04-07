@@ -97,6 +97,8 @@ if __name__ == "__main__":
     gallery = Path(Path.home(), Path('web/Odyssey/dist/gallery'))
     manifest = Path(Path.home(), Path('web/Odyssey/dist/assets/data/manifest.json'))
     tripcities = Path(Path.home(), Path('web/Odyssey/src/tripcities.json'))
+    cities = Path(Path.home(), Path('web/Odyssey/src/cities.json'))
+    countrylist = Path(Path.home(), Path('web/Odyssey/src/countrylist.json'))
 
     tripdates = []
     with tripcities.open() as tripFile:
@@ -105,7 +107,28 @@ if __name__ == "__main__":
             for d in t['dates']:
                 tripdates.append((d, t['name']))
 
-
+    placeNFO = {}
+    with cities.open() as citiesFile:
+        with countrylist.open() as countrylistFile:
+            countriesdata = json.loads(countrylistFile.read())
+            citiesdata = json.loads(citiesFile.read())
+            for f in citiesdata['features']:
+                for c in countriesdata:
+                    if c['cca3'] == f['properties']['country']:
+                        languages = c['name']['native']
+                        countryLocal = languages[list(languages.keys())[0]]['common']
+                        countryEng = c['name']['common']
+                        if countryEng == countryLocal:
+                            if 'localname' in f['properties']:
+                                locale = f['properties']['localname']+" ("+f['properties']['name']+"), "+countryEng
+                            else:
+                                locale = f['properties']['name']+", "+countryEng
+                        else:
+                            if 'localname' in f['properties']:
+                                locale = f['properties']['localname']+", "+countryLocal+" ("+f['properties']['name']+", "+countryEng+")"
+                            else:
+                                locale = f['properties']['name']+", "+countryLocal+" ("+countryEng+")"
+                        placeNFO[f['properties']['name'].replace(" ", "")] = locale
 
     exts = '.jpg', '.png'
     maxsize = (500, 500)
@@ -124,7 +147,7 @@ if __name__ == "__main__":
         manifestFile.truncate()
         #Now process the images
         for infile in filelist:
-            #This is a bit of a lazy solution for descriptions, but it'll do. 
+            #This is a bit of a lazy solution for descriptions, but it'll do.
             dotdesc = infile.with_name(infile.stem+'.desc')
             if dotdesc.exists():
                 with dotdesc.open() as descFile:
@@ -152,11 +175,11 @@ if __name__ == "__main__":
                 for td in tripdates:
                     tpath = Path(td[0]).parts
                     if infile.relative_to(gallery).parts[0:len(tpath)] == tpath:
-                        manifest.append({'small': str(thumb.relative_to(gallery.parent).as_posix()), 'big': str(infile.relative_to(gallery.parent).as_posix()), 'aspect_ratio': ratio, 'trip': td[1], 'desc': description})
+                        manifest.append({'small': str(thumb.relative_to(gallery.parent).as_posix()), 'big': str(infile.relative_to(gallery.parent).as_posix()), 'aspect_ratio': ratio, 'trip': td[1], 'desc': description, 'locale': placeNFO[str(infile.parts[-2])]})
                         tripfound = True
                         break
                 if not tripfound:
-                    manifest.append({'small': str(thumb.relative_to(gallery.parent).as_posix()), 'big': str(infile.relative_to(gallery.parent).as_posix()), 'aspect_ratio': ratio, 'desc': description})
+                    manifest.append({'small': str(thumb.relative_to(gallery.parent).as_posix()), 'big': str(infile.relative_to(gallery.parent).as_posix()), 'aspect_ratio': ratio, 'desc': description, 'locale': placeNFO[str(infile.parts[-2])]})
                 if args.loud:
                     print("Processing", infile.relative_to(gallery))
                     print("width: %d - height: %d" % im.size) # returns (width, height) tuple

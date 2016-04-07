@@ -4420,10 +4420,6 @@
 			"common": "Hong Kong",
 			"official": "Hong Kong Special Administrative Region of the People's Republic of China",
 			"native": {
-				"eng": {
-					"official": "Hong Kong Special Administrative Region of the People's Republic of China",
-					"common": "Hong Kong"
-				},
 				"zho": {
 					"official": "\u9999\u6e2f\u4e2d\u56fd\u7279\u522b\u884c\u653f\u533a\u7684\u4eba\u6c11\u5171\u548c\u56fd",
 					"common": "\u9999\u6e2f"
@@ -7739,17 +7735,9 @@
 			"common": "Norway",
 			"official": "Kingdom of Norway",
 			"native": {
-				"nno": {
-					"official": "Kongeriket Noreg",
-					"common": "Noreg"
-				},
 				"nob": {
 					"official": "Kongeriket Norge",
 					"common": "Norge"
-				},
-				"smi": {
-					"official": "Norgga gonagasriika",
-					"common": "Norgga"
 				}
 			}
 		},
@@ -8985,21 +8973,9 @@
 			"common": "Singapore",
 			"official": "Republic of Singapore",
 			"native": {
-				"cmn": {
-					"official": "\u65b0\u52a0\u5761\u5171\u548c\u56fd",
-					"common": "\u65b0\u52a0\u5761"
-				},
 				"eng": {
 					"official": "Republic of Singapore",
 					"common": "Singapore"
-				},
-				"msa": {
-					"official": "Republik Singapura",
-					"common": "Singapura"
-				},
-				"tam": {
-					"official": "\u0b9a\u0bbf\u0b99\u0bcd\u0b95\u0baa\u0bcd\u0baa\u0bc2\u0bb0\u0bcd \u0b95\u0bc1\u0b9f\u0bbf\u0baf\u0bb0\u0b9a\u0bc1",
-					"common": "\u0b9a\u0bbf\u0b99\u0bcd\u0b95\u0baa\u0bcd\u0baa\u0bc2\u0bb0\u0bcd"
 				}
 			}
 		},
