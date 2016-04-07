@@ -108,8 +108,8 @@ if __name__ == "__main__":
                 tripdates.append((d, t['name']))
 
     placeNFO = {}
-    with cities.open() as citiesFile:
-        with countrylist.open() as countrylistFile:
+    with cities.open(encoding="utf8") as citiesFile:
+        with countrylist.open(encoding="utf8") as countrylistFile:
             countriesdata = json.loads(countrylistFile.read())
             citiesdata = json.loads(citiesFile.read())
             for f in citiesdata['features']:
@@ -128,7 +128,7 @@ if __name__ == "__main__":
                                 locale = f['properties']['localname']+", "+countryLocal+" ("+f['properties']['name']+", "+countryEng+")"
                             else:
                                 locale = f['properties']['name']+", "+countryLocal+" ("+countryEng+")"
-                        placeNFO[f['properties']['name'].replace(" ", "")] = locale
+                        placeNFO[f['properties']['name'].replace(" ", "_")] = locale
 
     exts = '.jpg', '.png'
     maxsize = (500, 500)
