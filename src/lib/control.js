@@ -8,7 +8,7 @@ function locationHighlight(selected) {
    }
    flushLocation(selected);
    d3.select("#cities").append("use").attr("xlink:href", "#"+selected);
-   d3.select("#"+selected).style("fill", "#962d3e");
+   d3.select("#"+selected).style("fill", "#962d3e").style("stroke", "#979c9c").style("stroke-width", ".5px");
    return false;
 }
 
