@@ -244,9 +244,12 @@ function sphereRotate() {
             for (var i = 0; i < countries.length; i++) {
                if (countries[i].id == selected) {
                   if (countries[i].properties.name !== viewing.filterProp) {
-                     var centroid = d3.geo.path().projection(function(d) { return d; }).centroid;
-                     coords = centroid(countries[i]);
-
+                     if (countries[i].properties.name == "Russia") {
+                        coords = [77, 60]; //Override Russia
+                     } else {
+                        var centroid = d3.geo.path().projection(function(d) { return d; }).centroid;
+                        coords = centroid(countries[i]);
+                     }
                      tripView(selected, false);
                      d3.select("#" + selected).style("fill", "#962d3e");
 
