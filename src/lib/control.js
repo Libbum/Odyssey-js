@@ -302,7 +302,7 @@ function sphereRotate() {
                viewing.sortBy[1] = "!" + viewing.sortBy[1];
             }
          }
-         gallerySwapout(filterSort());
+         gallerySwapout(filterSort(photos));
          return false;
       });
 
