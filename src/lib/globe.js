@@ -174,6 +174,7 @@
        t.append("path").datum(d3.geo.graticule()).attr("class", "iglobe-graticule").attr("d", n);
        t.append("path").datum({ type: "Sphere" }).attr("class", "iglobe-foreground").attr("d", n).on("mousedown.grab", function() {
           var n;
+          d3.transition(); //Kill any current globe movements.
           if (e) n = t.insert("path", ".iglobe-foreground").datum({ type: "Point", coordinates: a.invert(d3.mouse(this)) })
                       .attr("class", "iglobe-point").attr("d", o);
           var o = d3.select(this).classed("zooming", !0),
@@ -191,7 +192,7 @@
        a.selectAll(".iglobe-foreground").call(d3.geo.zoom().projection(p).scaleExtent([0.7 * p.scale(), 10 * p.scale()]).on("zoom.redraw", function() {
           if (d3.event.sourceEvent.preventDefault) d3.event.sourceEvent.preventDefault();
           a.selectAll("path").attr("d", e);
-       }));
+       })).on("dblclick.zoom", function() {gotoView([-40, -30]);});
        rr.on("world." + c++, function() {
           a.selectAll("path").attr("d", e);
        });
