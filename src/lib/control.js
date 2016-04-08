@@ -14,12 +14,11 @@ function locationHighlight(selected) {
 
 function flushLocation(selected) {
    d3.select("#cities").selectAll("use").remove();
-   d3.select("#"+selected).attr("style", null)
+   d3.select("#"+selected).attr("style", null);
 }
 
 function gotoView(coords) {
    var interp = sphereRotate();
-
    d3.transition().delay(1500).duration(2000)
       .tween("rotate", function() {
          var sc = d3.interpolate(proj.scale(), 190); //width / 2 - 10 = 190

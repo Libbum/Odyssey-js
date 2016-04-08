@@ -27,11 +27,11 @@ _linear_partition = (->
     k = k-2
     ans = []
     while k >= 0
-      ans = [seq[i] for i in [(solution[n-1][k]+1)...n+1]].concat ans
+      ans = [(seq[i] for i in [(solution[n-1][k]+1)...n+1])].concat ans
       n = solution[n-1][k]
       k = k-1
 
-    _cache[key] = [seq[i] for i in [0...n+1]].concat ans
+    _cache[key] = [(seq[i] for i in [0...n+1])].concat ans
 )()
 
 _scrollbar_width = (->
