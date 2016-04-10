@@ -51,9 +51,11 @@ gulp.task('css', function () {
   return gulp.src(['./src/sass/*.scss'])
     .pipe(sass().on('error', sass.logError))
     .pipe(uncss({
-        html: ['./dist/index.html'],
-        ignore: [/chromatic-.*/, /iglobe-.*/, '#map', '.modal', /modal-.*/, '.modal a.close-modal', '.blocker', '.blocker:before', '#titleBar', '#gallery div', '.fa-chevron-up', '.toggle']
-    }))
+      html: ['./dist/index.html'],
+      ignore: [/chromatic-.*/, /iglobe-.*/, '#map', '.modal', /modal-.*/, '.modal a.close-modal', '.blocker', '.blocker:before',
+               '#titleBar', '#gallery div', '.fa-chevron-up', '#titleBar .toggle', '#titleBar .toggle:before', '#titleBar .title',
+               '#titleBar .title a',  'body.header-visible #wrapper', 'body.header-visible #titleBar', 'body.header-visible #header']
+     }))
     .pipe(nano())
     .pipe(gulp.dest('./dist/assets/css'));
 });
