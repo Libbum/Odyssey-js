@@ -304,8 +304,14 @@ function sphereRotate() {
                viewing.sortBy[1] = "!" + viewing.sortBy[1];
             }
          }
-         var offset = currPage*100;
-         gallerySwapout(filterSort(filtered.slice(offset,Math.min(offset+100, galleryLength))));
+         if (numPages > 1) {
+            var offset = currPage*100;
+            console.log(numPages);
+            gallerySwapout(filterSort(filtered.slice(offset,Math.min(offset+100, galleryLength))));
+         } else {
+            gallerySwapout(filterSort(filtered));
+         }
+
          return false;
       });
 

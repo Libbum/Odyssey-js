@@ -45,8 +45,8 @@ function gallerySwapout(filtered) {
    }
 }
 
-function filterSort(photos) {
-   return photos.filter(function(el) {
+function filterSort(data) {
+   return data.filter(function(el) {
       return deepProperties(el, viewing.filterKey) == viewing.filterProp;
    }).sort(dynamicSortMultiple(viewing.sortBy));
 }
