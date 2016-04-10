@@ -304,7 +304,8 @@ function sphereRotate() {
                viewing.sortBy[1] = "!" + viewing.sortBy[1];
             }
          }
-         gallerySwapout(filterSort(photos));
+         var offset = currPage*100;
+         gallerySwapout(filterSort(filtered.slice(offset,Math.min(offset+100, galleryLength))));
          return false;
       });
 
