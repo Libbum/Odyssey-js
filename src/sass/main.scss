@@ -129,59 +129,6 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 		line-height: 1.5em;
 	}
 
-	sub {
-		font-size: 0.8em;
-		position: relative;
-		top: 0.5em;
-	}
-
-	sup {
-		font-size: 0.8em;
-		position: relative;
-		top: -0.5em;
-	}
-
-	hr {
-		border: 0;
-		border-bottom: solid _size(border-width) _palette(border);
-		margin: _size(element-margin) 0;
-
-		&.major {
-			margin: (_size(element-margin) * 1.5) 0;
-		}
-	}
-
-	blockquote {
-		border-left: solid (_size(border-width) * 4) _palette(border2);
-		font-style: italic;
-		margin: 0 0 _size(element-margin) 0;
-		padding: 0.5em 0 0.5em 2em;
-	}
-
-	code {
-		background: #555;
-		border-radius: _size(border-radius);
-		color: #fff;
-		font-family: _font(family-fixed);
-		font-size: 0.9em;
-		margin: 0 0.25em;
-		padding: 0.25em 0.65em;
-	}
-
-	pre {
-		font-family: _font(family-fixed);
-		font-size: 0.9em;
-		margin: 0 0 _size(element-margin) 0;
-
-		code {
-			-webkit-overflow-scrolling: touch;
-			display: block;
-			line-height: 1.5em;
-			overflow-x: auto;
-			padding: 1em 1.5em;
-		}
-	}
-
 	.align-left {
 		text-align: left;
 	}
@@ -263,7 +210,6 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 	}
 
 	input[type="text"],
-	input[type="password"],
 	input[type="email"],
 	select,
 	textarea {
@@ -312,7 +258,6 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 	}
 
 	input[type="text"],
-	input[type="password"],
 	input[type="email"],
 	select {
 		height: _size(element-height);
@@ -421,27 +366,6 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 		opacity: 1.0;
 	}
 
-/* Box */
-
-	.box {
-		border-radius: _size(border-radius);
-		border: solid _size(border-width) _palette(border2);
-		margin-bottom: _size(element-margin);
-		padding: 1.5em;
-
-		> :last-child,
-		> :last-child > :last-child,
-		> :last-child > :last-child > :last-child {
-			margin-bottom: 0;
-		}
-
-		&.alt {
-			border: 0;
-			border-radius: 0;
-			padding: 0;
-		}
-	}
-
 /* Icon */
 
 	.icon {
@@ -506,8 +430,6 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
       color: _palette(header, fg-light);
       @include vendor('transition', ('color #{_duration(transition)} ease-in-out', 'border-color #{_duration(transition)} ease-in-out'));
 
-
-
       &.active {
          background: _palette(bg);
          color: _palette(header, bg) !important;
@@ -518,16 +440,6 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
       }
    }
 /* List */
-
-	ol {
-		list-style: decimal;
-		margin: 0 0 _size(element-margin) 0;
-		padding-left: 1.25em;
-
-		li {
-			padding-left: 0.25em;
-		}
-	}
 
 	ul {
 		list-style: disc;
@@ -549,35 +461,6 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 				&:first-child {
 					border-top: 0;
 					padding-top: 0;
-				}
-			}
-		}
-
-		&.feature-icons {
-			list-style: none;
-			padding-left: 0;
-
-			li {
-				@include icon;
-				display: inline-block;
-				margin: 0 0 (_size(element-margin) * 0.75) 0;
-				padding: 0.35em 0 0 3.5em;
-				position: relative;
-				vertical-align: top;
-				width: 48%;
-
-				&:before {
-					background: _palette(accent1, bg);
-					border-radius: 100%;
-					color: _palette(accent1, fg-bold);
-					display: block;
-					height: 2.5em;
-					left: 0;
-					line-height: 2.5em;
-					position: absolute;
-					text-align: center;
-					top: 0;
-					width: 2.5em;
 				}
 			}
 		}
@@ -618,144 +501,11 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 					padding-right: 0;
 				}
 			}
-
-			&.small {
-				li {
-					padding: 0 (_size(element-margin) * 0.25) 0 0;
-				}
-			}
-
-			&.vertical {
-				li {
-					display: block;
-					padding: (_size(element-margin) * 0.5) 0 0 0;
-
-					&:first-child {
-						padding-top: 0;
-					}
-
-					> * {
-						margin-bottom: 0;
-					}
-				}
-
-				&.small {
-					li {
-						padding: (_size(element-margin) * 0.25) 0 0 0;
-
-						&:first-child {
-							padding-top: 0;
-						}
-					}
-				}
-			}
-
-			&.fit {
-				display: table;
-				margin-left: (_size(element-margin) * -0.5);
-				padding: 0;
-				table-layout: fixed;
-				width: calc(100% + #{(_size(element-margin) * 0.5)});
-
-				li {
-					display: table-cell;
-					padding: 0 0 0 (_size(element-margin) * 0.5);
-
-					> * {
-						margin-bottom: 0;
-					}
-				}
-
-				&.small {
-					margin-left: (_size(element-margin) * -0.25);
-					width: calc(100% + #{(_size(element-margin) * 0.25)});
-
-					li {
-						padding: 0 0 0 (_size(element-margin) * 0.25);
-					}
-				}
-			}
 		}
 	}
 
 	dl {
 		margin: 0 0 _size(element-margin) 0;
-	}
-
-/* Table */
-
-	.table-wrapper {
-		-webkit-overflow-scrolling: touch;
-		overflow-x: auto;
-	}
-
-	table {
-		margin: 0 0 _size(element-margin) 0;
-		width: 100%;
-
-		tbody {
-			tr {
-				border: solid _size(border-width) _palette(border);
-				border-left: 0;
-				border-right: 0;
-
-				&:nth-child(2n + 1) {
-					background-color: _palette(border-bg);
-				}
-			}
-		}
-
-		td {
-			padding: 0.75em 0.75em;
-		}
-
-		th {
-			color: _palette(fg-bold);
-			font-size: 0.9em;
-			font-weight: _font(weight-bold);
-			padding: 0 0.75em 0.75em 0.75em;
-			text-align: left;
-		}
-
-		thead {
-			border-bottom: solid (_size(border-width) * 2) _palette(border2);
-		}
-
-		tfoot {
-			border-top: solid (_size(border-width) * 2) _palette(border2);
-		}
-
-		&.alt {
-			border-collapse: separate;
-
-			tbody {
-				tr {
-					td {
-						border: solid _size(border-width) _palette(border2);
-						border-left-width: 0;
-						border-top-width: 0;
-
-						&:first-child {
-							border-left-width: _size(border-width);
-						}
-					}
-
-					&:first-child {
-						td {
-							border-top-width: _size(border-width);
-						}
-					}
-				}
-			}
-
-			thead {
-				border-bottom: 0;
-			}
-
-			tfoot {
-				border-top: 0;
-			}
-		}
 	}
 
 /* Button */
@@ -853,43 +603,6 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 			color: _palette(bg) !important;
 			cursor: default;
 			opacity: 0.25;
-		}
-	}
-
-/* Features */
-
-	.features {
-		article {
-			border-top: solid (_size(border-width) * 1.5) _palette(border);
-			margin-bottom: _size(element-margin);
-			padding-top: _size(element-margin);
-
-			&:first-child {
-				border-top: 0;
-				padding-top: 0;
-			}
-
-			.image {
-				display: inline-block;
-				padding-right: 2.5em;
-				vertical-align: middle;
-				width: 48%;
-
-				img {
-					display: block;
-					width: 100%;
-				}
-			}
-
-			.inner {
-				display: inline-block;
-				vertical-align: middle;
-				width: 50%;
-
-				> :last-child {
-					margin-bottom: 0;
-				}
-			}
 		}
 	}
 
