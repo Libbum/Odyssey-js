@@ -57,7 +57,10 @@ class Chromatic.GalleryView
     @photos       = _.map photos, (p) -> if _.isObject(p) then p else {small: p}
     @zoom_view    = new Chromatic.ZoomView(@photos, options)
     @photo_views  = _.map @photos, (photo) => new Chromatic.GalleryPhotoView(this, photo, options)
-    @ideal_height = parseInt(@el.children().first().css('height'))
+    if options
+      @ideal_height = options.ideal
+    else
+      @ideal_height = parseInt(@el.children().first().css('height'))
     $(window).on 'resize', _.debounce(@layout, 100)
     @el.on 'scroll', _.throttle(@lazyLoad, 100)
 

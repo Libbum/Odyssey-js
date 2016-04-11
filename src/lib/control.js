@@ -340,7 +340,7 @@ function sphereRotate() {
         galleryLength = photos.length;
         numPages = Math.ceil(galleryLength/100);
         if (galleryLength > 100) {
-            $gallery.chromatic(photos.slice(0,100)).removeClass('chromatic-waiting');
+            $gallery.chromatic(photos.slice(0,100), {ideal: 150}).removeClass('chromatic-waiting');
         } else {
            $gallery.chromatic(photos).removeClass('chromatic-waiting');
            $next.css({ 'visibility': 'hidden', 'opacity': 0 });

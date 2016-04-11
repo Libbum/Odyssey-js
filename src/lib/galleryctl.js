@@ -39,7 +39,7 @@ function gallerySwapout(filtered) {
    if (filtered.length > 1) {
       var gallery = $("#gallery");
       gallery.fadeTo(750, 0, function() {
-         gallery.empty().chromatic(filtered);
+         gallery.empty().chromatic(filtered, {ideal: 200});
          gallery.fadeTo(750, 1);
       });
    }
