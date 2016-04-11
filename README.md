@@ -33,4 +33,3 @@ The starting point I used as a base came from Read Only by html5up.net | @n33co,
 * [ ] Consider a push-new-to-fb option.
 * [x] Mouseover locale values and world highlight / track
 * [ ] Maybe a URI method to initiate a selected country or trip
-* 
