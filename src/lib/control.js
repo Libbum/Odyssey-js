@@ -79,6 +79,18 @@ function sphereRotate() {
    return interpolate;
 }
 
+URL.prototype.__defineGetter__('query', function() {
+    var result = {};
+    if (this.search.length > 3) {
+      var parsed = this.search.substr(1).split('&');
+       parsed.forEach(function(elem, iter, arr) {
+           var vals = arr[iter].split('=');
+           result[vals[0]] = vals[1];
+       });
+    }
+    return result;
+});
+
 (function($) {
    skel.breakpoints({
       shortest: '(max-height: 700px)',
@@ -335,6 +347,17 @@ function sphereRotate() {
 
       // Photos
       $.getJSON('assets/data/manifest.json', function(p) {
+         var parser = new URL(window.location.href).query;
+         if (!$.isEmptyObject(parser)) {
+            if ('trip' in parser) {
+               console.log(parser['trip']);
+            }
+            if ('country' in parser) {
+               console.log(parser['country']);
+            }
+            window.history.replaceState("", "", "/");
+         }
+
         photos = p.sort(dynamicSortMultiple(viewing.sortBy));
         filtered = photos;
         galleryLength = photos.length;
