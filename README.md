@@ -32,4 +32,4 @@ The starting point I used as a base came from Read Only by html5up.net | @n33co,
 * [x] Fill descriptions, think of a nice way to automate that.
 * [ ] Consider a push-new-to-fb option.
 * [x] Mouseover locale values and world highlight / track
-* [ ] Maybe a URI method to initiate a selected country or trip
+* [x] Maybe a URI method to initiate a selected country or trip

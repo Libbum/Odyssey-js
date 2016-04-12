@@ -239,13 +239,8 @@ URL.prototype.__defineGetter__('query', function() {
                viewing.filterKey = 'trip';
                viewing.filterProp = selected;
                viewing.sortBy = ['!filename', '!year', '!month'];
-               if (viewing.sortBy[0][0] === "!") {
-                  viewing.sortBy = ['!filename', '!year', '!month'];
-                  $("#inv").html('<i class="fa fa-chevron-down"></i>');
-               } else {
-                  viewing.sortBy = ['filename', '!year', '!month'];
-                  $("#inv").html('<i class="fa fa-chevron-up"></i>');
-               }
+               $("#inv").html('<i class="fa fa-chevron-down"></i>');
+
                filtered = filterSort(photos);
                updateGallery(filtered);
 
@@ -318,7 +313,6 @@ URL.prototype.__defineGetter__('query', function() {
          }
          if (numPages > 1) {
             var offset = currPage*100;
-            console.log(numPages);
             gallerySwapout(filterSort(filtered.slice(offset,Math.min(offset+100, galleryLength))));
          } else {
             gallerySwapout(filterSort(filtered));
@@ -348,24 +342,67 @@ URL.prototype.__defineGetter__('query', function() {
       // Photos
       $.getJSON('assets/data/manifest.json', function(p) {
          var parser = new URL(window.location.href).query;
+         var coords,
+             countryName,
+             deeper = false;
+
          if (!$.isEmptyObject(parser)) {
             if ('trip' in parser) {
-               console.log(parser['trip']);
+               coords = tripView(parser['trip'], true);
+               viewing.filterKey = 'trip';
+               viewing.filterProp = parser['trip'];
+               viewing.sortBy = ['!filename', '!year', '!month'];
+               $("#galSelTrip").click();
+               $("#MenuList").val(parser['trip']);
+               if ('country' in parser) {
+                  //we must filter further.
+                  deeper = true;
+                  for (var i = 0; i < countries.length; i++) {
+                     if (countries[i].id == parser['country']) {
+                        countryName = countries[i].properties.name.replace(/ /g, '_').replace(/\./g, '');
+                        break;
+                     }
+                  }
+               }
+            } else if ('country' in parser) {
+               for (var i = 0; i < countries.length; i++) {
+                  if (countries[i].id == parser['country']) {
+                     if (countries[i].properties.name == "Russia") {
+                        coords = [77, 60]; //Override Russia
+                     } else {
+                        var centroid = d3.geo.path().projection(function(d) { return d; }).centroid;
+                        coords = centroid(countries[i]);
+                     }
+                     tripView(parser['country'], false);
+                     d3.select("#" + parser['country']).style("fill", "#962d3e");
+                     viewing.filterKey = 'country';
+                     viewing.filterProp = countries[i].properties.name.replace(/ /g, '_').replace(/\./g, '');
+                     viewing.sortBy = ['!year', '!month', 'filename'];
+                     $("#galSelCountry").click();
+                     $("#MenuList").val(parser['country']);
+                     coords = [-coords[0], -coords[1]];
+                     break;
+                  }
+               }
             }
-            if ('country' in parser) {
-               console.log(parser['country']);
+            photos = p.sort(dynamicSortMultiple(viewing.sortBy));
+            filtered = filterSort(photos);
+            if (deeper) {
+               filtered = filtered.filter(function(el) { return deepProperties(el, 'country') == countryName; });
             }
+            gotoView(coords);
             window.history.replaceState("", "", "/");
+         } else {
+            photos = p.sort(dynamicSortMultiple(viewing.sortBy));
+            filtered = photos;
          }
 
-        photos = p.sort(dynamicSortMultiple(viewing.sortBy));
-        filtered = photos;
-        galleryLength = photos.length;
+        galleryLength = filtered.length;
         numPages = Math.ceil(galleryLength/100);
         if (galleryLength > 100) {
-            $gallery.chromatic(photos.slice(0,100), {ideal: 150}).removeClass('chromatic-waiting');
+            $gallery.chromatic(filtered.slice(0,100), {ideal: 150}).removeClass('chromatic-waiting');
         } else {
-           $gallery.chromatic(photos).removeClass('chromatic-waiting');
+           $gallery.chromatic(filtered).removeClass('chromatic-waiting');
            $next.css({ 'visibility': 'hidden', 'opacity': 0 });
         }
       });
