@@ -165,6 +165,7 @@
       $body.on('click', 'a[href="#' + id + '"]', function(event) {
          event.preventDefault();
          event.stopPropagation();
+         notTitle = false;
          config.target.toggleClass(config.visibleClass);
       });
       // Event: Hide on ESC.

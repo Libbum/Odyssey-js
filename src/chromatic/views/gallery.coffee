@@ -27,8 +27,11 @@ _linear_partition = (->
     k = k-2
     ans = []
     while k >= 0
-      ans = [(seq[i] for i in [(solution[n-1][k]+1)...n+1])].concat ans
-      n = solution[n-1][k]
+      try
+        ans = [(seq[i] for i in [(solution[n-1][k]+1)...n+1])].concat ans
+        n = solution[n-1][k]
+      catch error
+      
       k = k-1
 
     _cache[key] = [(seq[i] for i in [0...n+1])].concat ans
@@ -57,10 +60,6 @@ class Chromatic.GalleryView
     @photos       = _.map photos, (p) -> if _.isObject(p) then p else {small: p}
     @zoom_view    = new Chromatic.ZoomView(@photos, options)
     @photo_views  = _.map @photos, (photo) => new Chromatic.GalleryPhotoView(this, photo, options)
-    if options
-      @ideal_height = options.ideal
-    else
-      @ideal_height = parseInt(@el.children().first().css('height'))
     $(window).on 'resize', _.debounce(@layout, 100)
     @el.on 'scroll', _.throttle(@lazyLoad, 100)
 
@@ -89,7 +88,7 @@ class Chromatic.GalleryView
     viewport_width = @el[0].getBoundingClientRect().width - parseInt(@el.css('paddingLeft')) - parseInt(@el.css('paddingRight')) # @el.width() gives wrong rounding
     viewport_width = viewport_width - _scrollbar_width() if @el[0].offsetWidth > @el[0].scrollWidth # has overflow
     $(document.body).css('overflowY', 'auto')
-    ideal_height   = @ideal_height || parseInt((@el.height() || $(window).height()) / 2)
+    ideal_height   = parseInt($(window).height()) / 4 #if parseInt($(window).width()) > 480 then 4 else 5
     summed_width   = _.reduce @photos, ((sum, p) -> sum += p.aspect_ratio * ideal_height), 0
     rows           = Math.round(summed_width / viewport_width)
 

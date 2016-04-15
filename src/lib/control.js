@@ -160,6 +160,7 @@ URL.prototype.__defineGetter__('query', function() {
          photos,
          notClicked = true;
 
+      notTitle = true;
       currPage = 0;
 
       // Fix: Placeholder polyfill.
@@ -400,7 +401,7 @@ URL.prototype.__defineGetter__('query', function() {
         galleryLength = filtered.length;
         numPages = Math.ceil(galleryLength/100);
         if (galleryLength > 100) {
-            $gallery.chromatic(filtered.slice(0,100), {ideal: 150}).removeClass('chromatic-waiting');
+            $gallery.chromatic(filtered.slice(0,100)).removeClass('chromatic-waiting');
         } else {
            $gallery.chromatic(filtered).removeClass('chromatic-waiting');
            $next.css({ 'visibility': 'hidden', 'opacity': 0 });
@@ -435,6 +436,11 @@ URL.prototype.__defineGetter__('query', function() {
          if (notClicked) {
             if (element_in_scroll("#bottom")) {
                $next.fadeTo(500, 0.5).fadeTo(500, 1).fadeTo(500, 0.75).fadeTo(500, 1).fadeTo(500, 0.5).fadeTo(500, 1);
+            }
+         }
+         if (notTitle) {
+            if (element_in_scroll("#bottom")) {
+               $('#titleBar > .toggle').fadeTo(500, 0.5).fadeTo(500, 1).fadeTo(500, 0.75).fadeTo(500, 1).fadeTo(500, 0.5).fadeTo(500, 1);
             }
          }
       });

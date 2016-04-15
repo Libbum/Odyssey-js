@@ -53,9 +53,6 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
    body {
 		background: _palette(bg);
 	}
-   html, body {
-      min-width: 700px;
-   }
 
 
 	body, input, select, textarea {
@@ -951,10 +948,6 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
       padding-top: 10px;
    }
 
-	#gallery div {
-	  height: 250px; /* This sets the size of our thumbnails */
-	}
-
 /* Main */
 
 	#main {
@@ -1276,7 +1269,7 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 				z-index: _misc(z-index-base) + 1;
 				background: #222;
 				color: #fff;
-				min-width: 450px;
+				//min-width: 450px;
 
 				.title {
 					color: #fff;
@@ -1363,7 +1356,9 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 	@include breakpoint(small) {
 
 		$size-header: 17em;
-
+      .chromatic-gallery-photo {
+         margin: 2px;
+      }
 		/* Basic */
 
 			body, input, select, textarea {
@@ -1514,15 +1509,14 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 
 	}
 
+
 /* XSmall */
 
 	@include breakpoint(xsmall) {
 
-		/* Basic */
-
-			html, body {
-				min-width: 450px;
-			}
+         .chromatic-gallery-photo {
+            margin: 1px;
+         }
 
 			body, input, select, textarea {
 				font-size: 12pt;
@@ -1573,15 +1567,6 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 						width: 100%;
 					}
 				}
-			}
-
-		/* Button */
-
-			input[type="submit"],
-			input[type="reset"],
-			input[type="button"],
-			.button {
-				padding: 0;
 			}
 
 	}
