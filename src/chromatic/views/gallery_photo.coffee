@@ -12,22 +12,23 @@ class Chromatic.GalleryPhotoView
     return if @loaded
     image = new Image()
     image.onload = =>
-      $locale = $('#locale')
       @photo.aspect_ratio = image.width/image.height
       callback() if callback
       @el.css('backgroundImage', "url(#{@photo.small})")
-      locale = "#{@photo.locale}"
-      regex = /\d{4}\/\d{2}\/\w+\/(\w+)/
-      city = regex.exec("#{@photo.big}")
-      @el.mouseenter ->
-        if $locale.html() != locale
-          $locale.stop(true,true).html(locale).fadeIn()
-        else
-          $locale.stop(true,true).fadeIn(0)
-        locationHighlight(city[1])
-      @el.mouseleave ->
-        $locale.stop(true,true).fadeOut()
-        flushLocation(city[1])
+      if not skel.vars.mobile
+        $locale = $('#locale')
+        locale = "#{@photo.locale}"
+        regex = /\d{4}\/\d{2}\/\w+\/(\w+)/
+        city = regex.exec("#{@photo.big}")
+        @el.mouseenter ->
+          if $locale.html() != locale
+            $locale.stop(true,true).html(locale).fadeIn()
+          else
+            $locale.stop(true,true).fadeIn(0)
+          locationHighlight(city[1])
+        @el.mouseleave ->
+          $locale.stop(true,true).fadeOut()
+          flushLocation(city[1])
       @loaded = true
     image.src = @photo.small
 

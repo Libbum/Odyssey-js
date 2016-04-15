@@ -76,7 +76,7 @@ class Chromatic.ZoomPhotoView
       when 'previous' then 0+offset/container.width()*2
       when 'next'     then 0-offset/container.width()*2
 
-    if animated
+    if animated and not skel.vars.mobile
       @photo_el.stop().animate({left: left}, 600, 'easeOutCirc')
       @grain_el.stop().animate({opacity: opacity}, 600, 'easeOutCirc')
       @background_el.stop().animate({opacity: opacity}, 600, 'easeOutCirc')
