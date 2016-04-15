@@ -207,6 +207,7 @@ URL.prototype.__defineGetter__('query', function() {
       });
 
       $('#contactButton').click(function() {
+         $("a[href='#header']").click();
          $('#contactModal').modal({ fadeDuration: 500 });
          return false;
       });
