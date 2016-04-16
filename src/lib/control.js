@@ -85,17 +85,17 @@ function sphereRotate() {
    return interpolate;
 }
 
-URL.prototype.__defineGetter__('query', function() {
+function parseSearch() {
     var result = {};
-    if (this.search.length > 3) {
-      var parsed = this.search.substr(1).split('&');
+    if (window.location.search.length > 3) {
+      var parsed = window.location.search.substr(1).split('&');
        parsed.forEach(function(elem, iter, arr) {
            var vals = arr[iter].split('=');
            result[vals[0]] = vals[1];
        });
     }
     return result;
-});
+}
 
 (function($) {
    skel.breakpoints({
@@ -349,7 +349,7 @@ URL.prototype.__defineGetter__('query', function() {
 
       // Photos
       $.getJSON('assets/data/manifest.json', function(p) {
-         var parser = new URL(window.location.href).query;
+         var parser = parseSearch();
          var coords,
              countryName,
              deeper = false;
