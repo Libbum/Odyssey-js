@@ -27,7 +27,7 @@ The starting point I used as a base came from Read Only by html5up.net | @n33co,
 * [x] Interactive map (wip).
 * [x] Update to latest rc of Pillow - the exif bug is fixed. Test outputs.
 * [x] Edit photos to actually fill the gallery.
-* [ ] Fix mobile fuckery.
+* [x] Fix mobile fuckery.
 * [x] Lint the js files, they're a mess.
 * [x] Fill descriptions, think of a nice way to automate that.
 * [ ] Consider a push-new-to-fb option.
