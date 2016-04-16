@@ -3,6 +3,7 @@
 "features": [
 { "type": "Feature", "properties": { "name": "Gothenburg", "localname": "Göteborg", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 11.97, 57.72 ] } },
 { "type": "Feature", "properties": { "name": "Stockholm", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 18.07, 59.33 ] } },
+{ "type": "Feature", "properties": { "name": "Lund", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 13.19, 55.71 ] } },
 { "type": "Feature", "properties": { "name": "Helsingborg", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 12.69, 56.05 ] } },
 { "type": "Feature", "properties": { "name": "Tromso", "localname": "Tromsø", "country": "NOR" }, "geometry": { "type": "Point", "coordinates": [ 19.96, 69.65 ] } },
 { "type": "Feature", "properties": { "name": "Trysil", "country": "NOR" }, "geometry": { "type": "Point", "coordinates": [ 12.29, 61.28 ] } },

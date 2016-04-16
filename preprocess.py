@@ -102,15 +102,15 @@ if __name__ == "__main__":
     countrylist = Path(Path.home(), Path('web/Odyssey/src/countrylist.json'))
 
     tripdates = []
-    with tripcities.open() as tripFile:
+    with tripcities.open(encoding='utf-8') as tripFile:
         tripsdata = json.loads(tripFile.read())
         for t in tripsdata['trips']:
             for d in t['dates']:
                 tripdates.append((d, t['name']))
 
     placeNFO = {}
-    with cities.open(encoding="utf8") as citiesFile:
-        with countrylist.open(encoding="utf8") as countrylistFile:
+    with cities.open(encoding='utf8') as citiesFile:
+        with countrylist.open(encoding='utf8') as countrylistFile:
             countriesdata = json.loads(countrylistFile.read())
             citiesdata = json.loads(citiesFile.read())
             for f in citiesdata['features']:
@@ -151,8 +151,8 @@ if __name__ == "__main__":
             #This is a bit of a lazy solution for descriptions, but it'll do.
             dotdesc = infile.with_name(infile.stem+'.desc')
             if dotdesc.exists():
-                with dotdesc.open() as descFile:
-                     description = descFile.read().replace('\n', '')
+                with dotdesc.open(encoding='utf-8') as descFile:
+                     description = descFile.read().strip()
             else:
                 description = ""
                 open(str(dotdesc), 'a').close()
