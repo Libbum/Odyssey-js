@@ -1576,3 +1576,18 @@ Major modifications by Tim DuBois. Any content not falling under CCA 3.0 is rele
 			}
 
 	}
+
+
+@media screen and (min-width:0\0) and (min-resolution: +72dpi) {
+  // IE9+ CSS
+  #map {
+     width: 400px;
+     height: 400px;
+  }
+  @include breakpoint(small) {
+     #map {
+       width: 250px;
+       height: 250px;
+     }
+  }
+}
