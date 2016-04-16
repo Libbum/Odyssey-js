@@ -32,7 +32,7 @@ class Chromatic.ZoomView
 
   close: =>
     $(document.body).css('overflowY', 'auto')
-    $('#titleBar').css('display', 'initial') #Enable titlebar if it exists 
+    $('#titleBar').css('display', '') #Enable titlebar if it exists 
     clearTimeout(@arrows_timer)
     key.unbind 'esc'; key.unbind 'enter'; key.unbind 'up'; key.unbind 'down'; key.unbind 'left'; key.unbind 'j'; key.unbind 'right'; key.unbind 'k'; # doesnt support multiple keys
     # $(window).off 'resize orientationchange', @_debouncedLayout
