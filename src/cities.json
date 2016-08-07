@@ -56,6 +56,9 @@
 { "type": "Feature", "properties": { "name": "Melbourne", "country": "AUS" }, "geometry": { "type": "Point", "coordinates": [ 144.96, -37.81 ] } },
 { "type": "Feature", "properties": { "name": "Sydney", "country": "AUS" }, "geometry": { "type": "Point", "coordinates": [ 151.21, -33.87 ] } },
 { "type": "Feature", "properties": { "name": "Hong Kong", "localname": "香港", "country": "HKG" }, "geometry": { "type": "Point", "coordinates": [ 114.18, 22.31 ] } },
+{ "type": "Feature", "properties": { "name": "Yerevan", "localname": "Երևան", "country": "ARM" }, "geometry": { "type": "Point", "coordinates": [ 44.5, 40.18 ] } },
+{ "type": "Feature", "properties": { "name": "Helsinki", "country": "FIN" }, "geometry": { "type": "Point", "coordinates": [ 24.94, 60.17 ] } },
+{ "type": "Feature", "properties": { "name": "Tallinn", "country": "EST" }, "geometry": { "type": "Point", "coordinates": [ 24.75, 59.44 ] } },
 { "type": "Feature", "properties": { "name": "Amsterdam", "country": "NLD" }, "geometry": { "type": "Point", "coordinates": [ 4.9, 52.37 ] } }
 ]
 }
