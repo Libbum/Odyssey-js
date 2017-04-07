@@ -2,6 +2,8 @@
 "type": "FeatureCollection",
 "features": [
 { "type": "Feature", "properties": { "name": "Gothenburg", "localname": "Göteborg", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 11.97, 57.72 ] } },
+{ "type": "Feature", "properties": { "name": "Umea", "localname": "Umeå", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 20.26, 63.83 ] } },
+{ "type": "Feature", "properties": { "name": "Are", "localname": "Åre", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 13.08, 63.40 ] } },
 { "type": "Feature", "properties": { "name": "Stockholm", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 18.07, 59.33 ] } },
 { "type": "Feature", "properties": { "name": "Lund", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 13.19, 55.71 ] } },
 { "type": "Feature", "properties": { "name": "Helsingborg", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 12.69, 56.05 ] } },
@@ -22,6 +24,7 @@
 { "type": "Feature", "properties": { "name": "Saint Petersburg", "localname": "Санкт-Петербу́рг", "country": "RUS" }, "geometry": { "type": "Point", "coordinates": [ 30.36, 59.93 ] } },
 { "type": "Feature", "properties": { "name": "Petergof", "localname": "Петергоф", "country": "RUS" }, "geometry": { "type": "Point", "coordinates": [ 29.89, 59.89 ] } },
 { "type": "Feature", "properties": { "name": "Pushkin", "localname": "Пушкин", "country": "RUS" }, "geometry": { "type": "Point", "coordinates": [ 30.41, 59.72 ] } },
+{ "type": "Feature", "properties": { "name": "Kiev", "localname": "Київ", "country": "UKR" }, "geometry": { "type": "Point", "coordinates": [ 30.52, 50.45 ] } },
 { "type": "Feature", "properties": { "name": "Paris", "country": "FRA" }, "geometry": { "type": "Point", "coordinates": [ 2.35, 48.86 ] } },
 { "type": "Feature", "properties": { "name": "Berlin", "country": "DEU" }, "geometry": { "type": "Point", "coordinates": [ 13.41, 52.52 ] } },
 { "type": "Feature", "properties": { "name": "Frankfurt", "country": "DEU" }, "geometry": { "type": "Point", "coordinates": [ 8.68, 50.11 ] } },
