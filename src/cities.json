@@ -4,6 +4,7 @@
 { "type": "Feature", "properties": { "name": "Gothenburg", "localname": "Göteborg", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 11.97, 57.72 ] } },
 { "type": "Feature", "properties": { "name": "Umea", "localname": "Umeå", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 20.26, 63.83 ] } },
 { "type": "Feature", "properties": { "name": "Are", "localname": "Åre", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 13.08, 63.40 ] } },
+{ "type": "Feature", "properties": { "name": "Trollhattan", "localname": "Trollhättan", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 12.27, 58.28 ] } },
 { "type": "Feature", "properties": { "name": "Stockholm", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 18.07, 59.33 ] } },
 { "type": "Feature", "properties": { "name": "Lund", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 13.19, 55.71 ] } },
 { "type": "Feature", "properties": { "name": "Helsingborg", "country": "SWE" }, "geometry": { "type": "Point", "coordinates": [ 12.69, 56.05 ] } },
