@@ -19,4 +19,4 @@ while getopts "cs" opt; do
   esac
 done
 
-rsync -v -r --exclude '*.desc' --exclude 'stats' --exclude 'sandbox' --exclude 'veritas' --checksum --delete -e ssh dist/ AkashaO:$path
+rsync -avr --chown=www-data:www-data --checksum --exclude '*.desc' --delete -e ssh dist/ AkashaR:$path
