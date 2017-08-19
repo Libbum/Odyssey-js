@@ -30,6 +30,12 @@
       "description": "Summer 2016",
       "cities": ["Gothenburg", "Frankfurt", "Vienna", "Yerevan", "Vienna", "Frankfurt", "Gothenburg", "Tallinn", "Helsinki", "Gothenburg", "Stockholm", "Gothenburg", "Copenhagen", "Crete", "Athens", "Frankfurt", "Freiburg", "Frankfurt", "Gothenburg"],
       "dates": ["2016/05", "2016/06", "2016/07", "2016/09"]
+    },
+    {
+      "name": "S17",
+      "description": "Summer 2017",
+      "cities": ["Gothenburg", "Stockholm", "Kiev", "Chernobyl", "Kiev", "Stockholm", "Gothenburg", "Oslo", "Flam", "Balestrand", "Fjaerland", "Bergen", "Torshavn", "Copenhagen", "Gothenburg"],
+      "dates": ["2017/07", "2017/08"]
     }
   ]
 }

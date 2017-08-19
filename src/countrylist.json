@@ -3520,13 +3520,13 @@
 			"common": "Faroe Islands",
 			"official": "Faroe Islands",
 			"native": {
-				"dan": {
-					"official": "F\u00e6r\u00f8erne",
-					"common": "F\u00e6r\u00f8erne"
-				},
 				"fao": {
 					"official": "F\u00f8royar",
 					"common": "F\u00f8royar"
+				},
+				"dan": {
+					"official": "F\u00e6r\u00f8erne",
+					"common": "F\u00e6r\u00f8erne"
 				}
 			}
 		},
