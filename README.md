@@ -1,4 +1,6 @@
 # Odyssey
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FLibbum%2FOdyssey.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FLibbum%2FOdyssey?ref=badge_shield)
+
 A Photoblog of my adventures.
 
 Uses a heavily modified [chromatic.js](https://github.com/crispymtn/chromatic.js) gallery, with maps and other interactivity powered by [D3.js](http://d3js.org/). Python scripts build the manifest of files which are needed in the gallery array and descriptor files for captions; menus and trip/city information have [Node.js](https://nodejs.org) build scripts.
@@ -33,3 +35,7 @@ The starting point I used as a base came from Read Only by html5up.net | @n33co,
 * [ ] Consider a push-new-to-fb option.
 * [x] Mouseover locale values and world highlight / track
 * [x] Maybe a URI method to initiate a selected country or trip
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FLibbum%2FOdyssey.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FLibbum%2FOdyssey?ref=badge_large)
