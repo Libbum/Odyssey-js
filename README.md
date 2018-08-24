@@ -1,5 +1,4 @@
 # Odyssey
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FLibbum%2FOdyssey.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FLibbum%2FOdyssey?ref=badge_shield)
 
 A Photoblog of my adventures.
 
