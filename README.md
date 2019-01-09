@@ -1,3 +1,9 @@
+This is an old version of my [current photoblog](https://github.com/Libbum/Odyssey). This was a bit buggy in many ways, slow in others, quite limited in what I actually wanted to do, and ultimately terrible on mobile.  
+
+I'm much happier with the current Elm version, so this will be archived. All of the good stuff has been ported over to the new version, so you won't miss anything here.
+
+---
+
 # Odyssey
 
 A Photoblog of my adventures.
